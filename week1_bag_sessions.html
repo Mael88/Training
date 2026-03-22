@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Week 1 — Bag Sessions</title>
+<style>
+  :root {
+    --bg: #111113;
+    --surface: #1a1a1f;
+    --surface-raised: #222228;
+    --border: #2a2a32;
+    --border-focus: #3a3a44;
+    --text-primary: #e8e8ed;
+    --text-secondary: #8e8e9a;
+    --text-tertiary: #5a5a66;
+    --accent: #e8913a;
+    --accent-dim: rgba(232,145,58,0.12);
+    --accent-mid: rgba(232,145,58,0.25);
+    --green: #4ade80;
+    --green-dim: rgba(74,222,128,0.12);
+    --blue: #60a5fa;
+    --blue-dim: rgba(96,165,250,0.12);
+    --red: #f87171;
+    --red-dim: rgba(248,113,113,0.12);
+    --yellow: #facc15;
+    --yellow-dim: rgba(250,204,21,0.12);
+    --radius: 12px;
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    padding: 0;
+    padding-bottom: 100px;
+  }
+
+  /* Tab bar */
+  .tab-bar {
+    display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .tab {
+    flex: 1;
+    padding: 14px var(--space-md);
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .tab-content { display: none; padding: var(--space-md); }
+  .tab-content.active { display: block; }
+
+  /* Header */
+  .session-header {
+    padding: var(--space-lg) 0 var(--space-md);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: var(--space-lg);
+  }
+  .session-header .label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--space-xs);
+  }
+  .session-header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: var(--space-xs);
+  }
+  .session-header .meta {
+    font-size: 13px;
+    color: var(--text-secondary);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-md);
+  }
+  .meta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .meta-rpe { background: var(--accent-dim); color: var(--accent); }
+  .meta-hr { background: var(--red-dim); color: var(--red); }
+  .meta-time { background: var(--blue-dim); color: var(--blue); }
+
+  /* Theme callout */
+  .theme-callout {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+    margin-bottom: var(--space-lg);
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+  .theme-callout strong { color: var(--text-primary); }
+
+  /* Section label */
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-md);
+  }
+
+  /* Blocks (warm-up, cool-down) */
+  .block-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+    margin-bottom: var(--space-md);
+  }
+  .block-card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .block-card h3 .dur {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+  }
+  .block-list {
+    list-style: none;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .block-list li {
+    padding: var(--space-xs) 0;
+    padding-left: var(--space-md);
+    position: relative;
+  }
+  .block-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 11px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--text-tertiary);
+  }
+
+  /* Rounds */
+  .rounds-section { margin-bottom: var(--space-lg); }
+  .round-info {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--accent-dim);
+    border-radius: var(--space-sm);
+    border-left: 3px solid var(--accent);
+  }
+
+  .round-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    margin-bottom: var(--space-sm);
+    overflow: hidden;
+  }
+  .round-header {
+    display: flex;
+    align-items: center;
+    padding: var(--space-md);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    gap: var(--space-sm);
+  }
+  .round-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .round-title {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .round-chevron {
+    color: var(--text-tertiary);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .round-card.open .round-chevron { transform: rotate(180deg); }
+
+  .round-body {
+    display: none;
+    padding: 0 var(--space-md) var(--space-md);
+  }
+  .round-card.open .round-body { display: block; }
+
+  .round-body .focus-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--space-xs);
+  }
+  .round-body .cue {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: var(--space-sm);
+  }
+  .round-body .cue strong { color: var(--text-primary); font-weight: 600; }
+  .round-body .error-note {
+    font-size: 12px;
+    color: var(--red);
+    background: var(--red-dim);
+    padding: var(--space-sm) var(--space-sm);
+    border-radius: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+  .round-body .pattern {
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: var(--space-sm);
+  }
+
+  /* Round note */
+  .round-note {
+    margin-top: var(--space-sm);
+    border-top: 1px solid var(--border);
+    padding-top: var(--space-sm);
+  }
+  .round-note textarea {
+    width: 100%;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--space-sm);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 13px;
+    padding: var(--space-sm);
+    resize: vertical;
+    min-height: 36px;
+    line-height: 1.4;
+  }
+  .round-note textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .round-note textarea::placeholder { color: var(--text-tertiary); }
+
+  /* Post-session form */
+  .post-session {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+    margin-top: var(--space-lg);
+  }
+  .post-session h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: var(--space-md);
+  }
+  .form-row {
+    margin-bottom: var(--space-md);
+  }
+  .form-row label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .form-row input, .form-row select, .form-row textarea {
+    width: 100%;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--space-sm);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 15px;
+    padding: 10px var(--space-sm);
+  }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .form-row textarea {
+    resize: vertical;
+    min-height: 80px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .form-row select {
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238e8e9a' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 32px;
+  }
+  .form-row select option {
+    background: var(--surface);
+    color: var(--text-primary);
+  }
+  .form-row input::placeholder, .form-row textarea::placeholder { color: var(--text-tertiary); }
+
+  .inline-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+  }
+
+  /* Cervical status */
+  .cervical-toggle {
+    display: flex;
+    gap: var(--space-xs);
+  }
+  .cervical-toggle button {
+    flex: 1;
+    padding: 10px var(--space-sm);
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    border-radius: var(--space-sm);
+    background: var(--surface-raised);
+    color: var(--text-tertiary);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.15s;
+  }
+  .cervical-toggle button.selected-good { background: var(--green-dim); color: var(--green); border-color: var(--green); }
+  .cervical-toggle button.selected-mild { background: var(--yellow-dim); color: var(--yellow); border-color: var(--yellow); }
+  .cervical-toggle button.selected-flare { background: var(--red-dim); color: var(--red); border-color: var(--red); }
+
+  /* Coaching notes */
+  .coaching-notes {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+    margin-top: var(--space-lg);
+  }
+  .coaching-notes h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+  }
+  .coaching-notes p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: var(--space-sm);
+  }
+  .coaching-notes p:last-child { margin-bottom: 0; }
+
+  /* Export button */
+  .export-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--space-md);
+    background: linear-gradient(transparent, var(--bg) 20%);
+    z-index: 100;
+    padding-top: var(--space-xl);
+  }
+  .export-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #111;
+    background: var(--accent);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: opacity 0.15s;
+  }
+  .export-btn:active { opacity: 0.8; }
+
+  /* Copy toast */
+  .toast {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--green);
+    color: #111;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+    z-index: 200;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab active" data-tab="session-a">Session A — Tue</button>
+  <button class="tab" data-tab="session-b">Session B — Fri</button>
+</div>
+
+<!-- ===================== SESSION A ===================== -->
+<div id="session-a" class="tab-content active">
+  <div class="session-header">
+    <div class="label">Week 1 · Accumulation A</div>
+    <h1>Session A — Technique</h1>
+    <div class="meta">
+      <span class="meta-badge meta-time">~45 min</span>
+      <span class="meta-badge meta-rpe">RPE 5–6</span>
+      <span class="meta-badge meta-hr">Z2–Z3 · 110–140 bpm</span>
+    </div>
+  </div>
+
+  <div class="theme-callout">
+    Two strikes only: <strong>jab and cross</strong>. This week is about laying the wiring correctly — stance, hip rotation, guard return. The cross is a hip rotation that travels through the fist instead of through a kuzushi. Same mechanic, different output direction.
+  </div>
+
+  <!-- Warm-up -->
+  <div class="section-label">Warm-Up</div>
+  <div class="block-card">
+    <h3>Cervical Prehab <span class="dur">5 min</span></h3>
+    <ul class="block-list">
+      <li>Chin tucks — 2×10, slow and controlled</li>
+      <li>Cervical rotations — 5 reps each side, pain-free range</li>
+      <li>Lateral neck stretch — 20–30 sec each side, gravity only</li>
+      <li>Scapular retractions — 2×15 reps</li>
+      <li>Shoulder rolls — 10 forward, 10 backward</li>
+    </ul>
+  </div>
+  <div class="block-card">
+    <h3>Movement Prep <span class="dur">3 min</span></h3>
+    <ul class="block-list">
+      <li>Light shadowboxing — no power, find stance & footwork</li>
+      <li>10 hip circles each side</li>
+      <li>10 knee raises each side</li>
+      <li>30 sec light bounce — find your rhythm</li>
+    </ul>
+  </div>
+
+  <!-- Main Work -->
+  <div class="rounds-section">
+    <div class="section-label">Main Work — 6 Rounds</div>
+    <div class="round-info">3 min rounds · 90 sec rest · RPE 5–6 · Slow is smooth. Smooth is fast.</div>
+
+    <!-- Round 1 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">1</div>
+        <div class="round-title">Stance & Jab — Slow and Clean</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="focus-label">Focus</div>
+        <div class="cue">Jab only. Throw it slow, throw it clean.</div>
+        <div class="cue"><strong>Stance check:</strong> lead foot points at the bag, rear foot at ~45°, weight evenly distributed.</div>
+        <div class="cue"><strong>Jab mechanics:</strong> shoulder drives forward, hip stays square, fist returns immediately to guard.</div>
+        <div class="error-note">Common error: dropping the rear hand when jabbing. Keep it glued to your cheek.</div>
+        <div class="pattern">Jab × 3 → reset footwork → repeat. No rushing.</div>
+        <div class="round-note"><textarea data-key="a-r1" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 2 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">2</div>
+        <div class="round-title">Jab + Footwork</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="focus-label">Focus</div>
+        <div class="cue">Same mechanics as Round 1 — add lateral movement after each jab sequence.</div>
+        <div class="cue"><strong>After each sequence:</strong> take 2 steps sideways (either direction) and reset your stance before the next jab.</div>
+        <div class="cue" style="color:var(--accent);">You are not a statue in front of the bag. Movement is part of the strike.</div>
+        <div class="round-note"><textarea data-key="a-r2" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 3 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">3</div>
+        <div class="round-title">Cross — Hip Rotation Focus</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="focus-label">Key Mechanic</div>
+        <div class="cue"><strong>Rear hip drives forward and rotates</strong> — this is your judo hip rotation. Same mechanic, different direction.</div>
+        <div class="cue"><strong>Rear heel:</strong> pivots off the ground as the hip turns. If the heel stays down, the rotation is blocked.</div>
+        <div class="cue"><strong>Wrist position:</strong> fist lands vertical or slightly angled — not horizontal (protects the wrist on impact).</div>
+        <div class="error-note">Common error: pushing the cross instead of rotating into it. If you don't feel it in your hip and oblique, the rotation isn't happening.</div>
+        <div class="pattern">Cross × 2 → reset → repeat.</div>
+        <div class="round-note"><textarea data-key="a-r3" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 4 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">4</div>
+        <div class="round-title">Cross + Angle</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="focus-label">Focus</div>
+        <div class="cue">Same cross mechanics as Round 3.</div>
+        <div class="cue"><strong>Add the pivot:</strong> after each cross, pivot 45° using your front foot.</div>
+        <div class="cue" style="color:var(--accent);">This is the beginning of angle work. You are not just punching — you are changing position after the punch.</div>
+        <div class="round-note"><textarea data-key="a-r4" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 5 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">5</div>
+        <div class="round-title">Jab-Cross — First Combination</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="focus-label">First combination of the mesocycle</div>
+        <div class="cue"><strong>Principle:</strong> the jab is the door opener, the cross is the strike that matters. Let the jab land before you think about the cross.</div>
+        <div class="cue"><strong>Connection:</strong> the return of the jab should feed directly into the rotation for the cross.</div>
+        <div class="pattern">Jab-cross → step back to safe distance → reset. One combination at a time.</div>
+        <div class="round-note"><textarea data-key="a-r5" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 6 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">6</div>
+        <div class="round-title">Jab-Cross — Find the Rhythm</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="focus-label">Focus</div>
+        <div class="cue">Same combination. Now let it flow slightly more naturally. Still RPE 5–6 — you are not going hard. You are finding the rhythm.</div>
+        <div class="cue"><strong>Focus:</strong> the connection between the two strikes feels natural, not mechanical.</div>
+        <div class="cue" style="color:var(--accent);">By the end of this round, the combination should start to feel like yours.</div>
+        <div class="round-note"><textarea data-key="a-r6" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cool-down -->
+  <div class="section-label">Cool-Down</div>
+  <div class="block-card">
+    <h3>Recovery <span class="dur">5 min</span></h3>
+    <ul class="block-list">
+      <li>Chest & shoulder stretch — 30 sec each side</li>
+      <li>Hip flexor lunge stretch — 45 sec each side</li>
+      <li>Upper trap stretch (lateral neck) — 30 sec each side</li>
+      <li>Breathing reset — 2 min nasal breathing, slow exhale</li>
+    </ul>
+  </div>
+
+  <!-- Post-Session -->
+  <div class="post-session" id="post-a">
+    <h3>Post-Session Log</h3>
+    <div class="inline-fields">
+      <div class="form-row">
+        <label>Felt RPE</label>
+        <select data-key="a-rpe">
+          <option value="">—</option>
+          <option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Peak HR (bpm)</label>
+        <input type="number" data-key="a-peak-hr" placeholder="e.g. 138" inputmode="numeric">
+      </div>
+    </div>
+    <div class="form-row">
+      <label>Cervical Status</label>
+      <div class="cervical-toggle" data-key="a-cervical">
+        <button onclick="setCervical(this,'good')">Good</button>
+        <button onclick="setCervical(this,'mild')">Mild tension</button>
+        <button onclick="setCervical(this,'flare')">Flare-up</button>
+      </div>
+    </div>
+    <div class="form-row">
+      <label>Energy Level</label>
+      <select data-key="a-energy">
+        <option value="">—</option>
+        <option>Low — sluggish</option>
+        <option>Medium — normal</option>
+        <option>High — sharp</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>What felt natural?</label>
+      <textarea data-key="a-natural" placeholder="e.g. cross rotation clicking, footwork felt stable..."></textarea>
+    </div>
+    <div class="form-row">
+      <label>What felt forced?</label>
+      <textarea data-key="a-forced" placeholder="e.g. guard return still requires conscious effort..."></textarea>
+    </div>
+    <div class="form-row">
+      <label>Where did fatigue hit first?</label>
+      <select data-key="a-fatigue">
+        <option value="">—</option>
+        <option>Arms / shoulders</option>
+        <option>Legs</option>
+        <option>Breathing / cardio</option>
+        <option>Core</option>
+        <option>General / even</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Other Notes</label>
+      <textarea data-key="a-notes" placeholder="Anything else worth noting..."></textarea>
+    </div>
+  </div>
+
+  <!-- Coaching notes -->
+  <div class="coaching-notes">
+    <h3>Coaching Notes</h3>
+    <p><strong>Cross check:</strong> Does it feel like a rotation or a push? Rotation = correct. Push = rear heel or hip not engaging.</p>
+    <p><strong>Guard check:</strong> Is the rear hand dropping during the jab? Address it consciously before it becomes habit.</p>
+    <p><strong>Combo check:</strong> Does the jab-cross feel like two separate events or one connected movement?</p>
+    <p><strong>HR check:</strong> Session A should stay firmly in Z2–Z3. If you're hitting Z4, you're going too hard.</p>
+  </div>
+</div>
+
+<!-- ===================== SESSION B ===================== -->
+<div id="session-b" class="tab-content">
+  <div class="session-header">
+    <div class="label">Week 1 · Accumulation A</div>
+    <h1>Session B — Output</h1>
+    <div class="meta">
+      <span class="meta-badge meta-time">~45 min</span>
+      <span class="meta-badge meta-rpe">RPE 7</span>
+      <span class="meta-badge meta-hr">Z3–Z4 · 135–155 bpm</span>
+    </div>
+  </div>
+
+  <div class="theme-callout">
+    You know the mechanics from Tuesday. Today you apply them with <strong>intent</strong>. Every punch should mean something. Controlled aggression — technique must still hold.
+  </div>
+
+  <!-- Warm-up -->
+  <div class="section-label">Warm-Up</div>
+  <div class="block-card">
+    <h3>Cervical Prehab <span class="dur">5 min</span></h3>
+    <ul class="block-list">
+      <li>Chin tucks — 2×10, slow and controlled</li>
+      <li>Cervical rotations — 5 reps each side, pain-free range</li>
+      <li>Lateral neck stretch — 20–30 sec each side, gravity only</li>
+      <li>Scapular retractions — 2×15 reps</li>
+      <li>Shoulder rolls — 10 forward, 10 backward</li>
+    </ul>
+  </div>
+  <div class="block-card">
+    <h3>Movement Prep <span class="dur">3 min</span></h3>
+    <ul class="block-list">
+      <li>Light shadowboxing — no power, find stance & footwork</li>
+      <li>10 hip circles each side</li>
+      <li>10 knee raises each side</li>
+      <li>30 sec light bounce — find your rhythm</li>
+    </ul>
+  </div>
+
+  <!-- Main Work -->
+  <div class="rounds-section">
+    <div class="section-label">Main Work — 8 Rounds</div>
+    <div class="round-info">2 min rounds · 60 sec rest · RPE 7 · Controlled aggression. Technique must hold.</div>
+
+    <!-- Round 1 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">1</div>
+        <div class="round-title">Jab — 60% Speed</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="cue">Warm the pattern up before pushing it. Jab sequences with footwork — same as Tuesday Round 2.</div>
+        <div class="cue"><strong>Focus:</strong> mechanics must be clean before speed goes up.</div>
+        <div class="round-note"><textarea data-key="b-r1" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 2 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">2</div>
+        <div class="round-title">Jab — 80% Speed</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="cue">Step up the speed and commitment from Round 1.</div>
+        <div class="error-note">Guard check: rear hand stays at the cheek even as speed increases. This is where the error creeps back in.</div>
+        <div class="round-note"><textarea data-key="b-r2" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 3 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">3</div>
+        <div class="round-title">Cross — 60% Speed</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="cue">Reset to cross only. Build the rotation back up from 60%.</div>
+        <div class="cue"><strong>Feel the heel pivot at 60%</strong> — it's easier to notice at lower speed.</div>
+        <div class="round-note"><textarea data-key="b-r3" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 4 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">4</div>
+        <div class="round-title">Cross — 80% Speed</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="cue">Push the rotation. By 80%, the cross should feel like it has genuine weight behind it.</div>
+        <div class="error-note">Hip check: if you're not feeling it in your oblique, the hip isn't fully rotating. Slow down and reset.</div>
+        <div class="round-note"><textarea data-key="b-r4" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 5 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">5</div>
+        <div class="round-title">Jab-Cross — Controlled Aggression</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="cue">RPE 7 zone. Combinations should be <strong>sharp and purposeful</strong>.</div>
+        <div class="cue"><strong>Between combinations:</strong> move, reset your feet, stay active. Don't stand still waiting for the next sequence.</div>
+        <div class="cue">The bag will swing — adjust your position to it. React, don't ignore it.</div>
+        <div class="round-note"><textarea data-key="b-r5" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 6 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">6</div>
+        <div class="round-title">Jab-Cross — Push the Pace</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="cue">Same combination. Slightly higher output than Round 5. Stay at RPE 7 — controlled, not maximum effort.</div>
+        <div class="error-note">Check your guard return: as fatigue builds, the hands drop first. Fight that tendency.</div>
+        <div class="round-note"><textarea data-key="b-r6" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 7 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">7</div>
+        <div class="round-title">Free Round</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="cue">No prescribed pattern. Mix jabs, crosses, and jab-cross combinations as feels natural.</div>
+        <div class="cue"><strong>React to the bag.</strong> If it swings, adjust your angle. Use your footwork.</div>
+        <div class="cue" style="color:var(--accent);">This is where the week's work should start showing up as something that feels like yours.</div>
+        <div class="round-note"><textarea data-key="b-r7" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 8 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">8</div>
+        <div class="round-title">Free Round — Finish Strong</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="cue">Same as Round 7. Push to the end of the round.</div>
+        <div class="cue" style="color:var(--accent);font-weight:600;">Final 30 sec: give everything you have left. Technique first, then output. End the session well.</div>
+        <div class="round-note"><textarea data-key="b-r8" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cool-down -->
+  <div class="section-label">Cool-Down</div>
+  <div class="block-card">
+    <h3>Recovery <span class="dur">5 min</span></h3>
+    <ul class="block-list">
+      <li>Chest & shoulder stretch — 30 sec each side</li>
+      <li>Hip flexor lunge stretch — 45 sec each side</li>
+      <li>Upper trap stretch (lateral neck) — 30 sec each side</li>
+      <li>Breathing reset — 2 min nasal breathing, slow exhale</li>
+    </ul>
+  </div>
+
+  <!-- Post-Session -->
+  <div class="post-session" id="post-b">
+    <h3>Post-Session Log</h3>
+    <div class="inline-fields">
+      <div class="form-row">
+        <label>Felt RPE</label>
+        <select data-key="b-rpe">
+          <option value="">—</option>
+          <option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Peak HR (bpm)</label>
+        <input type="number" data-key="b-peak-hr" placeholder="e.g. 155" inputmode="numeric">
+      </div>
+    </div>
+    <div class="form-row">
+      <label>Cervical Status</label>
+      <div class="cervical-toggle" data-key="b-cervical">
+        <button onclick="setCervical(this,'good')">Good</button>
+        <button onclick="setCervical(this,'mild')">Mild tension</button>
+        <button onclick="setCervical(this,'flare')">Flare-up</button>
+      </div>
+    </div>
+    <div class="form-row">
+      <label>Energy Level</label>
+      <select data-key="b-energy">
+        <option value="">—</option>
+        <option>Low — sluggish</option>
+        <option>Medium — normal</option>
+        <option>High — sharp</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>What felt natural?</label>
+      <textarea data-key="b-natural" placeholder="e.g. jab-cross combination flowing, bag reactions improving..."></textarea>
+    </div>
+    <div class="form-row">
+      <label>What felt forced?</label>
+      <textarea data-key="b-forced" placeholder="e.g. still thinking about guard return, cross losing form when tired..."></textarea>
+    </div>
+    <div class="form-row">
+      <label>Where did fatigue hit first?</label>
+      <select data-key="b-fatigue">
+        <option value="">—</option>
+        <option>Arms / shoulders</option>
+        <option>Legs</option>
+        <option>Breathing / cardio</option>
+        <option>Core</option>
+        <option>General / even</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Other Notes</label>
+      <textarea data-key="b-notes" placeholder="Anything else worth noting..."></textarea>
+    </div>
+  </div>
+
+  <!-- Coaching notes -->
+  <div class="coaching-notes">
+    <h3>Coaching Notes</h3>
+    <p><strong>HR check:</strong> Session B should climb into Z3–Z4 by rounds 5–8. If it stays in Z2, increase your output.</p>
+    <p><strong>Peak HR:</strong> Note your peak HR during this session — useful data as the cycle progresses.</p>
+    <p><strong>Feedback for Week 2:</strong> After this session, take 2 minutes to note what felt natural, what felt forced, and where you noticed fatigue first. This will inform how Week 2 sessions are structured.</p>
+  </div>
+</div>
+
+<!-- EXPORT -->
+<div class="export-bar">
+  <button class="export-btn" onclick="exportForClaude()">Copy Summary for Claude</button>
+</div>
+<div class="toast" id="toast">Copied to clipboard</div>
+
+<script>
+// Tab switching
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.tab).classList.add('active');
+  });
+});
+
+// Round expand/collapse
+function toggleRound(header) {
+  header.parentElement.classList.toggle('open');
+}
+
+// Cervical toggle
+function setCervical(btn, level) {
+  const group = btn.parentElement;
+  group.querySelectorAll('button').forEach(b => {
+    b.className = '';
+  });
+  btn.classList.add('selected-' + level);
+  group.dataset.value = level;
+  saveData();
+}
+
+// localStorage persistence
+const STORAGE_KEY = 'mc4-week1-bag';
+
+function getAllInputs() {
+  return document.querySelectorAll('[data-key]');
+}
+
+function saveData() {
+  const data = {};
+  getAllInputs().forEach(el => {
+    const key = el.dataset.key;
+    if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') {
+      data[key] = el.value;
+    } else if (el.tagName === 'SELECT') {
+      data[key] = el.value;
+    } else if (el.classList.contains('cervical-toggle')) {
+      data[key] = el.dataset.value || '';
+    }
+  });
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function loadData() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    getAllInputs().forEach(el => {
+      const key = el.dataset.key;
+      if (!(key in data) || !data[key]) return;
+      if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') {
+        el.value = data[key];
+      } else if (el.tagName === 'SELECT') {
+        el.value = data[key];
+      } else if (el.classList.contains('cervical-toggle')) {
+        el.dataset.value = data[key];
+        const level = data[key];
+        el.querySelectorAll('button').forEach(b => b.className = '');
+        if (level === 'good') el.children[0].classList.add('selected-good');
+        if (level === 'mild') el.children[1].classList.add('selected-mild');
+        if (level === 'flare') el.children[2].classList.add('selected-flare');
+      }
+    });
+  } catch(e) {}
+}
+
+// Auto-save on input
+document.addEventListener('input', saveData);
+document.addEventListener('change', saveData);
+
+// Load on startup
+loadData();
+
+// Export
+function exportForClaude() {
+  const get = (key) => {
+    const el = document.querySelector(`[data-key="${key}"]`);
+    if (!el) return '';
+    if (el.classList.contains('cervical-toggle')) return el.dataset.value || '';
+    return el.value || '';
+  };
+
+  const roundNotes = (prefix, count) => {
+    let out = '';
+    for (let i = 1; i <= count; i++) {
+      const note = get(`${prefix}-r${i}`);
+      if (note) out += `  Round ${i}: ${note}\n`;
+    }
+    return out || '  (no round notes)\n';
+  };
+
+  let text = `## Week 1 Bag Sessions — Feedback\n`;
+  text += `Mesocycle 4 | Accumulation A | Jab & Cross\n\n`;
+
+  // Session A
+  text += `### Session A (Technique — Tuesday)\n`;
+  const aRpe = get('a-rpe'); if (aRpe) text += `- Felt RPE: ${aRpe}\n`;
+  const aHr = get('a-peak-hr'); if (aHr) text += `- Peak HR: ${aHr} bpm\n`;
+  const aCerv = get('a-cervical'); if (aCerv) text += `- Cervical: ${aCerv}\n`;
+  const aEnergy = get('a-energy'); if (aEnergy) text += `- Energy: ${aEnergy}\n`;
+  const aFatigue = get('a-fatigue'); if (aFatigue) text += `- Fatigue first: ${aFatigue}\n`;
+  const aNatural = get('a-natural'); if (aNatural) text += `- Felt natural: ${aNatural}\n`;
+  const aForced = get('a-forced'); if (aForced) text += `- Felt forced: ${aForced}\n`;
+  const aNotes = get('a-notes'); if (aNotes) text += `- Notes: ${aNotes}\n`;
+  text += `- Round notes:\n${roundNotes('a', 6)}\n`;
+
+  // Session B
+  text += `### Session B (Output — Friday)\n`;
+  const bRpe = get('b-rpe'); if (bRpe) text += `- Felt RPE: ${bRpe}\n`;
+  const bHr = get('b-peak-hr'); if (bHr) text += `- Peak HR: ${bHr} bpm\n`;
+  const bCerv = get('b-cervical'); if (bCerv) text += `- Cervical: ${bCerv}\n`;
+  const bEnergy = get('b-energy'); if (bEnergy) text += `- Energy: ${bEnergy}\n`;
+  const bFatigue = get('b-fatigue'); if (bFatigue) text += `- Fatigue first: ${bFatigue}\n`;
+  const bNatural = get('b-natural'); if (bNatural) text += `- Felt natural: ${bNatural}\n`;
+  const bForced = get('b-forced'); if (bForced) text += `- Felt forced: ${bForced}\n`;
+  const bNotes = get('b-notes'); if (bNotes) text += `- Notes: ${bNotes}\n`;
+  text += `- Round notes:\n${roundNotes('b', 8)}\n`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  }).catch(() => {
+    // Fallback: select text in a temp textarea
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  });
+}
+</script>
+</body>
+</html>

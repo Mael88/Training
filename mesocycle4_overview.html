@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Mesocycle 4 — Overview</title>
+<style>
+  :root {
+    --bg: #111113;
+    --surface: #1a1a1f;
+    --surface-raised: #222228;
+    --border: #2a2a32;
+    --text-primary: #e8e8ed;
+    --text-secondary: #8e8e9a;
+    --text-tertiary: #5a5a66;
+    --accent: #e8913a;
+    --accent-dim: rgba(232,145,58,0.12);
+    --green: #4ade80;
+    --green-dim: rgba(74,222,128,0.12);
+    --blue: #60a5fa;
+    --blue-dim: rgba(96,165,250,0.12);
+    --red: #f87171;
+    --red-dim: rgba(248,113,113,0.12);
+    --yellow: #facc15;
+    --yellow-dim: rgba(250,204,21,0.12);
+    --radius: 12px;
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    padding: var(--space-md);
+    padding-bottom: 80px;
+  }
+  .header {
+    padding: var(--space-lg) 0 var(--space-md);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: var(--space-lg);
+  }
+  .header .label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--space-xs);
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: var(--space-xs);
+  }
+  .header .dates {
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+  .section {
+    margin-bottom: var(--space-2xl);
+  }
+  .section-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-md);
+  }
+  /* Weekly split */
+  .week-split {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: var(--space-xs);
+  }
+  .day-card {
+    background: var(--surface);
+    border-radius: var(--space-sm);
+    padding: var(--space-sm) var(--space-xs);
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+  .day-card.rest {
+    opacity: 0.5;
+  }
+  .day-card .day-name {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: var(--space-xs);
+  }
+  .day-card .day-type {
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .day-card .day-type .badge {
+    display: inline-block;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .badge-upper { background: var(--blue-dim); color: var(--blue); }
+  .badge-lower { background: var(--green-dim); color: var(--green); }
+  .badge-bag-a { background: var(--accent-dim); color: var(--accent); }
+  .badge-bag-b { background: var(--red-dim); color: var(--red); }
+  .badge-rest { background: var(--surface); color: var(--text-tertiary); }
+
+  /* Calendar */
+  .calendar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .cal-week {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-sm) var(--space-md);
+    align-items: start;
+  }
+  .cal-week.current {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+  .cal-week.deload {
+    opacity: 0.6;
+    border-style: dashed;
+  }
+  .cal-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    line-height: 1;
+    grid-row: span 2;
+    align-self: center;
+    min-width: 32px;
+    text-align: center;
+  }
+  .cal-week.current .cal-num { color: var(--accent); }
+  .cal-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    align-items: center;
+  }
+  .cal-phase {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .cal-dates {
+    font-size: 12px;
+    color: var(--text-tertiary);
+  }
+  .cal-detail {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+  .cal-strikes {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* HR Zones */
+  .zones {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .zone-row {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--surface);
+    border-radius: var(--space-sm);
+    border: 1px solid var(--border);
+  }
+  .zone-label {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .zone-feel {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .zone-bpm {
+    font-size: 13px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .z2 .zone-label { color: var(--green); }
+  .z3 .zone-label { color: var(--blue); }
+  .z4 .zone-label { color: var(--accent); }
+  .z5 .zone-label { color: var(--red); }
+
+  /* Intensity table */
+  .intensity-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 13px;
+  }
+  .intensity-table thead th {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    text-align: left;
+    padding: var(--space-sm) var(--space-sm);
+    border-bottom: 1px solid var(--border);
+  }
+  .intensity-table tbody td {
+    padding: var(--space-sm);
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+    vertical-align: middle;
+  }
+  .intensity-table tbody tr:last-child td { border-bottom: none; }
+  .intensity-table .week-col {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+  }
+  .intensity-table .rpe-col {
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  /* Prehab */
+  .prehab-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .prehab-item {
+    background: var(--surface);
+    border-radius: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid var(--border);
+  }
+  .prehab-item .name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+  .prehab-item .detail {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  /* Phase descriptions */
+  .phase-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+    margin-bottom: var(--space-sm);
+  }
+  .phase-card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+  }
+  .phase-card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: var(--space-sm);
+  }
+  .phase-card p:last-child { margin-bottom: 0; }
+
+  /* Template */
+  .template-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-xs) var(--space-md);
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+  }
+  .template-grid .t-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .template-grid .t-value {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .note-callout {
+    background: var(--accent-dim);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--space-sm) var(--space-sm) 0;
+    padding: var(--space-sm) var(--space-md);
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: var(--space-md);
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="label">Mesocycle 4</div>
+  <h1>Training Plan</h1>
+  <div class="dates">23 Mar — 10 May 2026</div>
+</div>
+
+<!-- WEEKLY SPLIT -->
+<div class="section">
+  <div class="section-title">Weekly Split</div>
+  <div class="week-split">
+    <div class="day-card"><div class="day-name">Mon</div><div class="day-type"><span class="badge badge-upper">Upper</span></div></div>
+    <div class="day-card"><div class="day-name">Tue</div><div class="day-type"><span class="badge badge-bag-a">Bag A</span></div></div>
+    <div class="day-card"><div class="day-name">Wed</div><div class="day-type"><span class="badge badge-lower">Lower</span></div></div>
+    <div class="day-card"><div class="day-name">Thu</div><div class="day-type"><span class="badge badge-upper">Upper</span></div></div>
+    <div class="day-card"><div class="day-name">Fri</div><div class="day-type"><span class="badge badge-bag-b">Bag B</span></div></div>
+    <div class="day-card"><div class="day-name">Sat</div><div class="day-type"><span class="badge badge-upper">Upper</span></div></div>
+    <div class="day-card rest"><div class="day-name">Sun</div><div class="day-type"><span class="badge badge-rest">Rest</span></div></div>
+  </div>
+  <div class="note-callout">
+    <strong>A</strong> = Technique (longer rounds, more rest) · <strong>B</strong> = Output (shorter rounds, push intensity)
+  </div>
+</div>
+
+<!-- 6-WEEK CALENDAR -->
+<div class="section">
+  <div class="section-title">6-Week Calendar</div>
+  <div class="calendar">
+    <div class="cal-week current">
+      <div class="cal-num">1</div>
+      <div class="cal-meta">
+        <span class="cal-phase">Accumulation A</span>
+        <span class="cal-dates">23–29 Mar</span>
+      </div>
+      <div class="cal-detail">
+        <span class="cal-strikes">Jab, Cross</span> — Mechanics & stance
+      </div>
+    </div>
+    <div class="cal-week">
+      <div class="cal-num">2</div>
+      <div class="cal-meta">
+        <span class="cal-phase">Accumulation A</span>
+        <span class="cal-dates">30 Mar–5 Apr</span>
+      </div>
+      <div class="cal-detail">
+        <span class="cal-strikes">Jab, Cross</span> — Consolidation & rhythm
+      </div>
+    </div>
+    <div class="cal-week">
+      <div class="cal-num">3</div>
+      <div class="cal-meta">
+        <span class="cal-phase">Accumulation B</span>
+        <span class="cal-dates">6–12 Apr</span>
+      </div>
+      <div class="cal-detail">
+        <span class="cal-strikes">+ Hook (lead & rear)</span> — First combinations
+      </div>
+    </div>
+    <div class="cal-week">
+      <div class="cal-num">4</div>
+      <div class="cal-meta">
+        <span class="cal-phase">Intensification A</span>
+        <span class="cal-dates">13–19 Apr</span>
+      </div>
+      <div class="cal-detail">
+        <span class="cal-strikes">+ Front kick, Roundhouse</span> — Power + first kicks
+      </div>
+    </div>
+    <div class="cal-week">
+      <div class="cal-num">5</div>
+      <div class="cal-meta">
+        <span class="cal-phase">Intensification B</span>
+        <span class="cal-dates">20–26 Apr</span>
+      </div>
+      <div class="cal-detail">
+        <span class="cal-strikes">+ Knee strikes</span> — Full combos, push output
+      </div>
+    </div>
+    <div class="cal-week">
+      <div class="cal-num">6</div>
+      <div class="cal-meta">
+        <span class="cal-phase">Taper</span>
+        <span class="cal-dates">27 Apr–3 May</span>
+      </div>
+      <div class="cal-detail">
+        <span class="cal-strikes">Full toolkit</span> — Volume −30%, sharpness up
+      </div>
+    </div>
+    <div class="cal-week deload">
+      <div class="cal-num">7</div>
+      <div class="cal-meta">
+        <span class="cal-phase">Deload</span>
+        <span class="cal-dates">4–10 May</span>
+      </div>
+      <div class="cal-detail">Active recovery · Light shadowboxing only</div>
+    </div>
+  </div>
+</div>
+
+<!-- HR ZONES -->
+<div class="section">
+  <div class="section-title">Heart Rate Zones <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-tertiary)">· max 183 bpm</span></div>
+  <div class="zones">
+    <div class="zone-row z2">
+      <div class="zone-label">Z2</div>
+      <div class="zone-feel">Conversational, sustainable</div>
+      <div class="zone-bpm">110–128</div>
+    </div>
+    <div class="zone-row z3">
+      <div class="zone-label">Z3</div>
+      <div class="zone-feel">Breathing harder, controlled</div>
+      <div class="zone-bpm">128–146</div>
+    </div>
+    <div class="zone-row z4">
+      <div class="zone-label">Z4</div>
+      <div class="zone-feel">Uncomfortable, can't talk</div>
+      <div class="zone-bpm">146–165</div>
+    </div>
+    <div class="zone-row z5">
+      <div class="zone-label">Z5</div>
+      <div class="zone-feel">Max effort, short bursts</div>
+      <div class="zone-bpm">165–183</div>
+    </div>
+  </div>
+</div>
+
+<!-- INTENSITY PROGRESSION -->
+<div class="section">
+  <div class="section-title">Intensity Progression</div>
+  <div style="overflow-x:auto; border-radius:var(--radius); border:1px solid var(--border); background:var(--surface);">
+    <table class="intensity-table">
+      <thead>
+        <tr><th>Wk</th><th>Phase</th><th>Session</th><th>RPE</th><th>HR</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="week-col">1–2</td><td>Accum A</td><td>Tech (A)</td><td class="rpe-col">5–6</td><td>Z2–Z3</td></tr>
+        <tr><td class="week-col">1–2</td><td>Accum A</td><td>Output (B)</td><td class="rpe-col">7</td><td>Z3–Z4</td></tr>
+        <tr><td class="week-col">3</td><td>Accum B</td><td>Tech (A)</td><td class="rpe-col">6</td><td>Z3</td></tr>
+        <tr><td class="week-col">3</td><td>Accum B</td><td>Output (B)</td><td class="rpe-col">7–8</td><td>Z4</td></tr>
+        <tr><td class="week-col">4–5</td><td>Intensif.</td><td>Tech (A)</td><td class="rpe-col">6–7</td><td>Z3–Z4</td></tr>
+        <tr><td class="week-col">4–5</td><td>Intensif.</td><td>Output (B)</td><td class="rpe-col">8</td><td>Z4–Z5</td></tr>
+        <tr><td class="week-col">6</td><td>Taper</td><td>Both</td><td class="rpe-col">6–7</td><td>Z3–Z4</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- PHASE DESCRIPTIONS -->
+<div class="section">
+  <div class="section-title">Phase Details</div>
+  <div class="phase-card">
+    <h3>Weeks 1–2 — Accumulation A</h3>
+    <p>Jab and cross only — no hooks yet. Focus on stance, hip rotation, guard return after each strike. Intensity low-medium: technique must hold throughout every round.</p>
+    <p style="color:var(--accent);font-weight:500;font-size:12px;">Resist the urge to go hard. This is foundation work.</p>
+  </div>
+  <div class="phase-card">
+    <h3>Week 3 — Accumulation B</h3>
+    <p>Add lead and rear hook. Technique session introduces hooks in isolation first. Output session begins integrating into short 2–3 strike combinations. Volume stays similar, intensity ticks up slightly.</p>
+  </div>
+  <div class="phase-card">
+    <h3>Weeks 4–5 — Intensification</h3>
+    <p>Week 4: add front kick and roundhouse alongside punch combinations. Week 5: add knee strikes — push output, shorter rest, more rounds. HR targets rise into Z4–Z5 on output sessions.</p>
+    <p style="color:var(--accent);font-weight:500;font-size:12px;">Your legs will feel this. The combined load with lower calisthenics is intentional.</p>
+  </div>
+  <div class="phase-card">
+    <h3>Week 6 — Taper</h3>
+    <p>Volume drops ~30%, intensity stays. Use the full striking toolkit built across the cycle. Arrive at deload sharp, not beaten up.</p>
+  </div>
+  <div class="phase-card" style="border-style:dashed;opacity:0.7;">
+    <h3>Week 7 — Deload</h3>
+    <p>No structured bag work. Optional: light shadowboxing only (no bag contact). Standard calisthenics deload as per CalisthenicsApp protocol.</p>
+  </div>
+</div>
+
+<!-- CERVICAL PREHAB -->
+<div class="section">
+  <div class="section-title">Cervical Prehab Warm-Up <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-tertiary)">· every session · 5 min</span></div>
+  <ul class="prehab-list">
+    <li class="prehab-item"><div class="name">Chin Tucks</div><div class="detail">2×10 reps, slow and controlled. Seated or standing.</div></li>
+    <li class="prehab-item"><div class="name">Cervical Rotations</div><div class="detail">5 reps each side. Pain-free range only — do not force end range.</div></li>
+    <li class="prehab-item"><div class="name">Lateral Neck Stretch</div><div class="detail">20–30 sec each side. Gravity only — do not pull with the hand.</div></li>
+    <li class="prehab-item"><div class="name">Scapular Retractions</div><div class="detail">2×15 reps. Unloads the cervical spine by activating mid-back.</div></li>
+    <li class="prehab-item"><div class="name">Shoulder Rolls</div><div class="detail">10 forward, 10 backward. Releases upper trapezius tension.</div></li>
+  </ul>
+</div>
+
+<!-- SESSION TEMPLATE -->
+<div class="section">
+  <div class="section-title">Session Template</div>
+  <div class="template-grid">
+    <div class="t-label">Warm-up</div><div class="t-value">8 min — Cervical prehab (5 min) + Movement prep (3 min)</div>
+    <div class="t-label">Main</div><div class="t-value">30–32 min — Rounds (see weekly session files)</div>
+    <div class="t-label">Cool-down</div><div class="t-value">5 min — Stretches + breathing reset</div>
+  </div>
+  <div class="note-callout" style="margin-top:var(--space-md);">
+    <strong>Movement prep</strong> — light shadowboxing, 10 hip circles each side, 10 knee raises each side, 30 sec light bounce.<br><br>
+    <strong>Cool-down</strong> — chest & shoulder stretch 30s/side, hip flexor lunge 45s/side, upper trap stretch 30s/side, 2 min nasal breathing.
+  </div>
+</div>
+
+<!-- JUDO CARRYOVERS -->
+<div class="section">
+  <div class="section-title">Judo Carryovers</div>
+  <div class="phase-card">
+    <p><strong>Hip rotation is the engine</strong> — a cross is a hip rotation that travels through the fist. Same principle as your throws, different output direction.</p>
+    <p><strong>Stance stability</strong> — your judo base and balance under pressure applies directly. Never be off-balance after a strike.</p>
+    <p><strong>Kime</strong> — locking force at impact rather than pushing through. Strike through the target, snap back to guard.</p>
+  </div>
+</div>
+
+</body>
+</html>
