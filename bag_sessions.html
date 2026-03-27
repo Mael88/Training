@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Week 2 — Bag Sessions</title>
+<style>
+  :root {
+    --bg: #111113;
+    --surface: #1a1a1f;
+    --surface-raised: #222228;
+    --border: #2a2a32;
+    --border-focus: #3a3a44;
+    --text-primary: #e8e8ed;
+    --text-secondary: #8e8e9a;
+    --text-tertiary: #5a5a66;
+    --accent: #e8913a;
+    --accent-dim: rgba(232,145,58,0.12);
+    --accent-mid: rgba(232,145,58,0.25);
+    --green: #4ade80;
+    --green-dim: rgba(74,222,128,0.12);
+    --blue: #60a5fa;
+    --blue-dim: rgba(96,165,250,0.12);
+    --red: #f87171;
+    --red-dim: rgba(248,113,113,0.12);
+    --yellow: #facc15;
+    --yellow-dim: rgba(250,204,21,0.12);
+    --radius: 12px;
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    padding: 0;
+    padding-bottom: 100px;
+  }
+
+  /* Tab bar */
+  .tab-bar {
+    display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .tab {
+    flex: 1;
+    padding: 14px var(--space-md);
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-content { display: none; padding: var(--space-md); }
+  .tab-content.active { display: block; }
+
+  /* Header */
+  .session-header {
+    padding: var(--space-lg) 0 var(--space-md);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: var(--space-lg);
+  }
+  .session-header .label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-xs);
+  }
+  .session-header h1 {
+    font-size: 24px; font-weight: 700; letter-spacing: -0.02em;
+    line-height: 1.2; margin-bottom: var(--space-xs);
+  }
+  .session-header .meta {
+    font-size: 13px; color: var(--text-secondary);
+    display: flex; flex-wrap: wrap; gap: var(--space-sm) var(--space-md);
+  }
+  .meta-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 3px 8px; border-radius: 6px; font-size: 12px; font-weight: 600;
+  }
+  .meta-rpe { background: var(--accent-dim); color: var(--accent); }
+  .meta-hr { background: var(--red-dim); color: var(--red); }
+  .meta-time { background: var(--blue-dim); color: var(--blue); }
+
+  /* Theme callout */
+  .theme-callout {
+    background: var(--surface); border-radius: var(--radius);
+    padding: var(--space-md); border: 1px solid var(--border);
+    margin-bottom: var(--space-lg); font-size: 14px;
+    color: var(--text-secondary); line-height: 1.55;
+  }
+  .theme-callout strong { color: var(--text-primary); }
+
+  /* Debrief callout */
+  .debrief-callout {
+    background: var(--surface); border-radius: var(--radius);
+    padding: var(--space-md); border: 1px solid var(--border);
+    margin-bottom: var(--space-md); font-size: 13px;
+    color: var(--text-secondary); line-height: 1.55;
+  }
+  .debrief-callout .debrief-title {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: var(--space-sm);
+  }
+  .debrief-callout.flag { border-color: var(--red); }
+  .debrief-callout.flag .debrief-title { color: var(--red); }
+  .debrief-callout.good { border-color: var(--green); }
+  .debrief-callout.good .debrief-title { color: var(--green); }
+  .debrief-callout.fix { border-color: var(--accent); }
+  .debrief-callout.fix .debrief-title { color: var(--accent); }
+
+  /* Section label */
+  .section-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-secondary); margin-bottom: var(--space-md);
+  }
+
+  /* Block cards */
+  .block-card {
+    background: var(--surface); border-radius: var(--radius);
+    padding: var(--space-md); border: 1px solid var(--border); margin-bottom: var(--space-md);
+  }
+  .block-card h3 {
+    font-size: 14px; font-weight: 600; margin-bottom: var(--space-sm);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .block-card h3 .dur { font-size: 12px; font-weight: 500; color: var(--text-tertiary); }
+  .block-list { list-style: none; font-size: 13px; color: var(--text-secondary); }
+  .block-list li { padding: var(--space-xs) 0; padding-left: var(--space-md); position: relative; }
+  .block-list li::before {
+    content: ''; position: absolute; left: 0; top: 11px;
+    width: 5px; height: 5px; border-radius: 50%; background: var(--text-tertiary);
+  }
+
+  /* Rounds */
+  .rounds-section { margin-bottom: var(--space-lg); }
+  .round-info {
+    font-size: 13px; color: var(--text-secondary); margin-bottom: var(--space-md);
+    padding: var(--space-sm) var(--space-md); background: var(--accent-dim);
+    border-radius: var(--space-sm); border-left: 3px solid var(--accent);
+  }
+  .round-card {
+    background: var(--surface); border-radius: var(--radius);
+    border: 1px solid var(--border); margin-bottom: var(--space-sm); overflow: hidden;
+  }
+  .round-header {
+    display: flex; align-items: center; padding: var(--space-md);
+    cursor: pointer; -webkit-tap-highlight-color: transparent; gap: var(--space-sm);
+  }
+  .round-num {
+    width: 28px; height: 28px; border-radius: 8px; background: var(--accent-dim);
+    color: var(--accent); font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .round-title { flex: 1; font-size: 14px; font-weight: 600; }
+  .round-chevron { color: var(--text-tertiary); transition: transform 0.2s; flex-shrink: 0; }
+  .round-card.open .round-chevron { transform: rotate(180deg); }
+  .round-body { display: none; padding: 0 var(--space-md) var(--space-md); }
+  .round-card.open .round-body { display: block; }
+  .round-body .focus-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-xs);
+  }
+  .round-body .cue {
+    font-size: 13px; color: var(--text-secondary); line-height: 1.55; margin-bottom: var(--space-sm);
+  }
+  .round-body .cue strong { color: var(--text-primary); font-weight: 600; }
+  .round-body .error-note {
+    font-size: 12px; color: var(--red); background: var(--red-dim);
+    padding: var(--space-sm); border-radius: var(--space-sm); margin-bottom: var(--space-sm);
+  }
+  .round-body .coaching-cue {
+    font-size: 12px; color: var(--blue); background: var(--blue-dim);
+    padding: var(--space-sm); border-radius: var(--space-sm); margin-bottom: var(--space-sm);
+    border-left: 3px solid var(--blue);
+  }
+  .round-body .pattern {
+    font-size: 13px; color: var(--accent); font-weight: 500; margin-bottom: var(--space-sm);
+  }
+  .round-note { margin-top: var(--space-sm); border-top: 1px solid var(--border); padding-top: var(--space-sm); }
+  .round-note textarea {
+    width: 100%; background: var(--surface-raised); border: 1px solid var(--border);
+    border-radius: var(--space-sm); color: var(--text-primary); font-family: inherit;
+    font-size: 13px; padding: var(--space-sm); resize: vertical; min-height: 36px; line-height: 1.4;
+  }
+  .round-note textarea:focus { outline: none; border-color: var(--accent); }
+  .round-note textarea::placeholder { color: var(--text-tertiary); }
+
+  /* Mistakes table */
+  .mistakes-section { margin-bottom: var(--space-lg); }
+  .mistakes-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: var(--space-md); }
+  .mistakes-table thead th {
+    background: var(--surface-raised); color: var(--text-secondary); font-weight: 600;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: var(--space-sm) var(--space-sm); text-align: left; border-bottom: 1px solid var(--border);
+  }
+  .mistakes-table tbody td {
+    padding: var(--space-sm); border-bottom: 1px solid var(--border);
+    color: var(--text-secondary); vertical-align: top; line-height: 1.45;
+  }
+  .mistakes-table tbody tr:last-child td { border-bottom: none; }
+  .mistakes-table .mistake-col { color: var(--red); font-weight: 600; width: 30%; }
+  .mistakes-table .fix-col { color: var(--green); width: 35%; }
+
+  /* Post-session */
+  .post-session {
+    background: var(--surface); border-radius: var(--radius);
+    padding: var(--space-md); border: 1px solid var(--border); margin-top: var(--space-lg);
+  }
+  .post-session h3 { font-size: 15px; font-weight: 600; margin-bottom: var(--space-md); }
+  .form-row { margin-bottom: var(--space-md); }
+  .form-row label {
+    display: block; font-size: 12px; font-weight: 600; color: var(--text-secondary);
+    margin-bottom: var(--space-xs); text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .form-row input, .form-row select, .form-row textarea {
+    width: 100%; background: var(--surface-raised); border: 1px solid var(--border);
+    border-radius: var(--space-sm); color: var(--text-primary); font-family: inherit;
+    font-size: 15px; padding: 10px var(--space-sm);
+  }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+    outline: none; border-color: var(--accent);
+  }
+  .form-row textarea { resize: vertical; min-height: 80px; font-size: 14px; line-height: 1.5; }
+  .form-row select {
+    -webkit-appearance: none; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238e8e9a' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 10px center; padding-right: 32px;
+  }
+  .form-row select option { background: var(--surface); color: var(--text-primary); }
+  .form-row input::placeholder, .form-row textarea::placeholder { color: var(--text-tertiary); }
+  .inline-fields { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); }
+
+  /* Cervical toggle */
+  .cervical-toggle { display: flex; gap: var(--space-xs); }
+  .cervical-toggle button {
+    flex: 1; padding: 10px var(--space-sm); font-size: 13px; font-weight: 600;
+    border: 1px solid var(--border); border-radius: var(--space-sm);
+    background: var(--surface-raised); color: var(--text-tertiary); cursor: pointer;
+    -webkit-tap-highlight-color: transparent; transition: all 0.15s;
+  }
+  .cervical-toggle button.selected-good { background: var(--green-dim); color: var(--green); border-color: var(--green); }
+  .cervical-toggle button.selected-mild { background: var(--yellow-dim); color: var(--yellow); border-color: var(--yellow); }
+  .cervical-toggle button.selected-flare { background: var(--red-dim); color: var(--red); border-color: var(--red); }
+
+  /* Coaching notes */
+  .coaching-notes {
+    background: var(--surface); border-radius: var(--radius);
+    padding: var(--space-md); border: 1px solid var(--border); margin-top: var(--space-lg);
+  }
+  .coaching-notes h3 { font-size: 14px; font-weight: 600; margin-bottom: var(--space-sm); }
+  .coaching-notes p { font-size: 13px; color: var(--text-secondary); line-height: 1.55; margin-bottom: var(--space-sm); }
+  .coaching-notes p:last-child { margin-bottom: 0; }
+
+  /* Export */
+  .export-bar {
+    position: fixed; bottom: 0; left: 0; right: 0; padding: var(--space-md);
+    background: linear-gradient(transparent, var(--bg) 20%); z-index: 100; padding-top: var(--space-xl);
+  }
+  .export-btn {
+    display: block; width: 100%; padding: 14px; font-size: 15px; font-weight: 700;
+    color: #111; background: var(--accent); border: none; border-radius: var(--radius);
+    cursor: pointer; -webkit-tap-highlight-color: transparent; transition: opacity 0.15s;
+  }
+  .export-btn:active { opacity: 0.8; }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 80px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--green); color: #111; font-size: 14px; font-weight: 600;
+    padding: 10px 20px; border-radius: 20px; opacity: 0;
+    transition: opacity 0.3s, transform 0.3s; pointer-events: none; z-index: 200;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab active" data-tab="session-a">Session A — Tue</button>
+  <button class="tab" data-tab="session-b">Session B — Fri</button>
+  <button class="tab" data-tab="mistakes">Mistakes Ref</button>
+</div>
+
+<!-- ===================== SESSION A ===================== -->
+<div id="session-a" class="tab-content active">
+  <div class="session-header">
+    <div class="label">Week 2 · Accumulation A</div>
+    <h1>Session A — Technique</h1>
+    <div class="meta">
+      <span class="meta-badge meta-time">~45 min</span>
+      <span class="meta-badge meta-rpe">RPE 5–6</span>
+      <span class="meta-badge meta-hr">Z2–Z3 · 110–140 bpm</span>
+    </div>
+  </div>
+
+  <!-- Week 1 debrief -->
+  <div class="section-label">Week 1 Debrief</div>
+
+  <div class="debrief-callout flag">
+    <div class="debrief-title">HR Flag</div>
+    Peak HR of 178–180 bpm last week is near-maximum. Your RPE was accurate — the cardiovascular system is simply deconditioned after months off the bag and working harder than the effort feels. Normal. Will come down over 2–3 weeks. Trust RPE, prioritise recovery and sleep this week.
+  </div>
+  <div class="debrief-callout good">
+    <div class="debrief-title">What Worked</div>
+    Jab-cross combination felt natural by Session B. Cross mechanics improved clearly session to session. Energy sharp on both days.
+  </div>
+  <div class="debrief-callout fix">
+    <div class="debrief-title">What to Fix This Week</div>
+    Elbow flaring on the cross (power leaking to shoulder). Push vs rotation self-check (heel lift). Guard dropping in 3+ strike combos under fatigue.
+  </div>
+
+  <div class="theme-callout" style="margin-top: var(--space-lg);">
+    Same two strikes. Week 2 is <strong>consolidation</strong> — the mechanics become more automatic and we start building rhythm. Less thinking, more feeling. The elbow path on the cross is the technical priority this week.
+  </div>
+
+  <!-- Warm-up -->
+  <div class="section-label">Warm-Up</div>
+  <div class="block-card">
+    <h3>Cervical Prehab <span class="dur">5 min</span></h3>
+    <ul class="block-list">
+      <li>Chin tucks — 2×10, head slides back, gaze stays level</li>
+      <li>Cervical rotations — 5 reps each side, pain-free range only</li>
+      <li>Lateral neck stretch — 20–30 sec each side, gravity only</li>
+      <li>Scapular retractions — 2×15 reps</li>
+      <li>Shoulder rolls — 10 forward, 10 backward</li>
+    </ul>
+  </div>
+  <div class="block-card">
+    <h3>Movement Prep <span class="dur">3 min</span></h3>
+    <ul class="block-list">
+      <li>Light shadowboxing — no power, find stance & footwork</li>
+      <li>10 hip circles each side</li>
+      <li>10 knee raises each side</li>
+      <li>30 sec light bounce — find your rhythm</li>
+    </ul>
+  </div>
+
+  <!-- Main Work -->
+  <div class="rounds-section">
+    <div class="section-label">Main Work — 6 Rounds</div>
+    <div class="round-info">3 min rounds · 90 sec rest · RPE 5–6 · Less thinking, more feeling</div>
+
+    <!-- Round 1 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">1</div>
+        <div class="round-title">Jab — Shoulder Drive Isolation</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="focus-label">Focus</div>
+        <div class="cue">Jab only. Reset the pattern cleanly before building pace.</div>
+        <div class="cue"><strong>Shoulder drive:</strong> the shoulder is the engine, the arm is a lever. Feel the shoulder initiating — not the arm pulling.</div>
+        <div class="cue"><strong>Return speed:</strong> the hand snaps back as fast as it extends. Think rubber band — out and back in one motion.</div>
+        <div class="error-note">If the rear hand drops when jabbing, stop and reset. Do not train the error.</div>
+        <div class="round-note"><textarea data-key="a-r1" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 2 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">2</div>
+        <div class="round-title">Jab — Guard Integrity Under Movement</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="focus-label">Focus</div>
+        <div class="cue">Add lateral movement after each jab sequence, same as last week.</div>
+        <div class="cue"><strong>New focus:</strong> rear hand stays at cheek level during the entire movement sequence — jab, step, reset, guard check.</div>
+        <div class="coaching-cue">Between each sequence: mental guard check before throwing the next jab. Is the rear hand where it should be? Make it a habit now so it survives fatigue later.</div>
+        <div class="round-note"><textarea data-key="a-r2" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 3 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">3</div>
+        <div class="round-title">Cross — Elbow Path Drill</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="focus-label">Key Correction This Week</div>
+        <div class="cue">Cross only. 50% speed. This round is entirely about the elbow path.</div>
+        <div class="cue"><strong>Elbow cue:</strong> before each cross, set the elbow pointing at the floor. Keep it tracking downward as long as possible during extension — only fully open at the last moment of travel. If it flares outward early, power bleeds into the shoulder instead of the bag.</div>
+        <div class="cue"><strong>Heel self-check:</strong> after every single cross, pause and check — did the rear heel lift? If yes, you rotated. If no, the hip didn't fire. This is your diagnostic this week.</div>
+        <div class="error-note">If impact registers mainly in the shoulder, the elbow flared. Slow down further and reset the path before continuing.</div>
+        <div class="pattern">Cross × 2 → pause → heel check → repeat.</div>
+        <div class="round-note"><textarea data-key="a-r3" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 4 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">4</div>
+        <div class="round-title">Cross — Build Speed on Correct Mechanics</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="focus-label">Focus</div>
+        <div class="cue">Same elbow path as Round 3. Build to 70% speed.</div>
+        <div class="cue"><strong>Feel check:</strong> impact should register in the LD and oblique — not the shoulder. If you lose that feeling as speed increases, drop back to 50% and rebuild.</div>
+        <div class="cue"><strong>Lead hand cue:</strong> imagine holding a phone to your ear throughout the cross. That is the height the lead hand must stay at.</div>
+        <div class="round-note"><textarea data-key="a-r4" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 5 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">5</div>
+        <div class="round-title">Jab-Cross — Guard Return Protocol</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="focus-label">Combination + Guard Discipline</div>
+        <div class="cue">Jab-cross combination. One at a time, full guard return between each.</div>
+        <div class="cue"><strong>Three moments:</strong> jab lands → guard returns → cross launches. All three are equally important. The guard return is not a pause — it is an active reset that feeds the cross rotation.</div>
+        <div class="coaching-cue">The combination will feel slower than last week. That is correct. Guard integrity now, speed later.</div>
+        <div class="pattern">Jab-cross → full guard return → step back → reset. Repeat.</div>
+        <div class="round-note"><textarea data-key="a-r5" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 6 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">6</div>
+        <div class="round-title">Jab-Cross — Flow and Rhythm</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="focus-label">Focus</div>
+        <div class="cue">Let the combination flow more naturally. Move between sequences — step after each combo, reset feet, attack again.</div>
+        <div class="cue"><strong>Quality marker:</strong> by the end of this round, the jab and cross should feel clearly different — jab is a setup (shoulder-driven, fast, light), cross is power (hip-driven, full rotation). Two different feelings, one connected movement.</div>
+        <div class="cue" style="color:var(--accent);">If both strikes feel the same, you're pushing both. The jab should snap; the cross should rotate.</div>
+        <div class="round-note"><textarea data-key="a-r6" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cool-down -->
+  <div class="section-label">Cool-Down</div>
+  <div class="block-card">
+    <h3>Upper Body <span class="dur">4 min</span></h3>
+    <ul class="block-list">
+      <li>Chest &amp; shoulder stretch — doorway or bag post, 30 sec each side</li>
+      <li>Cross-body shoulder stretch — pull arm across chest at elbow, 30 sec each side</li>
+      <li>Tricep / lat overhead stretch — bend elbow overhead, pull gently, 30 sec each side</li>
+      <li>Wrist flexor stretch — arm extended palm up, pull fingers back, 20 sec each side</li>
+      <li>Wrist extensor stretch — arm extended palm down, press fingers down, 20 sec each side</li>
+    </ul>
+  </div>
+  <div class="block-card">
+    <h3>Lower Body &amp; Breathing <span class="dur">3 min</span></h3>
+    <ul class="block-list">
+      <li>Hip flexor lunge stretch — low lunge, back knee down, 45 sec each side</li>
+      <li>Upper trap stretch — lateral neck, gravity only, 30 sec each side</li>
+      <li>Breathing reset — 2 min nasal breathing, 4 sec inhale / 6 sec exhale</li>
+    </ul>
+  </div>
+
+  <!-- Post-Session -->
+  <div class="post-session" id="post-a">
+    <h3>Post-Session Log</h3>
+    <div class="inline-fields">
+      <div class="form-row">
+        <label>Felt RPE</label>
+        <select data-key="a-rpe">
+          <option value="">—</option>
+          <option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Peak HR (bpm)</label>
+        <input type="number" data-key="a-peak-hr" placeholder="e.g. 155" inputmode="numeric">
+      </div>
+    </div>
+    <div class="form-row">
+      <label>Cervical Status</label>
+      <div class="cervical-toggle" data-key="a-cervical">
+        <button onclick="setCervical(this,'good')">Good</button>
+        <button onclick="setCervical(this,'mild')">Mild tension</button>
+        <button onclick="setCervical(this,'flare')">Flare-up</button>
+      </div>
+    </div>
+    <div class="form-row">
+      <label>Energy Level</label>
+      <select data-key="a-energy">
+        <option value="">—</option>
+        <option>Low — sluggish</option>
+        <option>Medium — normal</option>
+        <option>High — sharp</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Elbow path — felt correct?</label>
+      <select data-key="a-elbow">
+        <option value="">—</option>
+        <option>Yes — impact in LD/oblique</option>
+        <option>Partially — mixed</option>
+        <option>No — still in shoulder</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Heel lift on cross?</label>
+      <select data-key="a-heel">
+        <option value="">—</option>
+        <option>Yes — consistent</option>
+        <option>Sometimes</option>
+        <option>No — needs work</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>What felt natural?</label>
+      <textarea data-key="a-natural" placeholder="e.g. elbow path clicking, combination rhythm improving..."></textarea>
+    </div>
+    <div class="form-row">
+      <label>What felt forced?</label>
+      <textarea data-key="a-forced" placeholder="e.g. guard return still conscious, cross still arm-y at higher speed..."></textarea>
+    </div>
+    <div class="form-row">
+      <label>Where did fatigue hit first?</label>
+      <select data-key="a-fatigue">
+        <option value="">—</option>
+        <option>Arms / shoulders</option>
+        <option>Legs</option>
+        <option>Breathing / cardio</option>
+        <option>Core</option>
+        <option>General / even</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Other Notes</label>
+      <textarea data-key="a-notes" placeholder="Anything else worth noting..."></textarea>
+    </div>
+  </div>
+
+  <div class="coaching-notes">
+    <h3>Coaching Notes</h3>
+    <p><strong>HR trend:</strong> if peak HR begins to come down from last week's 178 bpm, that is adaptation happening. Even a 5–10 bpm drop is meaningful.</p>
+    <p><strong>Elbow check:</strong> does the cross feel different from last week? If impact is now registering lower (LD, oblique) rather than in the shoulder, the elbow path is correcting.</p>
+    <p><strong>HR target:</strong> Session A should stay in Z2–Z3. If you're hitting Z4, you're going too hard for a technique day.</p>
+  </div>
+</div>
+
+<!-- ===================== SESSION B ===================== -->
+<div id="session-b" class="tab-content">
+  <div class="session-header">
+    <div class="label">Week 2 · Accumulation A</div>
+    <h1>Session B — Output</h1>
+    <div class="meta">
+      <span class="meta-badge meta-time">~45 min</span>
+      <span class="meta-badge meta-rpe">RPE 7</span>
+      <span class="meta-badge meta-hr">Z3–Z4 · 135–155 bpm</span>
+    </div>
+  </div>
+
+  <div class="theme-callout">
+    You've rebuilt the elbow path on Tuesday. Today you test whether it holds under <strong>output and fatigue</strong>. The guard in combinations is the second priority — this session specifically targets the drop pattern from last week.
+  </div>
+
+  <!-- Warm-up -->
+  <div class="section-label">Warm-Up</div>
+  <div class="block-card">
+    <h3>Cervical Prehab <span class="dur">5 min</span></h3>
+    <ul class="block-list">
+      <li>Chin tucks — 2×10, head slides back, gaze stays level</li>
+      <li>Cervical rotations — 5 reps each side, pain-free range only</li>
+      <li>Lateral neck stretch — 20–30 sec each side, gravity only</li>
+      <li>Scapular retractions — 2×15 reps</li>
+      <li>Shoulder rolls — 10 forward, 10 backward</li>
+    </ul>
+  </div>
+  <div class="block-card">
+    <h3>Movement Prep <span class="dur">3 min</span></h3>
+    <ul class="block-list">
+      <li>Light shadowboxing — no power, find stance & footwork</li>
+      <li>10 hip circles each side</li>
+      <li>10 knee raises each side</li>
+      <li>30 sec light bounce — find your rhythm</li>
+    </ul>
+  </div>
+
+  <!-- Main Work -->
+  <div class="rounds-section">
+    <div class="section-label">Main Work — 8 Rounds</div>
+    <div class="round-info">2 min rounds · 60 sec rest · RPE 7 · Guard obsession this session</div>
+
+    <div class="coaching-notes" style="margin-bottom: var(--space-md);">
+      <h3>Guard Drill — Active for This Entire Session</h3>
+      <p>At the end of every combination and between every round: consciously check — are both hands back at cheek height? Make it obsessive today. It will become automatic by Week 3.</p>
+    </div>
+
+    <!-- Round 1 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">1</div>
+        <div class="round-title">Jab — Warm Up the Pattern</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="cue">Jab sequences with footwork. 60–70% effort. Mechanics first before output.</div>
+        <div class="cue"><strong>Focus:</strong> shoulder drive, rear hand guard, snap return. Clean the pattern up before pushing it.</div>
+        <div class="round-note"><textarea data-key="b-r1" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 2 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">2</div>
+        <div class="round-title">Cross — Elbow Path at Output Speed</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="cue">Cross only. 75–80% effort.</div>
+        <div class="cue"><strong>Test:</strong> can you hold the elbow path from Tuesday at higher speed? Most people lose it here.</div>
+        <div class="error-note">If the shoulder is taking the load at 80%, drop to 60% and rebuild the path. Speed on bad mechanics is wasted.</div>
+        <div class="round-note"><textarea data-key="b-r2" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 3 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">3</div>
+        <div class="round-title">Jab-Cross — Guard Focus</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="cue">Combination at 70% effort. Single priority: return to full guard between every jab and every cross.</div>
+        <div class="cue">Do not rush the next strike until the guard is back. The combination will feel slower — that is correct.</div>
+        <div class="coaching-cue">Guard integrity first, speed second. Speed without guard is a habit you do not want.</div>
+        <div class="round-note"><textarea data-key="b-r3" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 4 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">4</div>
+        <div class="round-title">Jab-Cross — Increase Output</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="cue">Build to RPE 7. Full guard return after every strike.</div>
+        <div class="cue"><strong>Bag reaction:</strong> the bag will swing. Step to the side as it comes back, reset your angle, attack from a new position.</div>
+        <div class="cue">Move between combinations. You are not a static target.</div>
+        <div class="round-note"><textarea data-key="b-r4" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 5 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">5</div>
+        <div class="round-title">Jab-Cross-Jab — First 3-Strike Combination</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="focus-label">New this week</div>
+        <div class="cue"><strong>Structure:</strong> jab (setup) → cross (power) → jab (close and reset). The final jab re-establishes your guard and creates distance.</div>
+        <div class="cue">This is where last week's guard drop appeared. After the cross, the third strike must fire with the guard already returning — not after.</div>
+        <div class="error-note">If the guard drops between the cross and the final jab, slow the entire combination down. Structure over speed.</div>
+        <div class="pattern">Jab-cross-jab → step back → reset guard → repeat.</div>
+        <div class="round-note"><textarea data-key="b-r5" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 6 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">6</div>
+        <div class="round-title">Jab-Cross-Jab — Build Pace</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="cue">Same 3-strike combination. Push to RPE 7. Move after every combination.</div>
+        <div class="coaching-cue">Fatigue self-check: when tired, the first thing to go is the guard. When you feel fatigue hit this round — think "guard up", not "hit harder".</div>
+        <div class="round-note"><textarea data-key="b-r6" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 7 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">7</div>
+        <div class="round-title">Free Round</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="cue">No prescribed pattern. Mix jabs, crosses, and jab-cross-jab as feels natural.</div>
+        <div class="cue"><strong>Constraint:</strong> every combination ends with both hands at guard height before you move or throw again.</div>
+        <div class="cue">React to the bag. If it swings wide, step off the line, reset your angle, attack again.</div>
+        <div class="round-note"><textarea data-key="b-r7" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- Round 8 -->
+    <div class="round-card">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">8</div>
+        <div class="round-title">Free Round — Finish Strong</div>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="cue">Same as Round 7. Push to the end of the round.</div>
+        <div class="cue" style="color:var(--accent); font-weight: 600;">Final 30 sec: give everything you have left. Technique first — guard up, elbow path, heel pivot — then output. End the session well.</div>
+        <div class="round-note"><textarea data-key="b-r8" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cool-down -->
+  <div class="section-label">Cool-Down</div>
+  <div class="block-card">
+    <h3>Upper Body <span class="dur">4 min</span></h3>
+    <ul class="block-list">
+      <li>Chest &amp; shoulder stretch — doorway or bag post, 30 sec each side</li>
+      <li>Cross-body shoulder stretch — pull arm across chest at elbow, 30 sec each side</li>
+      <li>Tricep / lat overhead stretch — bend elbow overhead, pull gently, 30 sec each side</li>
+      <li>Wrist flexor stretch — arm extended palm up, pull fingers back, 20 sec each side</li>
+      <li>Wrist extensor stretch — arm extended palm down, press fingers down, 20 sec each side</li>
+    </ul>
+  </div>
+  <div class="block-card">
+    <h3>Lower Body &amp; Breathing <span class="dur">3 min</span></h3>
+    <ul class="block-list">
+      <li>Hip flexor lunge stretch — low lunge, back knee down, 45 sec each side</li>
+      <li>Upper trap stretch — lateral neck, gravity only, 30 sec each side</li>
+      <li>Breathing reset — 2 min nasal breathing, 4 sec inhale / 6 sec exhale</li>
+    </ul>
+  </div>
+
+  <!-- Post-Session -->
+  <div class="post-session" id="post-b">
+    <h3>Post-Session Log</h3>
+    <div class="inline-fields">
+      <div class="form-row">
+        <label>Felt RPE</label>
+        <select data-key="b-rpe">
+          <option value="">—</option>
+          <option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Peak HR (bpm)</label>
+        <input type="number" data-key="b-peak-hr" placeholder="e.g. 165" inputmode="numeric">
+      </div>
+    </div>
+    <div class="form-row">
+      <label>Cervical Status</label>
+      <div class="cervical-toggle" data-key="b-cervical">
+        <button onclick="setCervical(this,'good')">Good</button>
+        <button onclick="setCervical(this,'mild')">Mild tension</button>
+        <button onclick="setCervical(this,'flare')">Flare-up</button>
+      </div>
+    </div>
+    <div class="form-row">
+      <label>Energy Level</label>
+      <select data-key="b-energy">
+        <option value="">—</option>
+        <option>Low — sluggish</option>
+        <option>Medium — normal</option>
+        <option>High — sharp</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Guard held in 3-strike combos?</label>
+      <select data-key="b-guard">
+        <option value="">—</option>
+        <option>Yes — consistent</option>
+        <option>Mostly — dropped under fatigue</option>
+        <option>No — still dropping</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>What felt natural?</label>
+      <textarea data-key="b-natural" placeholder="e.g. 3-strike combo flowing, elbow path held under fatigue..."></textarea>
+    </div>
+    <div class="form-row">
+      <label>What felt forced?</label>
+      <textarea data-key="b-forced" placeholder="e.g. guard still drops on 3rd strike, cross loses elbow path when tired..."></textarea>
+    </div>
+    <div class="form-row">
+      <label>Where did fatigue hit first?</label>
+      <select data-key="b-fatigue">
+        <option value="">—</option>
+        <option>Arms / shoulders</option>
+        <option>Legs</option>
+        <option>Breathing / cardio</option>
+        <option>Core</option>
+        <option>General / even</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label>Other Notes</label>
+      <textarea data-key="b-notes" placeholder="Anything else worth noting..."></textarea>
+    </div>
+  </div>
+
+  <div class="coaching-notes">
+    <h3>Coaching Notes</h3>
+    <p><strong>HR trend:</strong> compare peak HR to last week. A drop of even 5–8 bpm at the same RPE is adaptation confirming itself.</p>
+    <p><strong>Guard in combos:</strong> did it hold in rounds 5–6 on the 3-strike combination? If yes, Week 3 hooks can be introduced cleanly. If still dropping, we reinforce before adding new strikes.</p>
+    <p><strong>Feedback for Week 3:</strong> Hooks are coming next week. Before that: jab and cross mechanics should feel largely automatic — especially the guard return and heel pivot. Note honestly whether either still requires conscious effort.</p>
+  </div>
+</div>
+
+<!-- ===================== MISTAKES REFERENCE ===================== -->
+<div id="mistakes" class="tab-content">
+  <div class="session-header">
+    <div class="label">Week 2 · Reference</div>
+    <h1>Common Mistakes</h1>
+    <div class="meta">
+      <span class="meta-badge meta-time">Review during rest periods</span>
+    </div>
+  </div>
+
+  <div class="theme-callout">
+    Keep this tab open during sessions. The errors listed here are the ones most likely to appear when <strong>fatigue builds</strong> — check yourself against them between rounds, not just at the start.
+  </div>
+
+  <div class="section-label">Jab — Common Mistakes</div>
+
+  <div class="mistakes-section">
+    <table class="mistakes-table">
+      <thead>
+        <tr><th>Mistake</th><th>What it looks like</th><th>Fix</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mistake-col">Dropping the rear hand</td>
+          <td>Guard falls to hip or chest when jabbing</td>
+          <td class="fix-col">Rear fist stays glued to cheek throughout — even at speed</td>
+        </tr>
+        <tr>
+          <td class="mistake-col">Leaning forward</td>
+          <td>Weight shifts forward, head goes over the front knee</td>
+          <td class="fix-col">Shoulder drives, not the torso — stay balanced over both feet</td>
+        </tr>
+        <tr>
+          <td class="mistake-col">Telegraphing with shoulder</td>
+          <td>Rear shoulder dips before the jab launches</td>
+          <td class="fix-col">Launch directly from guard — zero wind-up</td>
+        </tr>
+        <tr>
+          <td class="mistake-col">Arm-only jab</td>
+          <td>No shoulder rotation, pure arm extension</td>
+          <td class="fix-col">Even a small shoulder drive gives the jab structure and reach</td>
+        </tr>
+        <tr>
+          <td class="mistake-col">Slow hand return</td>
+          <td>Fist lingers at extension</td>
+          <td class="fix-col">Return is as fast as extension — rubber band, out and back</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-label">Cross — Common Mistakes</div>
+
+  <div class="mistakes-section">
+    <table class="mistakes-table">
+      <thead>
+        <tr><th>Mistake</th><th>What it looks like</th><th>Fix</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mistake-col">Rear heel stays flat</td>
+          <td>No pivot, hip rotation is blocked entirely</td>
+          <td class="fix-col">Heel must lift and pivot — your self-check after every cross</td>
+        </tr>
+        <tr>
+          <td class="mistake-col">Elbow flares out</td>
+          <td>Fist travels in an arc, shoulder takes the impact</td>
+          <td class="fix-col">Elbow points at the floor during extension — only opens at the last moment</td>
+        </tr>
+        <tr>
+          <td class="mistake-col">Arm too far from body</td>
+          <td>Power goes to shoulder, not LD and oblique</td>
+          <td class="fix-col">Elbow tracks close to the body until final extension</td>
+        </tr>
+        <tr>
+          <td class="mistake-col">Pushing not rotating</td>
+          <td>Hip doesn't engage, cross feels heavy and slow</td>
+          <td class="fix-col">Feel it in the oblique — if you don't, the hip didn't fire</td>
+        </tr>
+        <tr>
+          <td class="mistake-col">Lead hand drops</td>
+          <td>Guard opens as rear hand extends</td>
+          <td class="fix-col">Imagine holding a phone to your ear — that height, throughout</td>
+        </tr>
+        <tr>
+          <td class="mistake-col">Over-rotation</td>
+          <td>Weight falls off front foot after impact</td>
+          <td class="fix-col">Stop the rotation at the bag — don't chase the punch past it</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-label">Your Specific Corrections This Week</div>
+  <div class="block-card">
+    <ul class="block-list">
+      <li><strong>Elbow path on the cross:</strong> keep the elbow tracking toward the floor for as long as possible during extension. Power goes to LD and oblique — not the shoulder.</li>
+      <li><strong>Heel self-check:</strong> after every cross, pause and check — did the rear heel lift? Yes = rotation happened. No = hip didn't fire.</li>
+      <li><strong>Guard in 3-strike combos:</strong> the guard must return between every single strike. Return to full guard after the cross before launching the final jab.</li>
+      <li><strong>Jab under fatigue:</strong> when tired, drive the shoulder even more consciously. The arm goes lazy first — the shoulder drive is what keeps the jab structural.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- EXPORT -->
+<div class="export-bar">
+  <button class="export-btn" onclick="exportForClaude()">Copy Summary for Claude</button>
+</div>
+<div class="toast" id="toast">Copied to clipboard</div>
+
+<script>
+// Tab switching
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.tab).classList.add('active');
+  });
+});
+
+// Round expand/collapse
+function toggleRound(header) {
+  header.parentElement.classList.toggle('open');
+}
+
+// Cervical toggle
+function setCervical(btn, level) {
+  const group = btn.parentElement;
+  group.querySelectorAll('button').forEach(b => { b.className = ''; });
+  btn.classList.add('selected-' + level);
+  group.dataset.value = level;
+  saveData();
+}
+
+// localStorage
+const STORAGE_KEY = 'mc4-week2-bag';
+
+function getAllInputs() {
+  return document.querySelectorAll('[data-key]');
+}
+
+function saveData() {
+  const data = {};
+  getAllInputs().forEach(el => {
+    const key = el.dataset.key;
+    if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') {
+      data[key] = el.value;
+    } else if (el.tagName === 'SELECT') {
+      data[key] = el.value;
+    } else if (el.classList.contains('cervical-toggle')) {
+      data[key] = el.dataset.value || '';
+    }
+  });
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function loadData() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    getAllInputs().forEach(el => {
+      const key = el.dataset.key;
+      if (!(key in data) || !data[key]) return;
+      if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') {
+        el.value = data[key];
+      } else if (el.tagName === 'SELECT') {
+        el.value = data[key];
+      } else if (el.classList.contains('cervical-toggle')) {
+        el.dataset.value = data[key];
+        const level = data[key];
+        el.querySelectorAll('button').forEach(b => b.className = '');
+        if (level === 'good') el.children[0].classList.add('selected-good');
+        if (level === 'mild') el.children[1].classList.add('selected-mild');
+        if (level === 'flare') el.children[2].classList.add('selected-flare');
+      }
+    });
+  } catch(e) {}
+}
+
+document.addEventListener('input', saveData);
+document.addEventListener('change', saveData);
+loadData();
+
+// Export
+function exportForClaude() {
+  const get = (key) => {
+    const el = document.querySelector(`[data-key="${key}"]`);
+    if (!el) return '';
+    if (el.classList.contains('cervical-toggle')) return el.dataset.value || '';
+    return el.value || '';
+  };
+
+  const roundNotes = (prefix, count) => {
+    let out = '';
+    for (let i = 1; i <= count; i++) {
+      const note = get(`${prefix}-r${i}`);
+      if (note) out += `  Round ${i}: ${note}\n`;
+    }
+    return out || '  (no round notes)\n';
+  };
+
+  let text = `## Week 2 Bag Sessions — Feedback\n`;
+  text += `Mesocycle 4 | Accumulation A | Jab & Cross Consolidation\n\n`;
+
+  text += `### Session A (Technique — Tuesday)\n`;
+  const aRpe = get('a-rpe'); if (aRpe) text += `- Felt RPE: ${aRpe}\n`;
+  const aHr = get('a-peak-hr'); if (aHr) text += `- Peak HR: ${aHr} bpm\n`;
+  const aCerv = get('a-cervical'); if (aCerv) text += `- Cervical: ${aCerv}\n`;
+  const aEnergy = get('a-energy'); if (aEnergy) text += `- Energy: ${aEnergy}\n`;
+  const aElbow = get('a-elbow'); if (aElbow) text += `- Elbow path: ${aElbow}\n`;
+  const aHeel = get('a-heel'); if (aHeel) text += `- Heel lift on cross: ${aHeel}\n`;
+  const aFatigue = get('a-fatigue'); if (aFatigue) text += `- Fatigue first: ${aFatigue}\n`;
+  const aNatural = get('a-natural'); if (aNatural) text += `- Felt natural: ${aNatural}\n`;
+  const aForced = get('a-forced'); if (aForced) text += `- Felt forced: ${aForced}\n`;
+  const aNotes = get('a-notes'); if (aNotes) text += `- Notes: ${aNotes}\n`;
+  text += `- Round notes:\n${roundNotes('a', 6)}\n`;
+
+  text += `### Session B (Output — Friday)\n`;
+  const bRpe = get('b-rpe'); if (bRpe) text += `- Felt RPE: ${bRpe}\n`;
+  const bHr = get('b-peak-hr'); if (bHr) text += `- Peak HR: ${bHr} bpm\n`;
+  const bCerv = get('b-cervical'); if (bCerv) text += `- Cervical: ${bCerv}\n`;
+  const bEnergy = get('b-energy'); if (bEnergy) text += `- Energy: ${bEnergy}\n`;
+  const bGuard = get('b-guard'); if (bGuard) text += `- Guard in 3-strike combos: ${bGuard}\n`;
+  const bFatigue = get('b-fatigue'); if (bFatigue) text += `- Fatigue first: ${bFatigue}\n`;
+  const bNatural = get('b-natural'); if (bNatural) text += `- Felt natural: ${bNatural}\n`;
+  const bForced = get('b-forced'); if (bForced) text += `- Felt forced: ${bForced}\n`;
+  const bNotes = get('b-notes'); if (bNotes) text += `- Notes: ${bNotes}\n`;
+  text += `- Round notes:\n${roundNotes('b', 8)}\n`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  });
+}
+</script>
+</body>
+</html>
