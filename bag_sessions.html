@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Week 3 — Bag Sessions</title>
+<title>Week 4 — Bag Sessions</title>
 <style>
   :root {
     --bg:#111113;--surface:#1a1a1f;--surface-raised:#222228;--border:#2a2a32;
@@ -14,6 +14,7 @@
     --red:#f87171;--red-dim:rgba(248,113,113,0.12);
     --yellow:#facc15;--yellow-dim:rgba(250,204,21,0.12);
     --purple:#c084fc;--purple-dim:rgba(192,132,252,0.12);
+    --teal:#2dd4bf;--teal-dim:rgba(45,212,191,0.12);
     --radius:12px;--space-xs:4px;--space-sm:8px;--space-md:16px;
     --space-lg:24px;--space-xl:32px;--space-2xl:48px;
   }
@@ -36,7 +37,7 @@
   .meta-rpe{background:var(--accent-dim);color:var(--accent);}
   .meta-hr{background:var(--red-dim);color:var(--red);}
   .meta-time{background:var(--blue-dim);color:var(--blue);}
-  .meta-new{background:var(--purple-dim);color:var(--purple);}
+  .meta-new{background:var(--teal-dim);color:var(--teal);}
   .theme-callout{background:var(--surface);border-radius:var(--radius);padding:var(--space-md);
     border:1px solid var(--border);margin-bottom:var(--space-lg);font-size:14px;color:var(--text-secondary);line-height:1.55;}
   .theme-callout strong{color:var(--text-primary);}
@@ -46,6 +47,7 @@
   .debrief-callout.flag{border-color:var(--red);} .debrief-callout.flag .debrief-title{color:var(--red);}
   .debrief-callout.good{border-color:var(--green);} .debrief-callout.good .debrief-title{color:var(--green);}
   .debrief-callout.fix{border-color:var(--accent);} .debrief-callout.fix .debrief-title{color:var(--accent);}
+  .debrief-callout.info{border-color:var(--blue);} .debrief-callout.info .debrief-title{color:var(--blue);}
   .section-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:var(--space-md);}
   .block-card{background:var(--surface);border-radius:var(--radius);padding:var(--space-md);border:1px solid var(--border);margin-bottom:var(--space-md);}
   .block-card h3{font-size:14px;font-weight:600;margin-bottom:var(--space-sm);display:flex;justify-content:space-between;align-items:center;}
@@ -57,29 +59,30 @@
   .rounds-section{margin-bottom:var(--space-lg);}
   .round-info{font-size:13px;color:var(--text-secondary);margin-bottom:var(--space-md);padding:var(--space-sm) var(--space-md);background:var(--accent-dim);border-radius:var(--space-sm);border-left:3px solid var(--accent);}
   .round-card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:var(--space-sm);overflow:hidden;}
-  .round-card.ns{border-color:var(--purple);}
+  .round-card.nk{border-color:var(--teal);}
   .round-header{display:flex;align-items:center;padding:var(--space-md);cursor:pointer;-webkit-tap-highlight-color:transparent;gap:var(--space-sm);}
   .round-num{width:28px;height:28px;border-radius:8px;background:var(--accent-dim);color:var(--accent);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .round-card.ns .round-num{background:var(--purple-dim);color:var(--purple);}
+  .round-card.nk .round-num{background:var(--teal-dim);color:var(--teal);}
   .round-title{flex:1;font-size:14px;font-weight:600;}
-  .new-badge{font-size:10px;font-weight:700;background:var(--purple-dim);color:var(--purple);padding:2px 6px;border-radius:4px;letter-spacing:.05em;flex-shrink:0;}
+  .new-badge{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:.05em;flex-shrink:0;}
+  .new-badge.kick{background:var(--teal-dim);color:var(--teal);}
+  .new-badge.combo{background:var(--purple-dim);color:var(--purple);}
   .round-chevron{color:var(--text-tertiary);transition:transform .2s;flex-shrink:0;}
   .round-card.open .round-chevron{transform:rotate(180deg);}
   .round-body{display:none;padding:0 var(--space-md) var(--space-md);}
   .round-card.open .round-body{display:block;}
   .round-body .focus-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--space-xs);}
-  .round-body .focus-label.np{color:var(--purple);}
+  .round-body .focus-label.nk{color:var(--teal);}
   .round-body .cue{font-size:13px;color:var(--text-secondary);line-height:1.55;margin-bottom:var(--space-sm);}
   .round-body .cue strong{color:var(--text-primary);font-weight:600;}
   .round-body .error-note{font-size:12px;color:var(--red);background:var(--red-dim);padding:var(--space-sm);border-radius:var(--space-sm);margin-bottom:var(--space-sm);}
   .round-body .coaching-cue{font-size:12px;color:var(--blue);background:var(--blue-dim);padding:var(--space-sm);border-radius:var(--space-sm);border-left:3px solid var(--blue);margin-bottom:var(--space-sm);}
-  .round-body .new-technique{font-size:12px;color:var(--purple);background:var(--purple-dim);padding:var(--space-sm);border-radius:var(--space-sm);border-left:3px solid var(--purple);margin-bottom:var(--space-sm);}
+  .round-body .new-technique{font-size:12px;color:var(--teal);background:var(--teal-dim);padding:var(--space-sm);border-radius:var(--space-sm);border-left:3px solid var(--teal);margin-bottom:var(--space-sm);}
   .round-body .pattern{font-size:13px;color:var(--accent);font-weight:500;margin-bottom:var(--space-sm);}
   .round-note{margin-top:var(--space-sm);border-top:1px solid var(--border);padding-top:var(--space-sm);}
   .round-note textarea{width:100%;background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--space-sm);color:var(--text-primary);font-family:inherit;font-size:13px;padding:var(--space-sm);resize:vertical;min-height:36px;line-height:1.4;}
   .round-note textarea:focus{outline:none;border-color:var(--accent);}
   .round-note textarea::placeholder{color:var(--text-tertiary);}
-  .mistakes-section{margin-bottom:var(--space-lg);}
   .mt{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:var(--space-md);}
   .mt thead th{background:var(--surface-raised);color:var(--text-secondary);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.08em;padding:var(--space-sm);text-align:left;border-bottom:1px solid var(--border);}
   .mt tbody td{padding:var(--space-sm);border-bottom:1px solid var(--border);color:var(--text-secondary);vertical-align:top;line-height:1.45;}
@@ -124,36 +127,36 @@
 <!-- SESSION A -->
 <div id="sa" class="tab-content active">
   <div class="session-header">
-    <div class="label">Week 3 · Accumulation B</div>
+    <div class="label">Week 4 · Intensification A</div>
     <h1>Session A — Technique</h1>
     <div class="meta">
       <span class="meta-badge meta-time">~45 min</span>
-      <span class="meta-badge meta-rpe">RPE 6</span>
-      <span class="meta-badge meta-hr">Z3 · 128–146 bpm</span>
-      <span class="meta-badge meta-new">+ Hooks</span>
+      <span class="meta-badge meta-rpe">RPE 6–7</span>
+      <span class="meta-badge meta-hr">Z3–Z4 · 128–158 bpm</span>
+      <span class="meta-badge meta-new">+ Kicks</span>
     </div>
   </div>
 
-  <div class="section-label">Week 2 Debrief</div>
-  <div class="debrief-callout flag">
-    <div class="debrief-title">HR Still Elevated + Real Max HR Data</div>
-    179 bpm Session A (unchanged), 184 bpm Session B (above last week). Session B HR of 184 exceeds the Tanaka formula estimate of 183 — your actual max HR is likely higher than the formula. Useful data point. No cardiovascular adaptation visible in HR yet, but RPE and technique are clearly improving. The cardiovascular system lags neuromuscular adaptation by 1–2 weeks. Continue monitoring — if Session B HR is still above 175 at end of this week, we reassess volume.
-  </div>
-  <div class="debrief-callout flag">
-    <div class="debrief-title">Left Trapezius — Cervical Compensation</div>
-    The trap fatiguing early is not purely a deconditioning issue. The trapezius overactivates as a compensator when deep cervical stabilisers are inhibited by a hernia. A shoulder depression drill has been added to the warm-up this week to address it directly. Note whether left trap fatigue is reduced compared to last week.
+  <div class="section-label">Week 3 Debrief</div>
+  <div class="debrief-callout good">
+    <div class="debrief-title">HR Adapting — Clear Signal</div>
+    Session A dropped from 179 to 168 bpm at the same RPE 6. That is 11 bpm of cardiovascular adaptation in one week — significant. Session B held at 183 but that was with increased volume and new strikes. The trend is moving the right direction. Keep monitoring Session B this week.
   </div>
   <div class="debrief-callout good">
-    <div class="debrief-title">What Worked</div>
-    Hip rotation consistent. Heel lift reliable. Jab-cross fully natural. Shoulder-before-elbow self-diagnosis was accurate. Guard mostly held, improved over Session B.
+    <div class="debrief-title">Shoulder Blade Cue Is Working</div>
+    This is now your universal cue across all strikes — cross, lead hook, rear hook. Push the shoulder blade down and forward into the strike. Do not let the arm wander away from the body. Left trap fatigue improved on Session A confirming the cervical compensation theory was correct.
   </div>
   <div class="debrief-callout fix">
-    <div class="debrief-title">Two Corrections Into Week 3</div>
-    1. Shoulder depression on the cross: push the shoulder blade DOWN as the strike launches — do not let it ride up toward the ear. The elbow path follows automatically. 2. Hip reset between consecutive crosses: heel returns to the floor between each cross. Each is a full rotation and a full recovery — not a held position.
+    <div class="debrief-title">Three Corrections Carrying Forward</div>
+    1. Shoulder blade cue applies to hooks exactly as it does to the cross — elbow stays close, shoulder stays down. 2. Jab-lead hook and cross-rear hook still feel awkward — expected, keep them in the rotation, they will click with repetition. 3. Guard under fatigue in last rounds — intensification phase means more rounds, so this will be tested harder. Prioritise it.
+  </div>
+  <div class="debrief-callout info">
+    <div class="debrief-title">Intensification Phase Begins</div>
+    Weeks 4–5 are where the cycle gets hard. RPE and HR targets step up. Kicks enter this week — mae geri (front kick) and mawashi geri (roundhouse). Same approach as hooks: isolated first, combined later. Your legs will feel this in combination with the lower calisthenics session mid-week.
   </div>
 
   <div class="theme-callout" style="margin-top:var(--space-lg);">
-    <strong>Hooks arrive today — mawashi-zuki.</strong> The power source is identical to the cross: hip rotation. The difference is the arc of delivery. Lead and rear hooks are introduced in isolation before any combination work. Do not rush to combine.
+    <strong>Kicks arrive today.</strong> Mae geri (front kick) and mawashi geri (roundhouse kick) are introduced in isolation. The punch toolkit is now solid enough to carry as background — kicks get the focus this session. Do not combine kicks with punches yet. That begins Friday.
   </div>
 
   <div class="section-label">Warm-Up</div>
@@ -170,122 +173,144 @@
   <div class="block-card">
     <h3>Movement Prep <span class="dur">3 min</span></h3>
     <ul class="block-list">
-      <li class="hl">Shoulder depression drill — arms at sides, actively push shoulders DOWN away from ears, hold 3 sec. 10 reps. Do this before touching the bag.</li>
-      <li>Light shadowboxing — no power, find stance &amp; footwork</li>
-      <li>10 hip circles each side</li>
-      <li>10 knee raises each side</li>
+      <li class="hl">Shoulder depression drill — 10 reps, push shoulders DOWN, hold 3 sec. Every session.</li>
+      <li>Light shadowboxing — include slow hooks at low effort</li>
+      <li>10 hip circles each side — wider and slower than usual, prep the hips for kicking</li>
+      <li>10 knee raises each side — slow and controlled, hip flexor activation</li>
+      <li class="hl">10 slow front kicks each side in the air — no bag, just rehearse the chamber and extension</li>
       <li>30 sec light bounce</li>
     </ul>
   </div>
 
   <div class="rounds-section">
-    <div class="section-label">Main Work — 5 Rounds</div>
-    <div class="round-info">3 min rounds · 90 sec rest · RPE 6 · Introduce hooks slowly. No rushing.</div>
+    <div class="section-label">Main Work — 6 Rounds</div>
+    <div class="round-info">3 min rounds · 90 sec rest · RPE 6–7 · Kicks isolated. Punch corrections maintained.</div>
 
     <div class="round-card">
       <div class="round-header" onclick="toggleRound(this)">
         <div class="round-num">1</div>
-        <div class="round-title">Jab-Cross — Corrections Active</div>
+        <div class="round-title">Punch Warm-Up — Shoulder Blade Active</div>
         <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="round-body">
-        <div class="focus-label">Foundation Check</div>
-        <div class="cue">Jab-cross only. Warm the existing mechanics before hooks arrive.</div>
-        <div class="cue"><strong>Shoulder depression cue:</strong> as the cross launches, push the shoulder blade DOWN and forward into the bag. Do not let the shoulder ride up. The elbow path corrects automatically when the shoulder stays depressed.</div>
-        <div class="cue"><strong>Hip reset:</strong> if throwing two crosses in a row, the heel returns to the floor between each one. Full rotation out, full recovery back.</div>
+        <div class="focus-label">Foundation Before Kicks</div>
+        <div class="cue">Full punch toolkit — jab, cross, hooks. 60–70% effort. Warm everything up before the new material arrives.</div>
+        <div class="cue"><strong>Shoulder blade active on every strike:</strong> cross, lead hook, rear hook — the cue is the same. Push the blade down and forward. If the shoulder rides up, the arm wanders away from the body and the load transfers to the wrong place.</div>
+        <div class="cue"><strong>Jab-lead hook and cross-rear hook:</strong> include both this round. They feel awkward — keep working them. The hip transitions will click with repetition.</div>
         <div class="round-note"><textarea data-key="a-r1" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
 
-    <div class="round-card ns">
+    <div class="round-card nk">
       <div class="round-header" onclick="toggleRound(this)">
         <div class="round-num">2</div>
-        <div class="round-title">Lead Hook — Isolation</div>
-        <span class="new-badge">NEW</span>
+        <div class="round-title">Mae Geri — Front Kick Isolation</div>
+        <span class="new-badge kick">NEW</span>
         <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="round-body">
-        <div class="focus-label np">New — Mawashi-Zuki Lead</div>
-        <div class="new-technique">In atemi-waza: mawashi-zuki with the lead hand. Horizontal arc. The engine is the lead hip snapping inward — same principle as tai-sabaki, applied forward and laterally.</div>
-        <div class="cue"><strong>Starting position:</strong> lead elbow lifts to shoulder height. Forearm horizontal. Arm forms an L-shape before the arc begins.</div>
-        <div class="cue"><strong>The movement:</strong> lead hip drives sharply inward as the arm swings in a horizontal arc. The hip fires first — the arm follows. Power comes from the hip snap, not the arm swing.</div>
-        <div class="cue"><strong>Shoulder depression:</strong> the shoulder stays DOWN throughout the arc. Do not shrug into the hook — this is what overloads the trap.</div>
-        <div class="cue"><strong>Guard:</strong> rear hand stays at cheek height throughout. After the hook, lead hand returns to guard immediately.</div>
-        <div class="error-note">If the hook fatigues the shoulder quickly, the arm is swinging independently of the hip. Stop — feel the hip snap first, then let the arm follow.</div>
-        <div class="pattern">Lead hook x2 → reset → repeat. Slow and deliberate.</div>
+        <div class="focus-label nk">New — Mae Geri (Front Kick)</div>
+        <div class="new-technique">In atemi-waza and karate: mae geri — a thrusting kick delivered with the ball of the foot (koshi) or heel. Primary function: distance control and disrupting an opponent's posture before closing. Your karate background makes this familiar territory.</div>
+        <div class="cue"><strong>Chamber first:</strong> before the kick extends, the knee drives upward toward the chest — this is the chamber. Do not skip it. The power and accuracy of the kick come from the chamber, not from swinging the leg forward.</div>
+        <div class="cue"><strong>Extension:</strong> from the chamber, the leg drives forward and extends. The hip drives into the kick — same principle as the cross. The supporting leg stays slightly bent, not locked.</div>
+        <div class="cue"><strong>Impact surface:</strong> ball of the foot (toes pulled back) for a snapping version, or heel for a thrusting version. On a heavy bag, heel is safer on the wrists — use it until technique is solid.</div>
+        <div class="cue"><strong>Recovery:</strong> after the kick, the foot does not drop straight to the floor — it returns through the chamber position before landing. This maintains balance and prevents the kick from being grabbed.</div>
+        <div class="cue"><strong>Guard stays up:</strong> both hands remain at cheek height during the kick. The upper body does not lean back to compensate for the kick.</div>
+        <div class="error-note">Common error: skipping the chamber and swinging the leg forward. This produces a weak, slow kick with no hip engagement. Chamber — then kick.</div>
+        <div class="pattern">Lead leg mae geri x3 → reset → rear leg mae geri x3 → reset → repeat.</div>
         <div class="round-note"><textarea data-key="a-r2" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
 
-    <div class="round-card ns">
+    <div class="round-card nk">
       <div class="round-header" onclick="toggleRound(this)">
         <div class="round-num">3</div>
-        <div class="round-title">Rear Hook — Isolation</div>
-        <span class="new-badge">NEW</span>
+        <div class="round-title">Mae Geri — Build Commitment</div>
+        <span class="new-badge kick">KICK</span>
         <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="round-body">
-        <div class="focus-label np">New — Mawashi-Zuki Rear</div>
-        <div class="new-technique">Same mechanics as lead hook — but the rear hip drives the rotation. The rear heel pivots as in the cross, but the arc travels laterally rather than straight forward.</div>
-        <div class="cue"><strong>Key distinction from the cross:</strong> the cross drives straight forward. The rear hook arcs horizontally to the side. The hip rotation is similar but the trajectory is different — feel it.</div>
-        <div class="cue"><strong>Rear elbow:</strong> lifts to shoulder height before the arc. Same L-shape as the lead hook. Do not let the elbow drop below shoulder height during delivery.</div>
-        <div class="cue"><strong>Heel:</strong> same pivot as the cross. If the heel stays flat, the hip is blocked.</div>
-        <div class="error-note">If the rear hook feels identical to the cross, the trajectory is wrong — it is becoming a wide cross rather than a horizontal arc. Slow down and focus on the lateral direction of the arc.</div>
-        <div class="pattern">Rear hook x2 → reset → repeat. Compare the hip feel to the cross.</div>
+        <div class="focus-label nk">Front Kick — More Intent</div>
+        <div class="cue">Same mechanics as Round 2. Now add more hip drive into the kick — push the hip forward as the leg extends. This is the difference between a tap and a kick that actually moves a person.</div>
+        <div class="cue"><strong>Balance check:</strong> after each kick, you should be able to hold the chamber position for 1–2 seconds without toppling. If you can't, the supporting leg and core are not stabilising the movement. Slow down.</div>
+        <div class="coaching-cue">Your judo background gives you good single-leg stability. Trust it. The instability in kicks usually comes from rushing the extension before the chamber is set — not from lack of base.</div>
+        <div class="cue"><strong>Rear leg vs lead leg:</strong> the rear leg kick is more powerful (more hip rotation available). The lead leg kick is faster (less wind-up). Use both this round.</div>
         <div class="round-note"><textarea data-key="a-r3" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
 
-    <div class="round-card ns">
+    <div class="round-card nk">
       <div class="round-header" onclick="toggleRound(this)">
         <div class="round-num">4</div>
-        <div class="round-title">Lead Hook + Rear Hook — Alternating</div>
-        <span class="new-badge">NEW</span>
+        <div class="round-title">Mawashi Geri — Roundhouse Isolation</div>
+        <span class="new-badge kick">NEW</span>
         <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="round-body">
-        <div class="focus-label np">Connecting Both Hooks</div>
-        <div class="cue">Alternate lead hook and rear hook. Slow and deliberate — feel the hip switch between rotations.</div>
-        <div class="cue"><strong>Hip alternation:</strong> lead hook = lead hip snaps inward. Rear hook = rear hip rotates forward-laterally. Between the two, there is a brief neutral reset. Do not rush it.</div>
-        <div class="cue"><strong>Guard:</strong> non-striking hand stays at cheek height throughout. Both hands return to guard between each hook.</div>
-        <div class="coaching-cue">Think of it as two separate throws from the same stance — each needs its own hip engagement. The rhythm is: hook → guard return → hip reset → hook again.</div>
-        <div class="pattern">Lead hook → reset → rear hook → reset → repeat.</div>
+        <div class="focus-label nk">New — Mawashi Geri (Roundhouse)</div>
+        <div class="new-technique">In atemi-waza: mawashi geri — a circular kick targeting the thigh, ribs, or head depending on height. The hip rotation is the engine, exactly as in the hook. The arc of the leg mirrors the arc of the hook — same lateral hip snap, different weapon.</div>
+        <div class="cue"><strong>Chamber:</strong> knee drives upward and outward to the side — not straight forward as in mae geri. The knee points in the direction the kick will travel before the leg extends.</div>
+        <div class="cue"><strong>Hip pivot:</strong> the supporting foot pivots as the hip rotates into the kick. This is non-negotiable — if the supporting foot does not pivot, the hip is blocked and the kick has no power. Same principle as the rear heel pivot in the cross.</div>
+        <div class="cue"><strong>Impact surface:</strong> the instep (top of the foot) or shin. On the bag, shin is safer and more powerful — it is what Muay Thai fighters use and what works in atemi-waza for body targeting.</div>
+        <div class="cue"><strong>Target this week:</strong> mid-level — body height. Do not attempt head-level kicks yet. Get the mechanics right at body height first.</div>
+        <div class="cue"><strong>Recovery:</strong> foot returns through the chamber before landing, same as mae geri.</div>
+        <div class="error-note">Common error: the supporting foot does not pivot. The result is a kick that uses only the hip flexor and has no rotational power. Feel the supporting heel pivot outward as the kick lands.</div>
+        <div class="pattern">Lead leg mawashi geri x3 → reset → rear leg mawashi geri x3 → reset → repeat.</div>
         <div class="round-note"><textarea data-key="a-r4" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <div class="round-card nk">
+      <div class="round-header" onclick="toggleRound(this)">
+        <div class="round-num">5</div>
+        <div class="round-title">Mae Geri + Mawashi Geri — Alternating</div>
+        <span class="new-badge kick">KICKS</span>
+        <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="round-body">
+        <div class="focus-label nk">Connecting Both Kicks</div>
+        <div class="cue">Alternate front kick and roundhouse. Feel the difference between the two — mae geri is linear (hip drives forward), mawashi geri is rotational (hip snaps laterally).</div>
+        <div class="cue"><strong>Both legs:</strong> work both lead and rear leg for each kick. The lead leg versions are faster and shorter — the rear leg versions are slower but more powerful.</div>
+        <div class="cue"><strong>Guard stays up:</strong> this is the moment most people forget the hands. Both fists stay at cheek height during every kick. The upper body does not tilt or lean to compensate.</div>
+        <div class="coaching-cue">Think of the bag as an opponent at mid distance. The kicks are meant to damage, disrupt, and control that distance — not just to hit something. Stay in your stance and reset your guard after each kick.</div>
+        <div class="pattern">Mae geri → reset → mawashi geri → reset → alternate legs → repeat.</div>
+        <div class="round-note"><textarea data-key="a-r5" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
 
     <div class="round-card">
       <div class="round-header" onclick="toggleRound(this)">
-        <div class="round-num">5</div>
-        <div class="round-title">Cross + Lead Hook — First Integration</div>
+        <div class="round-num">6</div>
+        <div class="round-title">Punch-Kick Preview — Cross + Mae Geri</div>
         <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="round-body">
-        <div class="focus-label">First Combination With Hook</div>
-        <div class="cue">Cross followed immediately by lead hook. Keep it at RPE 6 — feel the hip transition, not the power.</div>
-        <div class="cue"><strong>Connection:</strong> as the cross returns, the lead hip immediately loads for the hook. The return of the cross feeds into the hook rotation — same way the jab return fed the cross.</div>
-        <div class="error-note">If the hook feels disconnected — like an afterthought after the cross — pause between them. Feel the hip load for the hook, then deliver it. Speed is not the goal this round.</div>
-        <div class="pattern">Cross → lead hook → full guard return → step back → repeat.</div>
-        <div class="round-note"><textarea data-key="a-r5" placeholder="Round notes..."></textarea></div>
+        <div class="focus-label">First Punch-Kick Connection</div>
+        <div class="cue">Cross followed by rear leg mae geri. One cross, one kick — no more. Keep it deliberate at RPE 6.</div>
+        <div class="cue"><strong>Logic:</strong> the cross disrupts and closes distance slightly. The front kick immediately re-establishes distance and continues pressure. In atemi-waza this is a fundamental distance management sequence.</div>
+        <div class="cue"><strong>Connection:</strong> after the cross lands and the guard returns, chamber the rear leg immediately. Do not pause in between — the cross and kick should feel like a continuous sequence with one brief reset.</div>
+        <div class="error-note">If the kick loses all mechanics after the cross — no chamber, no hip drive — separate the two and drill them independently before reconnecting. Do not train a sloppy kick just to complete the combination.</div>
+        <div class="pattern">Cross → rear mae geri → land → reset guard → step back → repeat.</div>
+        <div class="round-note"><textarea data-key="a-r6" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
   </div>
 
   <div class="section-label">Cool-Down</div>
   <div class="block-card">
-    <h3>Upper Body <span class="dur">4 min</span></h3>
+    <h3>Upper Body <span class="dur">3 min</span></h3>
     <ul class="block-list">
       <li>Chest &amp; shoulder stretch — 30 sec each side</li>
       <li>Cross-body shoulder stretch — 30 sec each side</li>
-      <li>Tricep / lat overhead stretch — 30 sec each side</li>
-      <li>Wrist flexor stretch — arm extended palm up, pull fingers back, 20 sec each side</li>
-      <li>Wrist extensor stretch — arm extended palm down, press fingers down, 20 sec each side</li>
+      <li>Wrist flexor + extensor stretch — 20 sec each, both sides</li>
     </ul>
   </div>
   <div class="block-card">
-    <h3>Lower Body &amp; Breathing <span class="dur">3 min</span></h3>
+    <h3>Lower Body — Extended This Week <span class="dur">4 min</span></h3>
     <ul class="block-list">
-      <li>Hip flexor lunge — 45 sec each side</li>
+      <li class="hl">Hip flexor lunge — 60 sec each side (longer than previous weeks — kicks load the hip flexors)</li>
+      <li class="hl">Standing quad stretch — pull heel to glute, 30 sec each side</li>
+      <li class="hl">Lateral hip stretch — cross one leg over the other seated or standing, 30 sec each side</li>
       <li>Upper trap stretch — 30 sec each side</li>
       <li>Breathing reset — 2 min, 4 sec inhale / 6 sec exhale</li>
     </ul>
@@ -307,16 +332,18 @@
       </div></div>
     <div class="form-row"><label>Energy Level</label>
       <select data-key="a-energy"><option value="">—</option><option>Low — sluggish</option><option>Medium — normal</option><option>High — sharp</option></select></div>
-    <div class="form-row"><label>Left trap fatigue vs last week?</label>
-      <select data-key="a-trap"><option value="">—</option><option>Better — less fatigue</option><option>Same as last week</option><option>Worse</option></select></div>
-    <div class="form-row"><label>Lead hook — hip engagement?</label>
-      <select data-key="a-hook-lead"><option value="">—</option><option>Yes — felt in hip</option><option>Partially — mixed</option><option>No — arm only</option></select></div>
-    <div class="form-row"><label>Rear hook — distinct from cross?</label>
-      <select data-key="a-hook-rear"><option value="">—</option><option>Yes — distinct feel</option><option>Partially</option><option>No — same as cross</option></select></div>
+    <div class="form-row"><label>Mae geri — chamber felt?</label>
+      <select data-key="a-maegeri"><option value="">—</option><option>Yes — clear chamber and extension</option><option>Partially — rushed the chamber</option><option>No — swinging the leg</option></select></div>
+    <div class="form-row"><label>Mawashi geri — supporting foot pivot?</label>
+      <select data-key="a-mawashi"><option value="">—</option><option>Yes — pivot consistent</option><option>Partially</option><option>No — foot stays flat</option></select></div>
+    <div class="form-row"><label>Guard during kicks?</label>
+      <select data-key="a-guard"><option value="">—</option><option>Held — hands stayed up</option><option>Partially — dropped sometimes</option><option>Dropped — upper body leaning</option></select></div>
+    <div class="form-row"><label>Left trap fatigue</label>
+      <select data-key="a-trap"><option value="">—</option><option>Minimal — shoulder blade cue working</option><option>Moderate</option><option>Heavy — same as before</option></select></div>
     <div class="form-row"><label>What felt natural?</label>
-      <textarea data-key="a-natural" placeholder="e.g. lead hook hip snap, cross-hook transition..."></textarea></div>
+      <textarea data-key="a-natural" placeholder="e.g. mae geri chamber, cross-kick connection..."></textarea></div>
     <div class="form-row"><label>What felt forced?</label>
-      <textarea data-key="a-forced" placeholder="e.g. rear hook trajectory, hip reset between hooks..."></textarea></div>
+      <textarea data-key="a-forced" placeholder="e.g. mawashi pivot, balance on single leg..."></textarea></div>
     <div class="form-row"><label>Fatigue first</label>
       <select data-key="a-fatigue"><option value="">—</option><option>Arms / shoulders</option><option>Legs</option><option>Breathing / cardio</option><option>Core</option><option>General / even</option></select></div>
     <div class="form-row"><label>Other Notes</label>
@@ -325,27 +352,28 @@
 
   <div class="coaching-notes">
     <h3>Coaching Notes</h3>
-    <p><strong>Hook vs cross hip feel:</strong> the cross rotation is more forward. The hook is more lateral — the hip snaps inward rather than driving forward. If both feel the same, the hook is becoming a wide cross.</p>
-    <p><strong>Trap check:</strong> did the shoulder depression drill reduce left trap fatigue compared to last week? Even a small improvement confirms the cervical compensation theory and tells us to keep the drill.</p>
-    <p><strong>HR:</strong> Session A targets Z3 / 128–146. Hooks are new and effort naturally increases — keep output deliberate at RPE 6.</p>
+    <p><strong>Chamber first, always:</strong> the quality of any kick is determined by the chamber, not the extension. If the kick feels weak or unstable, the chamber was skipped or rushed.</p>
+    <p><strong>Supporting foot pivot on mawashi geri:</strong> this is the single most important mechanical check for the roundhouse. If the foot does not pivot, the hip is blocked. No pivot = no power.</p>
+    <p><strong>Leg fatigue is expected:</strong> your lower body is now working in bag sessions for the first time. Combined with Wednesday's lower calisthenics, expect legs to feel this by Thursday. That is the intentional combined load of the intensification phase.</p>
+    <p><strong>HR:</strong> kicks raise the cardiovascular demand significantly. Session A targets Z3–Z4 / 128–158. If HR spikes above that, reduce kick intensity not kick volume.</p>
   </div>
 </div>
 
 <!-- SESSION B -->
 <div id="sb" class="tab-content">
   <div class="session-header">
-    <div class="label">Week 3 · Accumulation B</div>
+    <div class="label">Week 4 · Intensification A</div>
     <h1>Session B — Output</h1>
     <div class="meta">
       <span class="meta-badge meta-time">~45 min</span>
-      <span class="meta-badge meta-rpe">RPE 7–8</span>
-      <span class="meta-badge meta-hr">Z4 · 146–160 bpm</span>
-      <span class="meta-badge meta-new">Hooks in Combos</span>
+      <span class="meta-badge meta-rpe">RPE 8</span>
+      <span class="meta-badge meta-hr">Z4–Z5 · 155–170 bpm</span>
+      <span class="meta-badge meta-new">Kicks in Combos</span>
     </div>
   </div>
 
   <div class="theme-callout">
-    You introduced hooks on Tuesday. Today you <strong>integrate them into combinations</strong>. Guard discipline is harder now — both hands are actively striking, which means more opportunities for the guard to break down. Stay obsessive about it.
+    You have the kicks from Tuesday. Today you <strong>integrate them with punches</strong> — short combinations first, then building. This is the first true atemi-waza session: upper and lower body weapons working together. <strong>RPE 8 is the target — this session is meant to be hard.</strong>
   </div>
 
   <div class="section-label">Warm-Up</div>
@@ -362,109 +390,110 @@
   <div class="block-card">
     <h3>Movement Prep <span class="dur">3 min</span></h3>
     <ul class="block-list">
-      <li class="hl">Shoulder depression drill — 10 reps before starting. Shoulders down, hold 3 sec.</li>
-      <li>Light shadowboxing — include slow hooks to rehearse the movement</li>
-      <li>10 hip circles each side</li>
+      <li class="hl">Shoulder depression drill — 10 reps before starting</li>
+      <li>Light shadowboxing — include hooks and slow kicks</li>
+      <li>10 hip circles each side — wide and slow</li>
       <li>10 knee raises each side</li>
+      <li class="hl">10 slow front kicks + 10 slow roundhouses each side in the air — rehearse before the bag</li>
       <li>30 sec light bounce</li>
     </ul>
   </div>
 
   <div class="rounds-section">
     <div class="section-label">Main Work — 8 Rounds</div>
-    <div class="round-info">2 min rounds · 60 sec rest · RPE 7–8 · Integrate hooks. Guard holds.</div>
+    <div class="round-info">2 min rounds · 60 sec rest · RPE 8 · Full atemi-waza toolkit. Push the output.</div>
 
     <div class="round-card">
       <div class="round-header" onclick="toggleRound(this)">
         <div class="round-num">1</div>
-        <div class="round-title">Jab-Cross — Re-Establish Base</div>
+        <div class="round-title">Punch Toolkit — Re-Establish</div>
         <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="round-body">
-        <div class="cue">Jab-cross only. 70% effort. Re-establish the mechanics before hooks enter.</div>
-        <div class="cue"><strong>Shoulder depression active:</strong> set the shoulders down before every cross. Do not let the introduction of hooks reset the corrections from last week.</div>
+        <div class="cue">Full punch toolkit at 70% effort. Jab, cross, lead hook, rear hook. Re-establish the mechanics before kicks enter.</div>
+        <div class="cue"><strong>Shoulder blade active on every strike.</strong> Set it before the round starts and maintain it throughout.</div>
         <div class="round-note"><textarea data-key="b-r1" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
 
-    <div class="round-card ns">
+    <div class="round-card nk">
       <div class="round-header" onclick="toggleRound(this)">
         <div class="round-num">2</div>
-        <div class="round-title">Hook Warm-Up — Both Hands</div>
-        <span class="new-badge">HOOKS</span>
+        <div class="round-title">Kick Warm-Up — Both Kicks, Both Legs</div>
+        <span class="new-badge kick">KICKS</span>
         <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="round-body">
-        <div class="cue">Lead hook and rear hook in isolation. 60% effort. Warm the hook mechanics before combining.</div>
-        <div class="cue"><strong>Hip check:</strong> does each hook feel hip-driven or arm-driven? If arm-driven, slow down and reconnect before pushing the speed.</div>
+        <div class="cue">Mae geri and mawashi geri, both legs, 60% effort. Warm the kicking mechanics before integrating.</div>
+        <div class="cue"><strong>Chamber check:</strong> is the chamber happening before the kick extends? <strong>Pivot check:</strong> is the supporting foot turning on the roundhouse? Establish both before Round 3.</div>
         <div class="round-note"><textarea data-key="b-r2" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
 
-    <div class="round-card ns">
+    <div class="round-card nk">
       <div class="round-header" onclick="toggleRound(this)">
         <div class="round-num">3</div>
-        <div class="round-title">Jab-Cross-Lead Hook</div>
-        <span class="new-badge">COMBO</span>
+        <div class="round-title">Jab-Cross + Mae Geri</div>
+        <span class="new-badge combo">COMBO</span>
         <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="round-body">
-        <div class="focus-label np">First 3-Strike Hook Combination</div>
-        <div class="cue"><strong>Structure:</strong> jab (setup) → cross (power) → lead hook (finish from the side).</div>
-        <div class="cue"><strong>Connection:</strong> as the cross returns, the lead hip immediately loads for the hook. Cross rotation bounces into hook rotation.</div>
-        <div class="cue">70% effort this round — feel the connection before pushing the speed.</div>
-        <div class="error-note">If the hook feels disconnected from the cross, pause between them. Feel the hip load first, then throw the hook.</div>
-        <div class="pattern">Jab-cross-lead hook → full guard return → step → repeat.</div>
+        <div class="focus-label nk">First Full Punch-Kick Combination</div>
+        <div class="cue"><strong>Structure:</strong> jab-cross (punch entry) → rear leg mae geri (kick to create distance). Two punches to disrupt, one kick to control distance and add damage.</div>
+        <div class="cue"><strong>Transition:</strong> after the cross returns to guard, chamber the rear leg immediately. The guard is up during the kick — do not drop the hands as the leg rises.</div>
+        <div class="cue">70% effort this round — feel the transition from punching to kicking before pushing the output.</div>
+        <div class="error-note">If the kick loses its chamber after the punches, the legs are not yet coordinated with the punch-kick transition. Slow down — two punches, pause, then kick. Rebuild the connection gradually.</div>
+        <div class="pattern">Jab-cross → mae geri → land → reset → repeat.</div>
         <div class="round-note"><textarea data-key="b-r3" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
 
-    <div class="round-card ns">
+    <div class="round-card nk">
       <div class="round-header" onclick="toggleRound(this)">
         <div class="round-num">4</div>
-        <div class="round-title">Jab-Cross-Lead Hook — Push to RPE 7</div>
-        <span class="new-badge">COMBO</span>
+        <div class="round-title">Jab-Cross + Mae Geri — Push RPE 8</div>
+        <span class="new-badge combo">COMBO</span>
         <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="round-body">
-        <div class="cue">Same combination. Build to RPE 7. Move between combinations.</div>
-        <div class="cue"><strong>Guard:</strong> as hooks are new, the tendency is to focus on the hook and forget the guard. After every combination — both hands back at cheek height before resetting.</div>
-        <div class="coaching-cue">The bag will swing more from the hook. Step to the side as it comes back, reset your angle, attack again from the new position.</div>
+        <div class="cue">Same combination. Push to RPE 8. Move after every sequence.</div>
+        <div class="cue"><strong>Intent:</strong> the punches disrupt, the kick damages and resets distance. Every combination should feel purposeful — not just hitting the bag, but executing a tactical sequence.</div>
+        <div class="coaching-cue">The bag will swing significantly after the kick. Step off the line as it comes back — do not stand in front of a swinging bag. Reset your position, attack again from a new angle.</div>
         <div class="round-note"><textarea data-key="b-r4" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
 
-    <div class="round-card ns">
+    <div class="round-card nk">
       <div class="round-header" onclick="toggleRound(this)">
         <div class="round-num">5</div>
-        <div class="round-title">Jab-Lead Hook — Atemi Entry Pattern</div>
-        <span class="new-badge">COMBO</span>
+        <div class="round-title">Mae Geri + Jab-Cross</div>
+        <span class="new-badge combo">COMBO</span>
         <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="round-body">
-        <div class="focus-label np">Short Entry Combination</div>
-        <div class="cue">Jab directly into lead hook. No cross in between.</div>
-        <div class="cue"><strong>Atemi-waza intent:</strong> the jab disrupts posture and creates an opening. The hook comes around from the side and closes distance. In a grappling context, this combination sets up a clinch entry — the hook brings you in close and off to the side. Keep that spatial intent even on the bag.</div>
-        <div class="cue"><strong>Mechanics:</strong> as the jab returns, the lead hip immediately snaps for the hook. The faster the jab return, the faster the hook loads.</div>
-        <div class="pattern">Jab-lead hook → step off the line → reset → repeat.</div>
+        <div class="focus-label nk">Kick Opening the Combination</div>
+        <div class="cue">Reverse the order — kick first, then punches. Mae geri (front kick) → jab-cross.</div>
+        <div class="cue"><strong>Atemi-waza logic:</strong> the front kick disrupts the opponent's posture and creates an opening — the punches follow immediately into that opening before they recover. The kick is the door opener here; the punches do the damage.</div>
+        <div class="cue"><strong>Recovery after the kick:</strong> the kicking foot lands and immediately resets into your fighting stance. The punches launch from that stance — not from a compromised position mid-landing.</div>
+        <div class="pattern">Mae geri → land in stance → jab-cross → reset → repeat.</div>
         <div class="round-note"><textarea data-key="b-r5" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
 
-    <div class="round-card ns">
+    <div class="round-card nk">
       <div class="round-header" onclick="toggleRound(this)">
         <div class="round-num">6</div>
-        <div class="round-title">Cross-Rear Hook — Same Side Power</div>
-        <span class="new-badge">COMBO</span>
+        <div class="round-title">Jab-Cross + Mawashi Geri</div>
+        <span class="new-badge combo">COMBO</span>
         <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="round-body">
-        <div class="focus-label np">Two Strikes, Same Hand, Two Angles</div>
-        <div class="cue">Cross (rear hand straight) → rear hook (rear hand horizontal arc). Two strikes with the rear hand, two different trajectories.</div>
-        <div class="cue"><strong>Hip mechanics:</strong> the cross uses the rear hip rotating forward. The rear hook rotates more laterally. Between them, the hip briefly resets — heel down, then pivots again for the hook.</div>
-        <div class="cue"><strong>Tactical logic:</strong> the cross creates a straight-line threat that forces a reaction — the rear hook comes around the outside of that reaction. Two angles of attack from the same side.</div>
-        <div class="error-note">This is technically demanding. If the rear hook loses all hip engagement after the cross, separate the two strikes and rebuild the hip reset between them before recombining.</div>
-        <div class="pattern">Cross → rear hook → guard return → step → repeat.</div>
+        <div class="focus-label nk">Roundhouse Finishing the Combination</div>
+        <div class="cue">Jab-cross → rear leg mawashi geri (roundhouse to the body). Same punch entry as Round 3, different kick finish.</div>
+        <div class="cue"><strong>Hip pivot:</strong> the roundhouse requires the supporting foot to pivot outward as the hip rotates into the kick. Under fatigue this pivot disappears first — watch for it.</div>
+        <div class="cue"><strong>Tactical note:</strong> the roundhouse to the body targets the ribs or liver. After two punches that have pulled the guard inward, the body is exposed. This is the combination logic.</div>
+        <div class="error-note">If the roundhouse loses its pivot and hip rotation after the punches, drop to 60% effort and rebuild. A kick without hip rotation is just a leg swing and will load the knee joint incorrectly on a heavy bag.</div>
+        <div class="pattern">Jab-cross → mawashi geri → land → reset → repeat.</div>
         <div class="round-note"><textarea data-key="b-r6" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
@@ -472,13 +501,13 @@
     <div class="round-card">
       <div class="round-header" onclick="toggleRound(this)">
         <div class="round-num">7</div>
-        <div class="round-title">Free Round — Full Toolkit</div>
+        <div class="round-title">Free Round — Full Atemi-Waza Toolkit</div>
         <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="round-body">
-        <div class="cue">No prescribed combination. Use everything: jab, cross, lead hook, rear hook — in whatever sequence feels natural and reactive.</div>
-        <div class="cue"><strong>One rule:</strong> every combination ends with both hands at guard height before you move or reset.</div>
-        <div class="cue">React to the bag. Move. Change angles. This is where the week's work should start feeling like a coherent striking game.</div>
+        <div class="cue">No prescribed combination. Use everything — jab, cross, hooks, mae geri, mawashi geri — in whatever sequence feels natural and reactive.</div>
+        <div class="cue"><strong>Stay tactical:</strong> vary your entries. Sometimes punch first, sometimes kick first. Change levels — body kicks after head punches, or vice versa. Keep the bag guessing.</div>
+        <div class="cue"><strong>Guard rule:</strong> every combination ends with both hands at cheek height. No exceptions, even when tired.</div>
         <div class="round-note"><textarea data-key="b-r7" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
@@ -490,8 +519,8 @@
         <svg class="round-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="round-body">
-        <div class="cue">Same as Round 7. Push to RPE 8.</div>
-        <div class="cue" style="color:var(--accent);font-weight:600;">Final 30 sec: everything you have left. Guard up, hips active, move after every combination. End the week well.</div>
+        <div class="cue">Same as Round 7. This is the hardest round of the mesocycle so far.</div>
+        <div class="cue" style="color:var(--accent);font-weight:600;">Final 30 sec: give everything you have. Guard up, hips active, move after every combination. Finish the session the way you want to finish the cycle.</div>
         <div class="round-note"><textarea data-key="b-r8" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
@@ -499,19 +528,19 @@
 
   <div class="section-label">Cool-Down</div>
   <div class="block-card">
-    <h3>Upper Body <span class="dur">4 min</span></h3>
+    <h3>Upper Body <span class="dur">3 min</span></h3>
     <ul class="block-list">
       <li>Chest &amp; shoulder stretch — 30 sec each side</li>
       <li>Cross-body shoulder stretch — 30 sec each side</li>
-      <li>Tricep / lat overhead stretch — 30 sec each side</li>
-      <li>Wrist flexor stretch — 20 sec each side</li>
-      <li>Wrist extensor stretch — 20 sec each side</li>
+      <li>Wrist flexor + extensor stretch — 20 sec each, both sides</li>
     </ul>
   </div>
   <div class="block-card">
-    <h3>Lower Body &amp; Breathing <span class="dur">3 min</span></h3>
+    <h3>Lower Body — Extended <span class="dur">4 min</span></h3>
     <ul class="block-list">
-      <li>Hip flexor lunge — 45 sec each side</li>
+      <li class="hl">Hip flexor lunge — 60 sec each side</li>
+      <li class="hl">Standing quad stretch — 30 sec each side</li>
+      <li class="hl">Lateral hip stretch — 30 sec each side</li>
       <li>Upper trap stretch — 30 sec each side</li>
       <li>Breathing reset — 2 min, 4 sec inhale / 6 sec exhale</li>
     </ul>
@@ -523,7 +552,7 @@
       <div class="form-row"><label>Felt RPE</label>
         <select data-key="b-rpe"><option value="">—</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div>
       <div class="form-row"><label>Peak HR (bpm)</label>
-        <input type="number" data-key="b-peak-hr" placeholder="e.g. 168" inputmode="numeric"></div>
+        <input type="number" data-key="b-peak-hr" placeholder="e.g. 170" inputmode="numeric"></div>
     </div>
     <div class="form-row"><label>Cervical Status</label>
       <div class="cervical-toggle" data-key="b-cervical">
@@ -533,14 +562,16 @@
       </div></div>
     <div class="form-row"><label>Energy Level</label>
       <select data-key="b-energy"><option value="">—</option><option>Low — sluggish</option><option>Medium — normal</option><option>High — sharp</option></select></div>
-    <div class="form-row"><label>Hook hip engagement under fatigue?</label>
-      <select data-key="b-hook-fatigue"><option value="">—</option><option>Held — hip active throughout</option><option>Degraded — arm-only when tired</option><option>Arm-only from start</option></select></div>
-    <div class="form-row"><label>Guard in hook combinations?</label>
+    <div class="form-row"><label>Kick mechanics under fatigue?</label>
+      <select data-key="b-kick-fatigue"><option value="">—</option><option>Held — chamber and pivot consistent</option><option>Degraded — mechanics broke down</option><option>Lost completely when tired</option></select></div>
+    <div class="form-row"><label>Punch-kick transition felt?</label>
+      <select data-key="b-transition"><option value="">—</option><option>Smooth — connected naturally</option><option>Partially — some hesitation</option><option>Disconnected — two separate actions</option></select></div>
+    <div class="form-row"><label>Guard during kicks?</label>
       <select data-key="b-guard"><option value="">—</option><option>Held consistently</option><option>Mostly — dropped under fatigue</option><option>Dropped frequently</option></select></div>
     <div class="form-row"><label>What felt natural?</label>
-      <textarea data-key="b-natural" placeholder="e.g. jab-cross-hook flowing, hip transitions..."></textarea></div>
+      <textarea data-key="b-natural" placeholder="e.g. jab-cross-kick flow, mae geri distance control..."></textarea></div>
     <div class="form-row"><label>What felt forced?</label>
-      <textarea data-key="b-forced" placeholder="e.g. rear hook after cross, hip reset between hooks..."></textarea></div>
+      <textarea data-key="b-forced" placeholder="e.g. roundhouse pivot under fatigue, guard during kicks..."></textarea></div>
     <div class="form-row"><label>Fatigue first</label>
       <select data-key="b-fatigue"><option value="">—</option><option>Arms / shoulders</option><option>Legs</option><option>Breathing / cardio</option><option>Core</option><option>General / even</option></select></div>
     <div class="form-row"><label>Other Notes</label>
@@ -549,71 +580,60 @@
 
   <div class="coaching-notes">
     <h3>Coaching Notes</h3>
-    <p><strong>Hook hip test:</strong> the hook should feel distinctly different from the cross — more lateral hip snap vs forward drive. If they feel the same, the hook is drifting into a wide cross.</p>
-    <p><strong>HR target:</strong> Session B targets Z4 / 146–160. With hooks added, output naturally increases — watch that RPE 7–8 doesn't push you back into 180+ territory.</p>
-    <p><strong>Round 5 — atemi intent:</strong> jab-lead hook is your first combination with genuine grappling setup logic. Notice how the hook brings you closer and off to the side — that is the position you want before a clinch entry. Carry that awareness even on the bag.</p>
+    <p><strong>Punch-kick transition:</strong> this is new territory. Some hesitation between punches and kicks is normal in the first session — it will smooth out over Week 4 and 5.</p>
+    <p><strong>Mawashi geri pivot under fatigue:</strong> the supporting foot pivot is the first thing to disappear when tired. If the pivot goes, stop the kick and reset. A kick without pivot puts the knee under lateral load — protect it.</p>
+    <p><strong>HR target:</strong> Z4–Z5 / 155–170. With kicks added this should now be achievable at RPE 8. Note your peak HR and whether it has continued to drop from the Week 3 peak of 183.</p>
+    <p><strong>Leg soreness tomorrow:</strong> expect it. The combination of this session and Wednesday's lower calisthenics is intentional. It is manageable. Prioritise the hip flexor and quad stretches in the cool-down.</p>
   </div>
 </div>
 
 <!-- MISTAKES REF -->
 <div id="ref" class="tab-content">
   <div class="session-header">
-    <div class="label">Week 3 · Reference</div>
+    <div class="label">Week 4 · Reference</div>
     <h1>Common Mistakes</h1>
     <div class="meta"><span class="meta-badge meta-time">Review during rest periods</span></div>
   </div>
 
   <div class="theme-callout">
-    Updated this week with <strong>hook-specific errors</strong>. Jab and cross errors carry over — fatigue still activates them even when hooks are getting most of the attention.
+    Updated this week with <strong>kick-specific errors</strong>. The universal correction across all strikes remains: <strong>shoulder blade down, arm close to the body.</strong>
   </div>
 
-  <div class="section-label">Hook (Mawashi-Zuki) — New This Week</div>
-  <div class="mistakes-section">
+  <div class="section-label">Mae Geri (Front Kick) — New This Week</div>
+  <div class="mt" style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:var(--space-md);">
     <table class="mt">
       <thead><tr><th>Mistake</th><th>What it looks like</th><th>Fix</th></tr></thead>
       <tbody>
-        <tr><td class="mc">Arm-only hook</td><td>Shoulder and arm swing independently of hip</td><td class="fc">Hip snaps first — arm follows. No hip = stop and reset.</td></tr>
-        <tr><td class="mc">Elbow drops below shoulder</td><td>Arc travels diagonally down rather than horizontally</td><td class="fc">Elbow stays at shoulder height throughout the arc — the L-shape holds</td></tr>
-        <tr><td class="mc">Shrugging into the hook</td><td>Shoulder rises toward ear, trap overactivates</td><td class="fc">Shoulder depression — push shoulder blade DOWN before and during the arc</td></tr>
-        <tr><td class="mc">Over-swinging</td><td>Arm travels past the target, body pulled off balance</td><td class="fc">Arc stops at the target. Hip snap provides power — no follow-through past impact</td></tr>
-        <tr><td class="mc">Rear hook same as cross</td><td>Hook travels straight forward, not in a lateral arc</td><td class="fc">Hip rotation is more lateral for the hook. If it feels like the cross, trajectory is wrong.</td></tr>
-        <tr><td class="mc">Guard hand drops</td><td>Non-striking hand falls during hook delivery</td><td class="fc">Striking hand arcs, guard hand stays glued at cheek height</td></tr>
+        <tr><td class="mc">No chamber</td><td>Leg swings forward directly from the floor</td><td class="fc">Knee drives up to chest first — always. Chamber before every kick.</td></tr>
+        <tr><td class="mc">No hip drive</td><td>Kick is foot-only, taps the bag rather than pushing it</td><td class="fc">Hip drives forward into the kick as the leg extends — same principle as the cross</td></tr>
+        <tr><td class="mc">Upper body leans back</td><td>Torso tilts backward to compensate, hands drop</td><td class="fc">Stay upright. Guard up throughout. The lean means the core is not stabilising.</td></tr>
+        <tr><td class="mc">Foot drops straight down after kick</td><td>Kicking foot lands forward rather than returning to stance</td><td class="fc">Return through the chamber position before landing — maintains balance and stance</td></tr>
+        <tr><td class="mc">Supporting leg locked</td><td>Standing knee is fully extended and rigid</td><td class="fc">Supporting knee stays slightly bent — absorbs the kick's recoil, maintains stability</td></tr>
       </tbody>
     </table>
   </div>
 
-  <div class="section-label">Cross — Carries Over</div>
-  <div class="mistakes-section">
+  <div class="section-label">Mawashi Geri (Roundhouse) — New This Week</div>
+  <div class="mt" style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:var(--space-md);">
     <table class="mt">
       <thead><tr><th>Mistake</th><th>What it looks like</th><th>Fix</th></tr></thead>
       <tbody>
-        <tr><td class="mc">Shoulder rides up</td><td>Trap overactivates, power leaks to shoulder</td><td class="fc">Depression cue — push shoulder blade DOWN as the cross launches</td></tr>
-        <tr><td class="mc">Heel stays flat</td><td>Hip rotation blocked</td><td class="fc">Rear heel pivots — check after every cross</td></tr>
-        <tr><td class="mc">Hip stays rotated between crosses</td><td>Heel stays lifted, no elastic reset</td><td class="fc">Full recovery between crosses — heel down, stance reset, rotate again</td></tr>
-        <tr><td class="mc">Lead hand drops</td><td>Guard opens during cross</td><td class="fc">Phone-to-ear height throughout</td></tr>
+        <tr><td class="mc">Supporting foot does not pivot</td><td>Foot stays flat, hip rotation is blocked, kick has no power</td><td class="fc">Supporting heel pivots outward as the kick lands — non-negotiable. Same as the cross heel pivot.</td></tr>
+        <tr><td class="mc">Knee drops before impact</td><td>Arc travels diagonally down rather than horizontally</td><td class="fc">Knee stays at the target height throughout the arc. The chamber sets the height.</td></tr>
+        <tr><td class="mc">Arm-only upper body</td><td>No hip rotation, kick comes from leg strength only</td><td class="fc">Hip drives laterally into the kick — the same hip snap as the hook, applied to the leg</td></tr>
+        <tr><td class="mc">Over-rotating</td><td>Body spins past the target, balance lost</td><td class="fc">Arc stops at the target. Snap back to stance — do not follow through past impact</td></tr>
+        <tr><td class="mc">Guard drops during kick</td><td>Hands fall as the leg rises</td><td class="fc">Both fists at cheek height throughout the kick. No upper body compensation.</td></tr>
       </tbody>
     </table>
   </div>
 
-  <div class="section-label">Jab — Carries Over</div>
-  <div class="mistakes-section">
-    <table class="mt">
-      <thead><tr><th>Mistake</th><th>What it looks like</th><th>Fix</th></tr></thead>
-      <tbody>
-        <tr><td class="mc">Dropping the rear hand</td><td>Guard falls when jabbing</td><td class="fc">Rear fist glued to cheek even at speed</td></tr>
-        <tr><td class="mc">Arm-only jab</td><td>No shoulder drive</td><td class="fc">Shoulder initiates — arm follows</td></tr>
-        <tr><td class="mc">Slow return</td><td>Fist lingers at extension</td><td class="fc">Rubber band — out and back at equal speed</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="section-label">Your Specific Corrections This Week</div>
+  <div class="section-label">Universal Correction — All Strikes</div>
   <div class="block-card">
     <ul class="block-list">
-      <li><strong>Shoulder depression on cross and hooks:</strong> push the shoulder blade DOWN as each strike launches. Primary fix for left trap overactivation — a cervical compensation pattern.</li>
-      <li><strong>Hip reset between consecutive crosses:</strong> heel returns to floor between each cross. Full rotation out, full recovery back.</li>
-      <li><strong>Hook hip engagement:</strong> the hook is not a cross with a curved arm. The hip snaps laterally. No hip engagement = arm-only hook = shoulder fatigue.</li>
-      <li><strong>Guard with hooks:</strong> both hands are now actively striking. End every combination with both hands back at cheek height.</li>
+      <li><strong>Shoulder blade down and forward:</strong> cross, lead hook, rear hook — push the shoulder blade down as each punch launches. Do not let it ride up toward the ear. This is the fix for left trap overactivation and arm-too-far-from-body on all strikes.</li>
+      <li><strong>Hip reset between consecutive same-side strikes:</strong> heel returns to floor between two crosses or two same-side kicks. Each strike is a full rotation and a full recovery.</li>
+      <li><strong>Guard stays up during kicks:</strong> the kick does not excuse the hands from their position. Both fists at cheek height during every kick, every round, regardless of fatigue.</li>
+      <li><strong>Chamber first on every kick:</strong> the quality of the kick is determined by the chamber. Rushed chamber = weak, unstable kick.</li>
     </ul>
   </div>
 </div>
@@ -624,79 +644,81 @@
 <div class="toast" id="toast">Copied to clipboard</div>
 
 <script>
-document.querySelectorAll('.tab').forEach(t => {
-  t.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(x => x.classList.remove('active'));
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));
     t.classList.add('active');
     document.getElementById(t.dataset.tab).classList.add('active');
   });
 });
-function toggleRound(h) { h.parentElement.classList.toggle('open'); }
-function setCervical(btn, level) {
-  const g = btn.parentElement;
-  g.querySelectorAll('button').forEach(b => b.className = '');
-  btn.classList.add('selected-' + level);
-  g.dataset.value = level;
+function toggleRound(h){h.parentElement.classList.toggle('open');}
+function setCervical(btn,level){
+  const g=btn.parentElement;
+  g.querySelectorAll('button').forEach(b=>b.className='');
+  btn.classList.add('selected-'+level);
+  g.dataset.value=level;
   saveData();
 }
-const SK = 'mc4-week3-bag';
-function getAll() { return document.querySelectorAll('[data-key]'); }
-function saveData() {
-  const d = {};
-  getAll().forEach(el => {
-    const k = el.dataset.key;
-    if (el.tagName==='TEXTAREA'||el.tagName==='INPUT') d[k]=el.value;
-    else if (el.tagName==='SELECT') d[k]=el.value;
-    else if (el.classList.contains('cervical-toggle')) d[k]=el.dataset.value||'';
+const SK='mc4-week4-bag';
+function getAll(){return document.querySelectorAll('[data-key]');}
+function saveData(){
+  const d={};
+  getAll().forEach(el=>{
+    const k=el.dataset.key;
+    if(el.tagName==='TEXTAREA'||el.tagName==='INPUT')d[k]=el.value;
+    else if(el.tagName==='SELECT')d[k]=el.value;
+    else if(el.classList.contains('cervical-toggle'))d[k]=el.dataset.value||'';
   });
-  try { localStorage.setItem(SK, JSON.stringify(d)); } catch(e){}
+  try{localStorage.setItem(SK,JSON.stringify(d));}catch(e){}
 }
-function loadData() {
-  try {
-    const raw = localStorage.getItem(SK); if (!raw) return;
-    const d = JSON.parse(raw);
-    getAll().forEach(el => {
-      const k = el.dataset.key;
-      if (!(k in d)||!d[k]) return;
-      if (el.tagName==='TEXTAREA'||el.tagName==='INPUT') el.value=d[k];
-      else if (el.tagName==='SELECT') el.value=d[k];
-      else if (el.classList.contains('cervical-toggle')) {
+function loadData(){
+  try{
+    const raw=localStorage.getItem(SK);if(!raw)return;
+    const d=JSON.parse(raw);
+    getAll().forEach(el=>{
+      const k=el.dataset.key;
+      if(!(k in d)||!d[k])return;
+      if(el.tagName==='TEXTAREA'||el.tagName==='INPUT')el.value=d[k];
+      else if(el.tagName==='SELECT')el.value=d[k];
+      else if(el.classList.contains('cervical-toggle')){
         el.dataset.value=d[k];
         el.querySelectorAll('button').forEach(b=>b.className='');
-        if (d[k]==='good') el.children[0].classList.add('selected-good');
-        if (d[k]==='mild') el.children[1].classList.add('selected-mild');
-        if (d[k]==='flare') el.children[2].classList.add('selected-flare');
+        if(d[k]==='good')el.children[0].classList.add('selected-good');
+        if(d[k]==='mild')el.children[1].classList.add('selected-mild');
+        if(d[k]==='flare')el.children[2].classList.add('selected-flare');
       }
     });
-  } catch(e){}
+  }catch(e){}
 }
-document.addEventListener('input', saveData);
-document.addEventListener('change', saveData);
+document.addEventListener('input',saveData);
+document.addEventListener('change',saveData);
 loadData();
-function exportForClaude() {
-  const get = k => {
-    const el = document.querySelector(`[data-key="${k}"]`);
-    if (!el) return '';
-    if (el.classList.contains('cervical-toggle')) return el.dataset.value||'';
+function exportForClaude(){
+  const get=k=>{
+    const el=document.querySelector(`[data-key="${k}"]`);
+    if(!el)return'';
+    if(el.classList.contains('cervical-toggle'))return el.dataset.value||'';
     return el.value||'';
   };
-  const rn = (pfx, n) => {
+  const rn=(pfx,n)=>{
     let o='';
-    for (let i=1;i<=n;i++){const v=get(`${pfx}-r${i}`);if(v)o+=`  Round ${i}: ${v}\n`;}
+    for(let i=1;i<=n;i++){const v=get(`${pfx}-r${i}`);if(v)o+=`  Round ${i}: ${v}\n`;}
     return o||'  (no round notes)\n';
   };
-  let t = `## Week 3 Bag Sessions — Feedback\nMesocycle 4 | Accumulation B | Hooks introduced\n\n`;
-  t += `### Session A (Technique — Tuesday)\n`;
+  let t=`## Week 4 Bag Sessions — Feedback\nMesocycle 4 | Intensification A | Kicks introduced\n\n`;
+  t+=`### Session A (Technique — Tuesday)\n`;
   [['a-rpe','Felt RPE'],['a-peak-hr','Peak HR'],['a-cervical','Cervical'],['a-energy','Energy'],
-   ['a-trap','Left trap fatigue'],['a-hook-lead','Lead hook hip'],['a-hook-rear','Rear hook distinct'],
-   ['a-fatigue','Fatigue first'],['a-natural','Felt natural'],['a-forced','Felt forced'],['a-notes','Notes']
+   ['a-maegeri','Mae geri chamber'],['a-mawashi','Mawashi pivot'],['a-guard','Guard during kicks'],
+   ['a-trap','Left trap fatigue'],['a-fatigue','Fatigue first'],['a-natural','Felt natural'],
+   ['a-forced','Felt forced'],['a-notes','Notes']
   ].forEach(([k,l])=>{const v=get(k);if(v)t+=`- ${l}: ${v}\n`;});
-  t+=`- Round notes:\n${rn('a',5)}\n`;
-  t += `### Session B (Output — Friday)\n`;
+  t+=`- Round notes:\n${rn('a',6)}\n`;
+  t+=`### Session B (Output — Friday)\n`;
   [['b-rpe','Felt RPE'],['b-peak-hr','Peak HR'],['b-cervical','Cervical'],['b-energy','Energy'],
-   ['b-hook-fatigue','Hook hip under fatigue'],['b-guard','Guard in hook combos'],
-   ['b-fatigue','Fatigue first'],['b-natural','Felt natural'],['b-forced','Felt forced'],['b-notes','Notes']
+   ['b-kick-fatigue','Kick mechanics under fatigue'],['b-transition','Punch-kick transition'],
+   ['b-guard','Guard during kicks'],['b-fatigue','Fatigue first'],
+   ['b-natural','Felt natural'],['b-forced','Felt forced'],['b-notes','Notes']
   ].forEach(([k,l])=>{const v=get(k);if(v)t+=`- ${l}: ${v}\n`;});
   t+=`- Round notes:\n${rn('b',8)}\n`;
   navigator.clipboard.writeText(t).then(()=>{
