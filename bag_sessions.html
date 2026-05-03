@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Week 5 — Bag Sessions</title>
+<title>Week 6 &mdash; Bag Sessions</title>
 <style>
 :root{--bg:#111113;--surface:#1a1a1f;--surface-raised:#222228;--border:#2a2a32;--text-primary:#e8e8ed;--text-secondary:#8e8e9a;--text-tertiary:#5a5a66;--accent:#e8913a;--accent-dim:rgba(232,145,58,0.12);--green:#4ade80;--green-dim:rgba(74,222,128,0.12);--blue:#60a5fa;--blue-dim:rgba(96,165,250,0.12);--red:#f87171;--red-dim:rgba(248,113,113,0.12);--yellow:#facc15;--yellow-dim:rgba(250,204,21,0.12);--purple:#c084fc;--purple-dim:rgba(192,132,252,0.12);--teal:#2dd4bf;--teal-dim:rgba(45,212,191,0.12);--orange:#fb923c;--orange-dim:rgba(251,146,60,0.12);--radius:12px;--xs:4px;--sm:8px;--md:16px;--lg:24px;--xl:32px;}
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -19,7 +18,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue'
 .sh h1{font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1.2;margin-bottom:var(--xs);}
 .sh .meta{font-size:13px;color:var(--text-secondary);display:flex;flex-wrap:wrap;gap:var(--sm) var(--md);}
 .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:6px;font-size:12px;font-weight:600;}
-.ba{background:var(--accent-dim);color:var(--accent);}.bh{background:var(--red-dim);color:var(--red);}.bt{background:var(--blue-dim);color:var(--blue);}.bn{background:var(--orange-dim);color:var(--orange);}.by{background:var(--yellow-dim);color:var(--yellow);}
+.ba{background:var(--accent-dim);color:var(--accent);}.bh{background:var(--red-dim);color:var(--red);}.bt{background:var(--blue-dim);color:var(--blue);}.bg{background:var(--green-dim);color:var(--green);}
 .tc{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--border);margin-bottom:var(--lg);font-size:14px;color:var(--text-secondary);line-height:1.55;}
 .tc strong{color:var(--text-primary);}
 .dc{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--border);margin-bottom:var(--md);font-size:13px;color:var(--text-secondary);line-height:1.55;}
@@ -28,7 +27,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue'
 .dc.good{border-color:var(--green);}.dc.good .dt{color:var(--green);}
 .dc.fix{border-color:var(--accent);}.dc.fix .dt{color:var(--accent);}
 .dc.info{border-color:var(--blue);}.dc.info .dt{color:var(--blue);}
-.dc.hol{border-color:var(--yellow);}.dc.hol .dt{color:var(--yellow);}
 .sl{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:var(--md);}
 .bc{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--border);margin-bottom:var(--md);}
 .bc h3{font-size:14px;font-weight:600;margin-bottom:var(--sm);display:flex;justify-content:space-between;align-items:center;}
@@ -40,24 +38,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue'
 .rs{margin-bottom:var(--lg);}
 .ri{font-size:13px;color:var(--text-secondary);margin-bottom:var(--md);padding:var(--sm) var(--md);background:var(--accent-dim);border-radius:var(--sm);border-left:3px solid var(--accent);}
 .rc{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:var(--sm);overflow:hidden;}
-.rc.nk{border-color:var(--teal);}.rc.kn{border-color:var(--orange);}
 .rh{display:flex;align-items:center;padding:var(--md);cursor:pointer;-webkit-tap-highlight-color:transparent;gap:var(--sm);}
 .rn{width:28px;height:28px;border-radius:8px;background:var(--accent-dim);color:var(--accent);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.rc.nk .rn{background:var(--teal-dim);color:var(--teal);}.rc.kn .rn{background:var(--orange-dim);color:var(--orange);}
 .rt{flex:1;font-size:14px;font-weight:600;}
-.nb{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:.05em;flex-shrink:0;}
-.nb.kick{background:var(--teal-dim);color:var(--teal);}.nb.knee{background:var(--orange-dim);color:var(--orange);}.nb.combo{background:var(--purple-dim);color:var(--purple);}.nb.corr{background:var(--yellow-dim);color:var(--yellow);}
 .chv{color:var(--text-tertiary);transition:transform .2s;flex-shrink:0;}
 .rc.open .chv{transform:rotate(180deg);}
 .rb{display:none;padding:0 var(--md) var(--md);}
 .rc.open .rb{display:block;}
 .fl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--xs);}
-.fl.nk{color:var(--teal);}.fl.kn{color:var(--orange);}
 .cue{font-size:13px;color:var(--text-secondary);line-height:1.55;margin-bottom:var(--sm);}
 .cue strong{color:var(--text-primary);font-weight:600;}
 .en{font-size:12px;color:var(--red);background:var(--red-dim);padding:var(--sm);border-radius:var(--sm);margin-bottom:var(--sm);}
 .cc{font-size:12px;color:var(--blue);background:var(--blue-dim);padding:var(--sm);border-radius:var(--sm);border-left:3px solid var(--blue);margin-bottom:var(--sm);}
-.nt{font-size:12px;color:var(--orange);background:var(--orange-dim);padding:var(--sm);border-radius:var(--sm);border-left:3px solid var(--orange);margin-bottom:var(--sm);}
 .pat{font-size:13px;color:var(--accent);font-weight:500;margin-bottom:var(--sm);}
 .rno{margin-top:var(--sm);border-top:1px solid var(--border);padding-top:var(--sm);}
 .rno textarea{width:100%;background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--sm);color:var(--text-primary);font-family:inherit;font-size:13px;padding:var(--sm);resize:vertical;min-height:36px;line-height:1.4;}
@@ -104,41 +96,39 @@ table.mt tbody tr:last-child td{border-bottom:none;}
 </div>
 
 <!-- SESSION A -->
-
 <div id="sa" class="tab-content active">
   <div class="sh">
-    <div class="lbl">Week 5 &middot; Intensification B</div>
+    <div class="lbl">Week 6 &middot; Taper</div>
     <h1>Session A &mdash; Technique</h1>
     <div class="meta">
       <span class="badge bt">~45 min</span>
       <span class="badge ba">RPE 6&ndash;7</span>
       <span class="badge bh">Z3&ndash;Z4 &middot; 128&ndash;158 bpm</span>
-      <span class="badge bn">+ Knees</span>
-      <span class="badge by">Re-entry after holiday</span>
+      <span class="badge bg">Volume &minus;30%</span>
     </div>
   </div>
 
-  <div class="sl">Week 4 Debrief + Holiday Re-Entry</div>
+  <div class="sl">Week 5 Debrief</div>
 
-  <div class="dc hol">
-    <div class="dt">Holiday Re-Entry Protocol</div>
-    One week off is not a setback &mdash; it is an unplanned deload. Technique and strength are intact. Session A today caps at RPE 6&ndash;7 regardless of how fresh you feel. Do not try to compensate for the missed week by going harder. One session to re-establish movement patterns, then Session B returns to full intensity.
+  <div class="dc good">
+    <div class="dt">Real Max HR Confirmed</div>
+    Session B peak HR of 190 is your actual maximum &mdash; the Tanaka formula estimate of 183 was wrong for you. This is useful data. Your true HR zones should be recalculated with 190 as the ceiling. Z5 = 171&ndash;190. Z4 = 152&ndash;171. Z3 = 133&ndash;152. Z2 = 114&ndash;133. These are the zones to use from here forward.
   </div>
   <div class="dc good">
-    <div class="dt">Week 4 Wins</div>
-    Kick mechanics held under fatigue in Session B. Guard consistent during kicks. RPE 9 / HR 186 was a genuine maximum effort &mdash; the body was pushed to its actual ceiling. Shoulder blade cue now automatic. Rear kicks clearly stronger than lead &mdash; normal, the lead hip rotators need more time.
-  </div>
-  <div class="dc fix">
-    <div class="dt">Two Corrections This Week</div>
-    1. Distance for kicks after punches: punches close distance &mdash; a small reset step back is required before any kick. Built into every combination this week. 2. Lead mawashi geri balance: stay tall, drive the hip laterally. Do not lean your body weight into the kick. Power comes from hip rotation, not momentum.
+    <div class="dt">What Worked</div>
+    Distance management corrected &mdash; kicks felt better ranged. Lead mawashi geri balance improved. Cardio fatiguing first (not shoulders) is a positive shift &mdash; it means the upper body is no longer the weak link. Mae geri&ndash;jab&ndash;cross&ndash;knee combination flowing naturally.
   </div>
   <div class="dc info">
-    <div class="dt">Knees Enter &mdash; Hiza Geri</div>
-    Knee strikes are a short-range close-quarters weapon &mdash; the natural conclusion of closing distance with punches. In atemi-waza they belong at the moment the opponent is closest. Introduced in isolation today, integrated Friday.
+    <div class="dt">Knee Weakness &mdash; It Is the Bag, Not You</div>
+    The knee feeling weak on the bag is a surface problem, not a technique problem. A hanging heavy bag swings away from the knee on impact because the contact angle is vertical rather than forward. Knees feeling stronger when you grip and pull the bag confirms the technique is correct &mdash; that grip simulates the clinch resistance that makes knees devastating. No technique fix needed here.
+  </div>
+  <div class="dc fix">
+    <div class="dt">Bag Swing on Mawashi Combos</div>
+    After the roundhouse, step off the line of the bag&rsquo;s swing before launching punches. The bag arcs predictably &mdash; step to the side of that arc rather than staying directly in front of it. Built into the combinations this week.
   </div>
 
   <div class="tc" style="margin-top:var(--lg);">
-    <strong>Re-entry + knees today.</strong> Rounds 1&ndash;2 verify the existing toolkit after the break. Rounds 3&ndash;4 introduce hiza geri in isolation. Round 5 previews the first knee combination. Round 6 is a free round with all weapons at RPE 6&ndash;7 cap.
+    <strong>Taper week. Volume drops 30%, sharpness goes up.</strong> 5 rounds today instead of 6. No new material. The goal is to arrive at deload feeling sharp and confident &mdash; not beaten up. Every combination this week should feel clean and deliberate. Quality over quantity.
   </div>
 
   <div class="sl">Warm-Up</div>
@@ -156,122 +146,87 @@ table.mt tbody tr:last-child td{border-bottom:none;}
     <h3>Movement Prep <span class="dur">3 min</span></h3>
     <ul class="bl">
       <li class="hl">Shoulder depression drill &mdash; 10 reps. Every session.</li>
-      <li>Light shadowboxing &mdash; punches and slow kicks at low effort</li>
-      <li>10 hip circles each side &mdash; wide and slow</li>
-      <li>10 knee raises each side &mdash; deliberate</li>
-      <li class="hl">10 slow kicks each side in the air &mdash; front kick and roundhouse</li>
-      <li class="hl">10 slow knee strikes each side in the air &mdash; rehearse the drive before the bag</li>
+      <li>Light shadowboxing &mdash; all weapons at low effort</li>
+      <li>10 hip circles each side</li>
+      <li>10 knee raises each side</li>
+      <li>10 slow kicks + 10 slow knees each side in the air</li>
       <li>30 sec light bounce</li>
     </ul>
   </div>
 
   <div class="rs">
-    <div class="sl">Main Work &mdash; 6 Rounds</div>
-    <div class="ri">3 min rounds &middot; 90 sec rest &middot; RPE 6&ndash;7 &middot; Re-entry cap. Do not exceed RPE 7 today.</div>
+    <div class="sl">Main Work &mdash; 5 Rounds</div>
+    <div class="ri">3 min rounds &middot; 90 sec rest &middot; RPE 6&ndash;7 &middot; Taper &mdash; 5 rounds only. Sharp and clean.</div>
 
-```
-<div class="rc">
-  <div class="rh" onclick="TR(this)">
-    <div class="rn">1</div>
-    <div class="rt">Full Punch Toolkit &mdash; Mechanics Check</div>
-    <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-  </div>
-  <div class="rb">
-    <div class="fl">Re-Entry Round</div>
-    <div class="cue">Jab, cross, lead hook, rear hook &mdash; all punches at 60% effort. Re-establish the movement patterns after the break.</div>
-    <div class="cue"><strong>Shoulder blade active:</strong> set it on the first cross and maintain. Check trap is not overactivating.</div>
-    <div class="cue"><strong>Combinations to include:</strong> jab-cross, jab-lead hook, cross-rear hook. The awkward ones &mdash; keep working them.</div>
-    <div class="rno"><textarea data-key="a-r1" placeholder="Round notes..."></textarea></div>
-  </div>
-</div>
+    <div class="rc">
+      <div class="rh" onclick="TR(this)">
+        <div class="rn">1</div><div class="rt">Full Punch Toolkit &mdash; Sharpness Check</div>
+        <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="rb">
+        <div class="fl">Foundation</div>
+        <div class="cue">Jab, cross, all hooks. Full combination repertoire including jab-lead hook and cross-rear hook. 65% effort.</div>
+        <div class="cue"><strong>Standard this week:</strong> every strike sharp and deliberate. No sloppy output. Taper is about arriving at deload having consolidated everything you&rsquo;ve built &mdash; not grinding for more volume.</div>
+        <div class="cue"><strong>Shoulder blade active</strong> on every cross and hook. This is automatic now &mdash; just confirm it is still there.</div>
+        <div class="rno"><textarea data-key="a-r1" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
 
-<div class="rc nk">
-  <div class="rh" onclick="TR(this)">
-    <div class="rn">2</div>
-    <div class="rt">Kicks &mdash; Distance Reset Drill</div>
-    <span class="nb corr">CORRECTION</span>
-    <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-  </div>
-  <div class="rb">
-    <div class="fl nk">Fixing the Distance Problem</div>
-    <div class="cue">Mae geri and mawashi geri &mdash; both legs, 60% effort. Addresses the too-close problem from Week 4 Session B.</div>
-    <div class="cue"><strong>Distance reset step:</strong> before every kick, take one small step back to create kicking range. Make it deliberate &mdash; step back, set stance, then kick. You are training the habit of creating space before committing.</div>
-    <div class="cue"><strong>Lead mawashi geri &mdash; stay tall:</strong> drive the hip laterally, keep the torso upright. The power comes from the hip rotation, not from throwing body weight at the bag.</div>
-    <div class="en">If you still feel too close for the kick after the reset step, you are not stepping far enough. The kick should reach the bag comfortably from the extended position.</div>
-    <div class="rno"><textarea data-key="a-r2" placeholder="Round notes..."></textarea></div>
-  </div>
-</div>
+    <div class="rc">
+      <div class="rh" onclick="TR(this)">
+        <div class="rn">2</div><div class="rt">Kicks &mdash; Distance + Bag Angle Correction</div>
+        <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="rb">
+        <div class="fl">Kick Sharpness</div>
+        <div class="cue">Mae geri and mawashi geri &mdash; both legs. Distance reset step before every kick.</div>
+        <div class="cue"><strong>Lead mawashi geri cue:</strong> drive the hip forward and laterally into the kick. Do not let the torso tilt back as the leg rises. The hip leads &mdash; the leg follows. Torso stays upright throughout.</div>
+        <div class="cue"><strong>Mawashi geri + punches &mdash; bag swing fix:</strong> after the roundhouse lands, step to the side of the bag&rsquo;s swing arc before launching punches. The bag will swing predictably. Do not stand directly in its path &mdash; step off the line and attack from a new angle.</div>
+        <div class="rno"><textarea data-key="a-r2" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
 
-<div class="rc kn">
-  <div class="rh" onclick="TR(this)">
-    <div class="rn">3</div>
-    <div class="rt">Hiza Geri &mdash; Knee Strike Isolation</div>
-    <span class="nb knee">NEW</span>
-    <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-  </div>
-  <div class="rb">
-    <div class="fl kn">New &mdash; Hiza Geri (Knee Strike)</div>
-    <div class="nt">In atemi-waza: hiza geri &mdash; knee strike driven upward at close range. Used when distance has closed after punches or in a clinch. It is a short, explosive, linear weapon. Unlike kicks, the knee requires proximity, not distance.</div>
-    <div class="cue"><strong>Mechanics:</strong> drive the rear knee sharply upward toward the bag. The hip drives upward and forward &mdash; same hip extension principle as mae geri but abbreviated and more vertical. Supporting leg rises onto the ball of the foot.</div>
-    <div class="cue"><strong>Upper body:</strong> both hands stay at guard height. On the bag, grip the bag briefly with both hands and drive the knee in &mdash; this simulates the clinch application and adds the correct upper body engagement.</div>
-    <div class="cue"><strong>Impact:</strong> the point of the kneecap or just above it. Drive through the target.</div>
-    <div class="cue"><strong>Recovery:</strong> knee returns to the floor in fighting stance. No hopping or spinning.</div>
-    <div class="en">Common error: the knee swings forward in a wide arc rather than driving straight up. Drive is vertical &mdash; think elevator, not pendulum.</div>
-    <div class="pat">Rear hiza geri &times;3 &rarr; reset &rarr; lead hiza geri &times;3 &rarr; reset &rarr; repeat. Slow and deliberate.</div>
-    <div class="rno"><textarea data-key="a-r3" placeholder="Round notes..."></textarea></div>
-  </div>
-</div>
+    <div class="rc">
+      <div class="rh" onclick="TR(this)">
+        <div class="rn">3</div><div class="rt">Knees &mdash; Grip and Drive</div>
+        <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="rb">
+        <div class="fl">Knee Strike Refinement</div>
+        <div class="cue">Hiza geri with bag grip only this round. Grab the bag at shoulder height, pull it toward you, drive 2&ndash;3 knees in, release, step back, reset.</div>
+        <div class="cue"><strong>On the knee feeling weak:</strong> this is the bag surface, not your technique. The grip-and-pull simulates the clinch resistance that makes the knee land properly. Without that resistance, the bag just swings away. Trust the technique &mdash; when you feel the bag pulled toward you and the knee meets it mid-drive, that is correct.</div>
+        <div class="cue"><strong>Hip drive direction:</strong> the knee goes straight up and slightly forward into the target. Not a wide arc &mdash; a short, sharp vertical drive. Think of driving your kneecap through the bag, not swinging your leg at it.</div>
+        <div class="cc">The knee will feel much more powerful in a real application with a partner holding a pad or in a clinch. The bag&rsquo;s swing limitation is a training surface issue, not a technique issue. Do not try to compensate for it by changing the mechanics.</div>
+        <div class="rno"><textarea data-key="a-r3" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
 
-<div class="rc kn">
-  <div class="rh" onclick="TR(this)">
-    <div class="rn">4</div>
-    <div class="rt">Hiza Geri &mdash; With Bag Grip</div>
-    <span class="nb knee">KNEE</span>
-    <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-  </div>
-  <div class="rb">
-    <div class="fl kn">Clinch Context</div>
-    <div class="cue">Same knee mechanics &mdash; now grip the bag with both hands before each knee strike.</div>
-    <div class="cue"><strong>Grip and pull:</strong> grab the bag at shoulder height. Pull it toward you as you drive the knee up. In atemi-waza you pull the opponent into the knee &mdash; they cannot create distance to defend. Deliver 2&ndash;3 knees per grip before releasing and resetting.</div>
-    <div class="cc">The grip-pull-knee sequence uses the same kumi-kata instinct from your judo gripping. Let that carry over &mdash; this should feel instinctive.</div>
-    <div class="pat">Grab bag &rarr; 2&ndash;3 hiza geri &rarr; release &rarr; step back to stance &rarr; reset &rarr; repeat.</div>
-    <div class="rno"><textarea data-key="a-r4" placeholder="Round notes..."></textarea></div>
-  </div>
-</div>
+    <div class="rc">
+      <div class="rh" onclick="TR(this)">
+        <div class="rn">4</div><div class="rt">Full Combination Flow &mdash; Chosen Sequences</div>
+        <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="rb">
+        <div class="fl">Consolidation Round</div>
+        <div class="cue">Pick your two best-feeling combinations from this mesocycle and drill them alternately this round. Clean, sharp, with footwork between each.</div>
+        <div class="cue"><strong>Suggestion based on your feedback:</strong> mae geri &rarr; jab-cross &rarr; rear hiza geri felt the most natural. Use that as one. For the second, pick whichever punch combination flows best &mdash; jab-cross-lead hook or jab-cross-jab.</div>
+        <div class="cue"><strong>Quality marker:</strong> by the end of this round, each combination should feel like a single connected movement rather than a sequence of separate strikes. That is the taper goal &mdash; consolidation of the patterns built across 5 weeks.</div>
+        <div class="rno"><textarea data-key="a-r4" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
 
-<div class="rc kn">
-  <div class="rh" onclick="TR(this)">
-    <div class="rn">5</div>
-    <div class="rt">Cross-Lead Hook + Hiza Geri</div>
-    <span class="nb combo">COMBO</span>
-    <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-  </div>
-  <div class="rb">
-    <div class="fl kn">First Knee Combination</div>
-    <div class="cue">Cross-lead hook (entering close range) &rarr; rear hiza geri. The two punches close the distance &mdash; the knee is the close-range finish.</div>
-    <div class="cue"><strong>Distance logic:</strong> the cross-hook naturally brings you inside kicking range. From that close distance a kick is difficult &mdash; but a knee is exactly right. This is why the knee exists here.</div>
-    <div class="cue"><strong>Transition:</strong> after the hook lands, weight is already forward and close. Drive the rear knee up directly from that position &mdash; no step back before the knee.</div>
-    <div class="pat">Cross-lead hook &rarr; rear hiza geri &rarr; step back to stance &rarr; reset &rarr; repeat.</div>
-    <div class="rno"><textarea data-key="a-r5" placeholder="Round notes..."></textarea></div>
-  </div>
-</div>
-
-<div class="rc">
-  <div class="rh" onclick="TR(this)">
-    <div class="rn">6</div>
-    <div class="rt">Free Round &mdash; Full Toolkit, Controlled</div>
-    <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-  </div>
-  <div class="rb">
-    <div class="fl">Re-Entry Free Round</div>
-    <div class="cue">Use everything &mdash; punches, kicks, knees. No prescribed combinations. RPE 6&ndash;7 ceiling.</div>
-    <div class="cue"><strong>Distance awareness:</strong> vary your range consciously. Kicks at long range (with reset step), punches at medium range, knees after punches have closed the gap.</div>
-    <div class="cue" style="color:var(--accent);">Three ranges, three weapon systems. You now have all of them. This is the full atemi-waza picture.</div>
-    <div class="rno"><textarea data-key="a-r6" placeholder="Round notes..."></textarea></div>
-  </div>
-</div>
-```
-
+    <div class="rc">
+      <div class="rh" onclick="TR(this)">
+        <div class="rn">5</div><div class="rt">Free Round &mdash; Full Toolkit, Sharp</div>
+        <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="rb">
+        <div class="fl">Taper Free Round</div>
+        <div class="cue">No prescribed combinations. Use everything at RPE 6&ndash;7. React to the bag. Vary your range &mdash; kick from distance, punch from medium, knee after closing in.</div>
+        <div class="cue" style="color:var(--accent);">This is what six weeks of work looks like. Every weapon available, every range covered, guard intact. Arrive at Friday feeling sharp &mdash; not tired.</div>
+        <div class="rno"><textarea data-key="a-r5" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
   </div>
 
   <div class="sl">Cool-Down</div>
@@ -282,137 +237,131 @@ table.mt tbody tr:last-child td{border-bottom:none;}
     <h3>Post-Session Log</h3>
     <div class="if">
       <div class="fr"><label>Felt RPE</label><select data-key="a-rpe"><option value="">&#8212;</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div>
-      <div class="fr"><label>Peak HR (bpm)</label><input type="number" data-key="a-peak-hr" placeholder="e.g. 155" inputmode="numeric"></div>
+      <div class="fr"><label>Peak HR (bpm)</label><input type="number" data-key="a-peak-hr" placeholder="e.g. 150" inputmode="numeric"></div>
     </div>
     <div class="fr"><label>Cervical Status</label><div class="ct" data-key="a-cervical"><button onclick="SC(this,'good')">Good</button><button onclick="SC(this,'mild')">Mild tension</button><button onclick="SC(this,'flare')">Flare-up</button></div></div>
     <div class="fr"><label>Energy Level</label><select data-key="a-energy"><option value="">&#8212;</option><option>Low &mdash; sluggish</option><option>Medium &mdash; normal</option><option>High &mdash; sharp</option></select></div>
-    <div class="fr"><label>Distance reset step &mdash; helped?</label><select data-key="a-dist"><option value="">&#8212;</option><option>Yes &mdash; kicks felt better ranged</option><option>Partially &mdash; still too close sometimes</option><option>No &mdash; same problem</option></select></div>
-    <div class="fr"><label>Lead mawashi balance?</label><select data-key="a-bal"><option value="">&#8212;</option><option>Better &mdash; stayed upright</option><option>Partially &mdash; still leaning sometimes</option><option>Same &mdash; still losing balance</option></select></div>
-    <div class="fr"><label>Hiza geri &mdash; hip drive felt?</label><select data-key="a-knee"><option value="">&#8212;</option><option>Yes &mdash; sharp upward drive</option><option>Partially &mdash; mixed</option><option>No &mdash; swinging the knee</option></select></div>
-    <div class="fr"><label>What felt natural?</label><textarea data-key="a-natural" placeholder="e.g. knee after hooks, distance management..."></textarea></div>
-    <div class="fr"><label>What felt forced?</label><textarea data-key="a-forced" placeholder="e.g. knee mechanics, transition..."></textarea></div>
+    <div class="fr"><label>Combinations feeling consolidated?</label><select data-key="a-consol"><option value="">&#8212;</option><option>Yes &mdash; flowing as single movements</option><option>Partially &mdash; some still mechanical</option><option>No &mdash; still feeling like separate strikes</option></select></div>
+    <div class="fr"><label>Mawashi + punches &mdash; bag swing managed?</label><select data-key="a-swing"><option value="">&#8212;</option><option>Yes &mdash; stepped off the line</option><option>Partially</option><option>No &mdash; still in the swing path</option></select></div>
+    <div class="fr"><label>Which combination felt sharpest?</label><textarea data-key="a-best" placeholder="e.g. mae geri - jab-cross - knee..."></textarea></div>
+    <div class="fr"><label>What still needs work?</label><textarea data-key="a-work" placeholder="e.g. cross-rear hook transition, knee under fatigue..."></textarea></div>
     <div class="fr"><label>Fatigue first</label><select data-key="a-fatigue"><option value="">&#8212;</option><option>Arms / shoulders</option><option>Legs / hips</option><option>Breathing / cardio</option><option>Core</option><option>General / even</option></select></div>
     <div class="fr"><label>Other Notes</label><textarea data-key="a-notes" placeholder="Anything else..."></textarea></div>
   </div>
 
   <div class="cn">
     <h3>Coaching Notes</h3>
-    <p><strong>Re-entry check:</strong> note whether the week off affected anything. The movement patterns should feel intact &mdash; if something feels off, name it in the notes so we address it before Friday.</p>
-    <p><strong>Knee drive direction:</strong> straight up, not in a wide arc forward. Think elevator, not pendulum. If it feels like a bent-leg kick, the mechanics are wrong.</p>
-    <p><strong>Three ranges:</strong> after this session you should start building an instinct for which weapon belongs at which distance. Long range &mdash; kicks. Medium range &mdash; punches. Close range &mdash; knees.</p>
+    <p><strong>HR target shift:</strong> updated zones based on confirmed max HR of 190. Z3 = 133&ndash;152. Z4 = 152&ndash;171. Technique session should stay in Z3&ndash;low Z4.</p>
+    <p><strong>Taper mindset:</strong> the volume drop is intentional. Resist the urge to add rounds or push harder &mdash; the goal is to consolidate adaptation, not accumulate more fatigue before deload.</p>
+    <p><strong>Round 4 &mdash; combination choice:</strong> picking your own best-feeling combinations is deliberate. By Week 6 you should have enough body knowledge to know what flows well for you. That self-awareness is part of the training.</p>
   </div>
 </div>
 
 <!-- SESSION B -->
-
 <div id="sb" class="tab-content">
   <div class="sh">
-    <div class="lbl">Week 5 &middot; Intensification B</div>
+    <div class="lbl">Week 6 &middot; Taper</div>
     <h1>Session B &mdash; Output</h1>
     <div class="meta">
       <span class="badge bt">~45 min</span>
-      <span class="badge ba">RPE 8</span>
-      <span class="badge bh">Z4&ndash;Z5 &middot; 155&ndash;175 bpm</span>
-      <span class="badge bn">Full Toolkit</span>
+      <span class="badge ba">RPE 7</span>
+      <span class="badge bh">Z3&ndash;Z4 &middot; 133&ndash;171 bpm</span>
+      <span class="badge bg">Volume &minus;30%</span>
     </div>
   </div>
 
   <div class="tc">
-    The complete atemi-waza toolkit is available: punches, kicks, knees. Today you use <strong>all of it under pressure</strong>. Combinations get longer. Distance management is the tactical thread running through every round. <strong>This is the last hard session of the mesocycle &mdash; Week 6 is taper.</strong>
+    <strong>Final session of Mesocycle 4.</strong> Volume drops to 6 rounds. RPE is 7 &mdash; one notch below last week&rsquo;s RPE 8&ndash;9. The goal is to finish sharp, not spent. You should feel good at the end of this session, not destroyed. Deload starts Monday.
   </div>
 
   <div class="sl">Warm-Up</div>
   <div class="bc"><h3>Cervical Prehab <span class="dur">5 min</span></h3><ul class="bl"><li>Chin tucks &mdash; 2&times;10, head slides back, gaze stays level</li><li>Cervical rotations &mdash; 5 reps each side, pain-free range only</li><li>Lateral neck stretch &mdash; 20&ndash;30 sec each side, gravity only</li><li>Scapular retractions &mdash; 2&times;15 reps</li><li>Shoulder rolls &mdash; 10 forward, 10 backward</li></ul></div>
-  <div class="bc"><h3>Movement Prep <span class="dur">3 min</span></h3><ul class="bl"><li class="hl">Shoulder depression drill &mdash; 10 reps</li><li>Light shadowboxing &mdash; all weapons at low effort</li><li>10 hip circles each side</li><li>10 knee raises each side</li><li class="hl">10 slow kicks + 10 slow knees each side in the air</li><li>30 sec light bounce</li></ul></div>
+  <div class="bc"><h3>Movement Prep <span class="dur">3 min</span></h3><ul class="bl"><li class="hl">Shoulder depression drill &mdash; 10 reps</li><li>Light shadowboxing &mdash; all weapons at low effort</li><li>10 hip circles each side</li><li>10 knee raises each side</li><li>10 slow kicks + 10 slow knees each side in the air</li><li>30 sec light bounce</li></ul></div>
 
   <div class="rs">
-    <div class="sl">Main Work &mdash; 8 Rounds</div>
-    <div class="ri">2 min rounds &middot; 60 sec rest &middot; RPE 8 &middot; Full toolkit. Distance management. Push the output.</div>
+    <div class="sl">Main Work &mdash; 6 Rounds</div>
+    <div class="ri">2 min rounds &middot; 60 sec rest &middot; RPE 7 &middot; Taper &mdash; 6 rounds only. Finish sharp.</div>
 
-```
-<div class="rc">
-  <div class="rh" onclick="TR(this)"><div class="rn">1</div><div class="rt">Punch Toolkit &mdash; Re-Establish at Output</div><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
-  <div class="rb">
-    <div class="cue">Full punch toolkit at 75% effort. Re-establish at output speed before kicks and knees enter.</div>
-    <div class="cue"><strong>Shoulder blade active from the first strike.</strong> Set it, maintain it.</div>
-    <div class="rno"><textarea data-key="b-r1" placeholder="Round notes..."></textarea></div>
-  </div>
-</div>
+    <div class="rc">
+      <div class="rh" onclick="TR(this)">
+        <div class="rn">1</div><div class="rt">Punch Toolkit &mdash; 70% Output</div>
+        <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="rb">
+        <div class="cue">Full punch toolkit at 70% effort. Establish the mechanics cleanly before the pace builds.</div>
+        <div class="cue"><strong>Shoulder blade active.</strong> Set it and maintain it. Every strike lands with intent.</div>
+        <div class="rno"><textarea data-key="b-r1" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
 
-<div class="rc nk">
-  <div class="rh" onclick="TR(this)"><div class="rn">2</div><div class="rt">Kick Warm-Up &mdash; Distance Corrected</div><span class="nb kick">KICKS</span><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
-  <div class="rb">
-    <div class="cue">Mae geri and mawashi geri, both legs, 65% effort. Distance reset step before every kick.</div>
-    <div class="cue"><strong>Lead mawashi geri:</strong> stay tall, drive hip laterally. If balance goes, slow down &mdash; it is a lean issue, not a strength issue.</div>
-    <div class="rno"><textarea data-key="b-r2" placeholder="Round notes..."></textarea></div>
-  </div>
-</div>
+    <div class="rc">
+      <div class="rh" onclick="TR(this)">
+        <div class="rn">2</div><div class="rt">Mae Geri + Jab-Cross + Rear Hiza Geri</div>
+        <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="rb">
+        <div class="fl">Three-Range Entry &mdash; Sharpest Sequence</div>
+        <div class="cue">Your best-flowing combination from Week 5. Front kick &rarr; step in &rarr; jab-cross &rarr; rear knee. Clean transitions, guard returns after the knee, step back sharply.</div>
+        <div class="cue">70% effort building to 75%. Not RPE 8 &mdash; this is taper. The combination should feel fluid, not forced.</div>
+        <div class="pat">Mae geri &rarr; step in &rarr; jab-cross &rarr; rear hiza geri &rarr; step back &rarr; reset &rarr; repeat.</div>
+        <div class="rno"><textarea data-key="b-r2" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
 
-<div class="rc kn">
-  <div class="rh" onclick="TR(this)"><div class="rn">3</div><div class="rt">Jab-Cross + Rear Hiza Geri</div><span class="nb combo">COMBO</span><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
-  <div class="rb">
-    <div class="fl kn">Punches Into Close-Range Knee</div>
-    <div class="cue">Jab-cross (medium range) &rarr; rear knee (close range). The jab-cross closes the distance &mdash; the knee is the natural close-range follow-through. No step back before the knee.</div>
-    <div class="cue">75% effort &mdash; establish the connection before pushing RPE 8.</div>
-    <div class="pat">Jab-cross &rarr; rear hiza geri &rarr; step back &rarr; reset &rarr; repeat.</div>
-    <div class="rno"><textarea data-key="b-r3" placeholder="Round notes..."></textarea></div>
-  </div>
-</div>
+    <div class="rc">
+      <div class="rh" onclick="TR(this)">
+        <div class="rn">3</div><div class="rt">Mawashi Geri + Cross-Lead Hook + Rear Hiza Geri</div>
+        <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="rb">
+        <div class="fl">Roundhouse Entry &mdash; Bag Swing Managed</div>
+        <div class="cue">Rear mawashi geri (body) &rarr; step off the swing line &rarr; cross-lead hook &rarr; rear hiza geri.</div>
+        <div class="cue"><strong>Bag swing fix in practice:</strong> after the roundhouse, watch the bag swing and step to the side of its arc. The cross launches from that angled position. You are now attacking from a slightly different angle than the kick &mdash; which is tactically correct anyway.</div>
+        <div class="cue"><strong>Knee after the hook:</strong> the hook brings you close. Drive the knee directly from that close position. Grip the bag briefly if it helps anchor the knee drive.</div>
+        <div class="pat">Mawashi geri &rarr; step off swing line &rarr; cross-lead hook &rarr; rear hiza geri &rarr; step back &rarr; reset.</div>
+        <div class="rno"><textarea data-key="b-r3" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
 
-<div class="rc kn">
-  <div class="rh" onclick="TR(this)"><div class="rn">4</div><div class="rt">Jab-Cross + Rear Hiza Geri &mdash; Push RPE 8</div><span class="nb combo">COMBO</span><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
-  <div class="rb">
-    <div class="cue">Same combination. Push to RPE 8. Move after every sequence.</div>
-    <div class="cue"><strong>Multiple knees:</strong> deliver 2 knees per entry &mdash; jab-cross &rarr; knee-knee &rarr; step back. The second knee comes while you still have proximity.</div>
-    <div class="cc">After the knees, step back sharply to create distance before the next combination. Reset to medium range and re-enter.</div>
-    <div class="rno"><textarea data-key="b-r4" placeholder="Round notes..."></textarea></div>
-  </div>
-</div>
+    <div class="rc">
+      <div class="rh" onclick="TR(this)">
+        <div class="rn">4</div><div class="rt">Jab-Cross-Lead Hook + Rear Hiza Geri</div>
+        <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="rb">
+        <div class="fl">Pure Punch-to-Knee Entry</div>
+        <div class="cue">Three punches closing the distance &rarr; rear knee at close range. No kick in this sequence &mdash; punches do all the work of entering, knee finishes inside.</div>
+        <div class="cue"><strong>Three-punch entry:</strong> the jab sets up the cross, the cross sets up the hook, the hook closes into knee range. Each punch serves the next action.</div>
+        <div class="cue">Push to RPE 7 this round. This should be one of the sharpest combinations of the session.</div>
+        <div class="pat">Jab-cross-lead hook &rarr; rear hiza geri &rarr; step back &rarr; reset &rarr; repeat.</div>
+        <div class="rno"><textarea data-key="b-r4" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
 
-<div class="rc nk">
-  <div class="rh" onclick="TR(this)"><div class="rn">5</div><div class="rt">Mae Geri + Jab-Cross + Rear Hiza Geri</div><span class="nb combo">COMBO</span><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
-  <div class="rb">
-    <div class="fl nk">Full Three-Range Entry Sequence</div>
-    <div class="cue">Front kick (long range) &rarr; step in &rarr; jab-cross (medium range) &rarr; rear knee (close range). Each weapon opens the door for the next.</div>
-    <div class="cue"><strong>Transitions:</strong> after mae geri lands, step in immediately &mdash; no pause. Punches launch from the stepped-in position. After the cross, knee directly.</div>
-    <div class="en">If the sequence feels like three separate drills, slow to 60% and work the flow as one continuous sequence: kick lands, step, punch, punch, knee.</div>
-    <div class="pat">Mae geri &rarr; step in &rarr; jab-cross &rarr; rear hiza geri &rarr; step back &rarr; reset &rarr; repeat.</div>
-    <div class="rno"><textarea data-key="b-r5" placeholder="Round notes..."></textarea></div>
-  </div>
-</div>
+    <div class="rc">
+      <div class="rh" onclick="TR(this)">
+        <div class="rn">5</div><div class="rt">Free Round &mdash; Full Toolkit</div>
+        <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="rb">
+        <div class="cue">No prescribed combinations. Use everything. React, vary your range, move after every sequence.</div>
+        <div class="cue"><strong>Three-range awareness:</strong> make it deliberate this round. Every time you are at long range &mdash; kick. Every time you are at medium range &mdash; punch. Every time you have closed in &mdash; knee. Let the distance decide the weapon.</div>
+        <div class="cue"><strong>Guard rule:</strong> every combination ends with both hands at cheek height. No exceptions.</div>
+        <div class="rno"><textarea data-key="b-r5" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
 
-<div class="rc nk">
-  <div class="rh" onclick="TR(this)"><div class="rn">6</div><div class="rt">Mawashi Geri + Cross-Lead Hook + Hiza Geri</div><span class="nb combo">COMBO</span><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
-  <div class="rb">
-    <div class="fl nk">Roundhouse Entry Sequence</div>
-    <div class="cue">Rear mawashi geri (body) &rarr; step in &rarr; cross-lead hook &rarr; rear hiza geri. The roundhouse rotates and disrupts structure. The cross-hook follows into that disrupted position. The knee finishes inside.</div>
-    <div class="cue"><strong>Distance:</strong> take the reset step before the roundhouse. After it lands, step in for the punches &mdash; distance closes naturally from there.</div>
-    <div class="cc">This is the most complex combination of the mesocycle. If it does not flow, break it into two parts &mdash; mawashi-cross-hook, then cross-hook-knee &mdash; and drill each before reconnecting.</div>
-    <div class="pat">Mawashi geri &rarr; step in &rarr; cross-lead hook &rarr; rear hiza geri &rarr; step back &rarr; reset &rarr; repeat.</div>
-    <div class="rno"><textarea data-key="b-r6" placeholder="Round notes..."></textarea></div>
-  </div>
-</div>
-
-<div class="rc">
-  <div class="rh" onclick="TR(this)"><div class="rn">7</div><div class="rt">Free Round &mdash; Full Atemi-Waza Toolkit</div><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
-  <div class="rb">
-    <div class="cue">No prescribed combination. Use everything. React, change angles, vary your range.</div>
-    <div class="cue"><strong>Distance awareness:</strong> choose your weapon based on where you are. Far &mdash; kick. Medium &mdash; punch. Close &mdash; knee. Do not kick from close range. Do not knee from far range.</div>
-    <div class="cue"><strong>Guard rule:</strong> every combination ends with both hands at cheek height before you move or reset.</div>
-    <div class="rno"><textarea data-key="b-r7" placeholder="Round notes..."></textarea></div>
-  </div>
-</div>
-
-<div class="rc">
-  <div class="rh" onclick="TR(this)"><div class="rn">8</div><div class="rt">Free Round &mdash; Finish Strong</div><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
-  <div class="rb">
-    <div class="cue">Same as Round 7. Push to RPE 8. This is the last hard session of the mesocycle.</div>
-    <div class="cue" style="color:var(--accent);font-weight:600;">Final 30 sec: everything you have. Guard up, hips active, move after every combination. Five weeks of work ends here &mdash; make this round count.</div>
-    <div class="rno"><textarea data-key="b-r8" placeholder="Round notes..."></textarea></div>
-  </div>
-</div>
-```
-
+    <div class="rc">
+      <div class="rh" onclick="TR(this)">
+        <div class="rn">6</div><div class="rt">Final Round &mdash; End the Mesocycle Well</div>
+        <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="rb">
+        <div class="cue">Same as Round 5. Stay at RPE 7 &mdash; do not push to 9. This is not a last-chance effort. It is a clean finish.</div>
+        <div class="cue" style="color:var(--accent);font-weight:600;">Final 30 sec: sharp and controlled. Guard up, hips active, move after every combination. This is what six weeks of work looks like. Finish it well.</div>
+        <div class="rno"><textarea data-key="b-r6" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
   </div>
 
   <div class="sl">Cool-Down</div>
@@ -423,69 +372,72 @@ table.mt tbody tr:last-child td{border-bottom:none;}
     <h3>Post-Session Log</h3>
     <div class="if">
       <div class="fr"><label>Felt RPE</label><select data-key="b-rpe"><option value="">&#8212;</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div>
-      <div class="fr"><label>Peak HR (bpm)</label><input type="number" data-key="b-peak-hr" placeholder="e.g. 175" inputmode="numeric"></div>
+      <div class="fr"><label>Peak HR (bpm)</label><input type="number" data-key="b-peak-hr" placeholder="e.g. 165" inputmode="numeric"></div>
     </div>
     <div class="fr"><label>Cervical Status</label><div class="ct" data-key="b-cervical"><button onclick="SC(this,'good')">Good</button><button onclick="SC(this,'mild')">Mild tension</button><button onclick="SC(this,'flare')">Flare-up</button></div></div>
     <div class="fr"><label>Energy Level</label><select data-key="b-energy"><option value="">&#8212;</option><option>Low &mdash; sluggish</option><option>Medium &mdash; normal</option><option>High &mdash; sharp</option></select></div>
-    <div class="fr"><label>Distance management &mdash; improved?</label><select data-key="b-dist"><option value="">&#8212;</option><option>Yes &mdash; space created before kicks</option><option>Partially &mdash; still too close sometimes</option><option>No &mdash; same problem</option></select></div>
-    <div class="fr"><label>Knee hip drive under fatigue?</label><select data-key="b-knee"><option value="">&#8212;</option><option>Held &mdash; sharp throughout</option><option>Degraded &mdash; became a swing when tired</option><option>Lost completely when tired</option></select></div>
-    <div class="fr"><label>Three-range awareness (kick/punch/knee)?</label><select data-key="b-range"><option value="">&#8212;</option><option>Yes &mdash; chose weapons by distance</option><option>Partially &mdash; still defaulting to punches</option><option>No &mdash; all felt same distance</option></select></div>
-    <div class="fr"><label>What felt natural?</label><textarea data-key="b-natural" placeholder="e.g. jab-cross into knee, three-range flow..."></textarea></div>
-    <div class="fr"><label>What felt forced?</label><textarea data-key="b-forced" placeholder="e.g. roundhouse-punch-knee sequence..."></textarea></div>
+    <div class="fr"><label>Mawashi + bag swing &mdash; managed?</label><select data-key="b-swing"><option value="">&#8212;</option><option>Yes &mdash; stepped off the line consistently</option><option>Partially &mdash; sometimes</option><option>No &mdash; still getting caught by the swing</option></select></div>
+    <div class="fr"><label>Three-range awareness?</label><select data-key="b-range"><option value="">&#8212;</option><option>Yes &mdash; weapons chosen by distance</option><option>Partially &mdash; still defaulting to punches</option><option>No &mdash; all same distance</option></select></div>
+    <div class="fr"><label>Overall &mdash; how did the mesocycle feel?</label><textarea data-key="b-overall" placeholder="Reflect on the full 6 weeks..."></textarea></div>
+    <div class="fr"><label>What improved most?</label><textarea data-key="b-improved" placeholder="e.g. cross mechanics, cardiovascular endurance..."></textarea></div>
+    <div class="fr"><label>What to prioritise next mesocycle?</label><textarea data-key="b-next" placeholder="e.g. kick strength, three-range fluency..."></textarea></div>
     <div class="fr"><label>Fatigue first</label><select data-key="b-fatigue"><option value="">&#8212;</option><option>Arms / shoulders</option><option>Legs / hips</option><option>Breathing / cardio</option><option>Core</option><option>General / even</option></select></div>
     <div class="fr"><label>Other Notes</label><textarea data-key="b-notes" placeholder="Anything else..."></textarea></div>
   </div>
 
   <div class="cn">
     <h3>Coaching Notes</h3>
-    <p><strong>Last hard session of the mesocycle.</strong> Week 6 is taper &mdash; volume drops 30%, intensity stays. So this is the peak output session. It should feel hard.</p>
-    <p><strong>Three-range model:</strong> the goal is to start feeling instinctive about which weapon belongs at which distance. It does not need to be perfect &mdash; just present. It will continue developing in the next mesocycle.</p>
-    <p><strong>Week 6 preview:</strong> same full toolkit, volume drops 30%, 6 rounds instead of 8 in Session B. Arrive at deload sharp and recovered, not beaten up.</p>
+    <p><strong>RPE 7 ceiling is firm.</strong> Taper is not a test of maximum effort &mdash; it is a consolidation phase. If you feel strong and want to push harder, channel that into sharpness and precision instead of output.</p>
+    <p><strong>End-of-cycle reflection fields:</strong> the three questions at the bottom of the log (overall feel, what improved, what to prioritise next) will directly inform how Mesocycle 5 is structured. Take 2 minutes to fill them in honestly after the session.</p>
+    <p><strong>Deload starts Monday.</strong> No structured bag work. Optional light shadowboxing only &mdash; no bag contact. Standard calisthenics deload per CalisthenicsApp. Let the adaptation happen.</p>
   </div>
 </div>
 
 <!-- MISTAKES REF -->
-
 <div id="ref" class="tab-content">
   <div class="sh">
-    <div class="lbl">Week 5 &middot; Reference</div>
-    <h1>Common Mistakes</h1>
-    <div class="meta"><span class="badge bt">Review during rest periods</span></div>
+    <div class="lbl">Week 6 &middot; Reference</div>
+    <h1>Full Cycle Mistakes Summary</h1>
+    <div class="meta"><span class="badge bt">Full mesocycle reference</span></div>
   </div>
 
-  <div class="tc">New this week: <strong>hiza geri errors</strong> and <strong>distance management</strong>. Universal correction remains: shoulder blade down on all punches and hooks.</div>
+  <div class="tc">
+    Complete mistakes reference for all strikes introduced across Mesocycle 4. Keep this as a reference going into the deload and next cycle.
+  </div>
 
-  <div class="sl">Hiza Geri (Knee Strike) &mdash; New This Week</div>
+  <div class="sl">Updated HR Zones &mdash; Confirmed Max HR 190</div>
+  <div class="bc">
+    <ul class="bl">
+      <li><strong>Z2:</strong> 114&ndash;133 bpm &mdash; conversational, sustainable</li>
+      <li><strong>Z3:</strong> 133&ndash;152 bpm &mdash; breathing harder, still controlled</li>
+      <li><strong>Z4:</strong> 152&ndash;171 bpm &mdash; uncomfortable, can&rsquo;t talk</li>
+      <li><strong>Z5:</strong> 171&ndash;190 bpm &mdash; max effort, short bursts only</li>
+    </ul>
+  </div>
+
+  <div class="sl">Universal Corrections &mdash; Across All Strikes</div>
+  <div class="bc">
+    <ul class="bl">
+      <li><strong>Shoulder blade down on all punches and hooks:</strong> push the blade down and forward as each strike launches. This is now automatic &mdash; the fix for left trap overactivation and arm-too-far-from-body.</li>
+      <li><strong>Guard stays up during all strikes:</strong> every combination ends with both hands at cheek height. No exceptions.</li>
+      <li><strong>Distance management:</strong> reset step back before kicks. No reset before knees &mdash; knees belong at close range after punches close the gap.</li>
+      <li><strong>Hip reset between consecutive same-side strikes:</strong> heel returns to floor between two crosses. Full rotation out, full recovery back.</li>
+    </ul>
+  </div>
+
+  <div class="sl">Strike-Specific Summary</div>
   <table class="mt">
-    <thead><tr><th>Mistake</th><th>What it looks like</th><th>Fix</th></tr></thead>
+    <thead><tr><th>Strike</th><th>Primary error to watch</th><th>Key cue</th></tr></thead>
     <tbody>
-      <tr><td class="mc">Knee swings in arc</td><td>Leg swings forward like a bent-leg kick</td><td class="fc">Drive is vertical &mdash; straight up. Think elevator, not pendulum.</td></tr>
-      <tr><td class="mc">No hip drive</td><td>Only the leg lifts, strike is weak</td><td class="fc">Hip drives upward and forward simultaneously &mdash; same as mae geri but shorter and more vertical</td></tr>
-      <tr><td class="mc">Guard drops</td><td>Hands fall as knee rises</td><td class="fc">Both fists at cheek height throughout. Grip the bag in clinch application &mdash; hands never drop.</td></tr>
-      <tr><td class="mc">Wrong distance &mdash; too far</td><td>Knee from kicking range &mdash; weak and misses</td><td class="fc">Knee requires close range. Punches close the distance first.</td></tr>
-      <tr><td class="mc">Hopping after knee</td><td>Supporting foot hops, body spins</td><td class="fc">Return knee straight back to stance. Controlled recovery.</td></tr>
+      <tr><td style="font-weight:600;color:var(--accent);">Jab</td><td>Rear hand drops during the jab</td><td class="fc">Rear fist glued to cheek throughout</td></tr>
+      <tr><td style="font-weight:600;color:var(--accent);">Cross</td><td>Shoulder rides up, elbow flares, heel stays flat</td><td class="fc">Blade down &rarr; elbow close &rarr; heel pivots</td></tr>
+      <tr><td style="font-weight:600;color:var(--accent);">Lead Hook</td><td>Arm-only, shoulder shrugs, elbow drops below shoulder</td><td class="fc">Hip snaps first, blade down, elbow at shoulder height</td></tr>
+      <tr><td style="font-weight:600;color:var(--accent);">Rear Hook</td><td>Same as cross but in an arc &mdash; no lateral hip</td><td class="fc">Hip rotation is more lateral than cross &mdash; feel the difference</td></tr>
+      <tr><td style="font-weight:600;color:var(--teal);">Mae Geri</td><td>No chamber, no hip drive, upper body leans back</td><td class="fc">Chamber first, hip drives forward, torso stays upright</td></tr>
+      <tr><td style="font-weight:600;color:var(--teal);">Mawashi Geri</td><td>Supporting foot does not pivot, torso tilts back on lead version</td><td class="fc">Pivot non-negotiable. Drive hip into kick &mdash; hip leads, not body momentum</td></tr>
+      <tr><td style="font-weight:600;color:var(--orange);">Hiza Geri</td><td>Knee swings in wide arc instead of driving straight up</td><td class="fc">Vertical drive, short and sharp. Grip the bag. Hip drives up and forward.</td></tr>
     </tbody>
   </table>
-
-  <div class="sl">Distance Management &mdash; Key Correction</div>
-  <div class="bc">
-    <ul class="bl">
-      <li><strong>Before kicks:</strong> take a reset step back after punches. Punches close distance &mdash; you need to recreate kicking range before committing to a kick.</li>
-      <li><strong>Before knees:</strong> no step back needed. After punches close the gap, knee from there directly.</li>
-      <li><strong>After knees:</strong> step back sharply before the next entry. Do not linger at close range.</li>
-      <li><strong>Lead mawashi geri lean:</strong> stay tall, drive the hip laterally. Power from hip rotation, not body momentum.</li>
-    </ul>
-  </div>
-
-  <div class="sl">Universal Corrections &mdash; All Strikes</div>
-  <div class="bc">
-    <ul class="bl">
-      <li><strong>Shoulder blade down:</strong> cross and hooks &mdash; push the blade down and forward as each strike launches. Now automatic &mdash; maintain it.</li>
-      <li><strong>Guard stays up during all strikes:</strong> punches, kicks, knees. Every combination ends with both hands at cheek height.</li>
-      <li><strong>Supporting foot pivot on mawashi geri:</strong> non-negotiable. No pivot = no hip rotation = no power.</li>
-      <li><strong>Chamber before every kick:</strong> quality of the kick is determined at the chamber. No shortcuts.</li>
-    </ul>
-  </div>
 </div>
 
 <div class="eb"><button class="ebtn" onclick="EXP()">Copy Summary for Claude</button></div>
@@ -495,7 +447,7 @@ table.mt tbody tr:last-child td{border-bottom:none;}
 document.querySelectorAll('.tab').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));t.classList.add('active');document.getElementById(t.dataset.tab).classList.add('active');});});
 function TR(h){h.parentElement.classList.toggle('open');}
 function SC(btn,lv){const g=btn.parentElement;g.querySelectorAll('button').forEach(b=>{b.className='';});btn.classList.add(lv==='good'?'sg':lv==='mild'?'sm2':'sf');g.dataset.value=lv;SD();}
-const SK='mc4-week5-bag';
+const SK='mc4-week6-bag';
 function GA(){return document.querySelectorAll('[data-key]');}
 function SD(){const d={};GA().forEach(el=>{const k=el.dataset.key;if(el.tagName==='TEXTAREA'||el.tagName==='INPUT')d[k]=el.value;else if(el.tagName==='SELECT')d[k]=el.value;else if(el.classList.contains('ct'))d[k]=el.dataset.value||'';});try{localStorage.setItem(SK,JSON.stringify(d));}catch(e){}}
 function LD(){try{const raw=localStorage.getItem(SK);if(!raw)return;const d=JSON.parse(raw);GA().forEach(el=>{const k=el.dataset.key;if(!(k in d)||!d[k])return;if(el.tagName==='TEXTAREA'||el.tagName==='INPUT')el.value=d[k];else if(el.tagName==='SELECT')el.value=d[k];else if(el.classList.contains('ct')){el.dataset.value=d[k];el.querySelectorAll('button').forEach(b=>b.className='');const lv=d[k];if(lv==='good')el.children[0].classList.add('sg');if(lv==='mild')el.children[1].classList.add('sm2');if(lv==='flare')el.children[2].classList.add('sf');}});}catch(e){}}
@@ -503,16 +455,15 @@ document.addEventListener('input',SD);document.addEventListener('change',SD);LD(
 function EXP(){
   const gv=k=>{const el=document.querySelector('[data-key="'+k+'"]');if(!el)return'';if(el.classList.contains('ct'))return el.dataset.value||'';return el.value||'';};
   const rn=(p,n)=>{let o='';for(let i=1;i<=n;i++){const v=gv(p+'-r'+i);if(v)o+='  Round '+i+': '+v+'\n';}return o||'  (no round notes)\n';};
-  let t='## Week 5 Bag Sessions - Feedback\nMesocycle 4 | Intensification B | Knees + Full Toolkit\n\n';
+  let t='## Week 6 Bag Sessions - Feedback\nMesocycle 4 | Taper | Final Week\n\n';
   t+='### Session A (Technique - Tuesday)\n';
-  [['a-rpe','Felt RPE'],['a-peak-hr','Peak HR'],['a-cervical','Cervical'],['a-energy','Energy'],['a-dist','Distance reset step'],['a-bal','Lead mawashi balance'],['a-knee','Hiza geri hip drive'],['a-fatigue','Fatigue first'],['a-natural','Felt natural'],['a-forced','Felt forced'],['a-notes','Notes']].forEach(([k,l])=>{const v=gv(k);if(v)t+='- '+l+': '+v+'\n';});
-  t+='- Round notes:\n'+rn('a',6)+'\n';
+  [['a-rpe','Felt RPE'],['a-peak-hr','Peak HR'],['a-cervical','Cervical'],['a-energy','Energy'],['a-consol','Combinations consolidated'],['a-swing','Mawashi + bag swing'],['a-best','Sharpest combination'],['a-work','Still needs work'],['a-fatigue','Fatigue first'],['a-notes','Notes']].forEach(([k,l])=>{const v=gv(k);if(v)t+='- '+l+': '+v+'\n';});
+  t+='- Round notes:\n'+rn('a',5)+'\n';
   t+='### Session B (Output - Friday)\n';
-  [['b-rpe','Felt RPE'],['b-peak-hr','Peak HR'],['b-cervical','Cervical'],['b-energy','Energy'],['b-dist','Distance management'],['b-knee','Knee hip drive under fatigue'],['b-range','Three-range awareness'],['b-fatigue','Fatigue first'],['b-natural','Felt natural'],['b-forced','Felt forced'],['b-notes','Notes']].forEach(([k,l])=>{const v=gv(k);if(v)t+='- '+l+': '+v+'\n';});
-  t+='- Round notes:\n'+rn('b',8)+'\n';
+  [['b-rpe','Felt RPE'],['b-peak-hr','Peak HR'],['b-cervical','Cervical'],['b-energy','Energy'],['b-swing','Bag swing managed'],['b-range','Three-range awareness'],['b-overall','Overall mesocycle feel'],['b-improved','What improved most'],['b-next','Priorities for next cycle'],['b-fatigue','Fatigue first'],['b-notes','Notes']].forEach(([k,l])=>{const v=gv(k);if(v)t+='- '+l+': '+v+'\n';});
+  t+='- Round notes:\n'+rn('b',6)+'\n';
   navigator.clipboard.writeText(t).then(()=>{const toast=document.getElementById('toast');toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2000);}).catch(()=>{const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);const toast=document.getElementById('toast');toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2000);});
 }
 </script>
-
 </body>
 </html>
