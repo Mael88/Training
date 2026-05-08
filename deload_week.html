@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Deload Week &mdash; Active Recovery</title>
+<style>
+:root{--bg:#111113;--surface:#1a1a1f;--surface-raised:#222228;--border:#2a2a32;--text-primary:#e8e8ed;--text-secondary:#8e8e9a;--text-tertiary:#5a5a66;--accent:#e8913a;--accent-dim:rgba(232,145,58,0.12);--green:#4ade80;--green-dim:rgba(74,222,128,0.12);--blue:#60a5fa;--blue-dim:rgba(96,165,250,0.12);--red:#f87171;--red-dim:rgba(248,113,113,0.12);--yellow:#facc15;--yellow-dim:rgba(250,204,21,0.12);--teal:#2dd4bf;--teal-dim:rgba(45,212,191,0.12);--radius:12px;--xs:4px;--sm:8px;--md:16px;--lg:24px;--xl:32px;--2xl:48px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;background:var(--bg);color:var(--text-primary);line-height:1.5;-webkit-font-smoothing:antialiased;padding:var(--md);padding-bottom:80px;}
+.header{padding:var(--lg) 0 var(--md);border-bottom:1px solid var(--border);margin-bottom:var(--lg);}
+.header .label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:var(--xs);}
+.header h1{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-bottom:var(--xs);}
+.header .sub{font-size:14px;color:var(--text-secondary);}
+.principle-callout{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--green);margin-bottom:var(--2xl);font-size:13px;color:var(--text-secondary);line-height:1.6;}
+.principle-callout strong{color:var(--text-primary);}
+.principle-callout .title{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:var(--sm);}
+.section{margin-bottom:var(--2xl);}
+.section-title{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:var(--md);}
+/* Week grid */
+.week-grid{display:flex;flex-direction:column;gap:var(--sm);}
+.day-card{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--border);overflow:hidden;}
+.day-card.rest-day{border-style:dashed;opacity:.7;}
+.day-card.active-day{border-color:var(--green);}
+.day-header{display:flex;align-items:center;gap:var(--sm);margin-bottom:var(--sm);}
+.day-name{font-size:16px;font-weight:700;}
+.day-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.05em;}
+.badge-walk{background:var(--green-dim);color:var(--green);}
+.badge-yoga{background:var(--teal-dim);color:var(--teal);}
+.badge-body{background:var(--blue-dim);color:var(--blue);}
+.badge-rest{background:var(--surface-raised);color:var(--text-tertiary);}
+.badge-combo{background:var(--accent-dim);color:var(--accent);}
+.day-desc{font-size:13px;color:var(--text-secondary);line-height:1.55;margin-bottom:var(--sm);}
+.day-desc strong{color:var(--text-primary);}
+.activity-list{list-style:none;}
+.activity-list li{font-size:13px;color:var(--text-secondary);padding:var(--xs) 0;padding-left:var(--md);position:relative;}
+.activity-list li::before{content:'';position:absolute;left:0;top:11px;width:5px;height:5px;border-radius:50%;background:var(--text-tertiary);}
+.activity-list li.walk::before{background:var(--green);}
+.activity-list li.yoga::before{background:var(--teal);}
+.activity-list li.body::before{background:var(--blue);}
+.activity-list li.cervical::before{background:var(--accent);}
+/* Session blocks */
+.session-block{background:var(--surface-raised);border-radius:var(--sm);padding:var(--sm) var(--md);margin-top:var(--sm);border:1px solid var(--border);}
+.session-block .sb-title{font-size:12px;font-weight:600;color:var(--text-primary);margin-bottom:var(--xs);}
+.session-block .sb-item{font-size:12px;color:var(--text-secondary);padding:2px 0;}
+/* Expandable sessions */
+.expand-btn{display:flex;align-items:center;gap:var(--sm);background:none;border:none;color:var(--text-secondary);font-size:12px;font-weight:600;cursor:pointer;padding:var(--xs) 0;margin-top:var(--xs);-webkit-tap-highlight-color:transparent;}
+.expand-btn .chv{color:var(--text-tertiary);transition:transform .2s;}
+.expand-btn.open .chv{transform:rotate(180deg);}
+.expandable{display:none;margin-top:var(--sm);}
+.expandable.open{display:block;}
+/* Yoga sequences */
+.yoga-sequence{display:flex;flex-direction:column;gap:var(--xs);}
+.pose-item{background:var(--surface-raised);border-radius:var(--sm);padding:var(--sm) var(--md);border:1px solid var(--border);}
+.pose-item .pose-name{font-size:13px;font-weight:600;color:var(--teal);margin-bottom:2px;}
+.pose-item .pose-detail{font-size:12px;color:var(--text-secondary);}
+/* Bodyweight session */
+.bw-exercise{background:var(--surface-raised);border-radius:var(--sm);padding:var(--sm) var(--md);border:1px solid var(--border);margin-bottom:var(--xs);}
+.bw-exercise .ex-name{font-size:13px;font-weight:600;color:var(--blue);margin-bottom:2px;}
+.bw-exercise .ex-detail{font-size:12px;color:var(--text-secondary);}
+/* Cervical prehab compact */
+.prehab-compact{background:var(--accent-dim);border-radius:var(--sm);padding:var(--sm) var(--md);border:1px solid var(--accent);margin-top:var(--sm);font-size:12px;color:var(--text-secondary);}
+.prehab-compact strong{color:var(--accent);}
+/* Rule callout */
+.rule-callout{background:var(--red-dim);border-left:3px solid var(--red);border-radius:0 var(--sm) var(--sm) 0;padding:var(--sm) var(--md);font-size:13px;color:var(--text-secondary);margin-bottom:var(--md);line-height:1.5;}
+.rule-callout strong{color:var(--red);}
+.green-callout{background:var(--green-dim);border-left:3px solid var(--green);border-radius:0 var(--sm) var(--sm) 0;padding:var(--sm) var(--md);font-size:13px;color:var(--text-secondary);margin-bottom:var(--md);line-height:1.5;}
+.green-callout strong{color:var(--green);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="label">Mesocycle 4 &rarr; 5 &middot; Deload Week</div>
+  <h1>Active Recovery</h1>
+  <div class="sub">4&ndash;10 May 2026 &middot; 5 active days &middot; 2 rest days</div>
+</div>
+
+<div class="principle-callout">
+  <div class="title">What this week is for</div>
+  <p><strong>The adaptation from Mesocycle 4 consolidates during this week, not during the training.</strong> Your job is to reduce accumulated fatigue while keeping movement patterns warm. Easy walking promotes metabolic clearance. Light mobility work maintains the range of motion you built with kicks. Very light bodyweight movement keeps the neural patterns from going cold. Nothing in this week should feel like training.</p>
+</div>
+
+<!-- RULES -->
+<div class="section">
+  <div class="section-title">Non-Negotiable Rules</div>
+  <div class="rule-callout"><strong>No bag work.</strong> No bag contact of any kind this week. Shadowboxing is allowed once &mdash; 10 minutes maximum, no power, patterns only.</div>
+  <div class="rule-callout"><strong>No rings, no loading.</strong> The shoulders and connective tissue need genuine rest from loaded pulling and pushing. Bodyweight only.</div>
+  <div class="rule-callout"><strong>No pushing effort.</strong> Every activity this week should stay well below any breathing effort. If you are breathing hard, you are going too hard. Heart rate should stay in Z1&ndash;low Z2 (below 130 bpm) for all activities.</div>
+  <div class="green-callout"><strong>Sleep and eat well.</strong> The deload is where the adaptation happens. Extra sleep (even 30 minutes more per night) and consistent Mediterranean nutrition are as important as the movement this week.</div>
+</div>
+
+<!-- WEEK OVERVIEW -->
+<div class="section">
+  <div class="section-title">Week at a Glance</div>
+  <div class="week-grid">
+
+    <!-- MONDAY -->
+    <div class="day-card active-day">
+      <div class="day-header">
+        <div class="day-name">Monday</div>
+        <span class="day-badge badge-combo">Walk + Cervical</span>
+      </div>
+      <div class="day-desc">Easy start to the week. A walk to get the body moving after the weekend, plus the cervical prehab routine to maintain the habit.</div>
+      <ul class="activity-list">
+        <li class="walk">Outdoor walk &mdash; 30 min, easy pace, flat terrain preferred</li>
+        <li class="cervical">Cervical prehab (full routine) &mdash; 5 min</li>
+        <li class="yoga">Hip flexor lunge stretch &mdash; 45 sec each side, low lunge, back knee on floor</li>
+        <li class="yoga">Upper trap stretch (lateral neck) &mdash; 30 sec each side, gravity only, no pulling</li>
+      </ul>
+    </div>
+
+    <!-- TUESDAY -->
+    <div class="day-card active-day">
+      <div class="day-header">
+        <div class="day-name">Tuesday</div>
+        <span class="day-badge badge-body">Light Bodyweight + Mobility</span>
+      </div>
+      <div class="day-desc">Replaces the normal Session A bag session. Very light bodyweight movement to keep patterns warm, followed by a focused mobility session for the areas worked hardest in Mesocycle 4.</div>
+      <button class="expand-btn" onclick="toggleExpand(this)">
+        <svg class="chv" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        See full session
+      </button>
+      <div class="expandable">
+        <div class="prehab-compact"><strong>Cervical prehab first &mdash; 5 min</strong><br>Chin tucks 2&times;10 &middot; Cervical rotations 5 each &middot; Lateral neck stretch 20 sec each &middot; Scapular retractions 2&times;10 &middot; Shoulder rolls 10 each</div>
+        <div style="margin-top:var(--sm);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:var(--xs);">Light Bodyweight &mdash; 15 min</div>
+        <div style="font-size:12px;color:var(--text-tertiary);margin-bottom:var(--sm);">Rest 45 sec between sets &middot; Rest 90 sec between exercises &middot; These are generous &mdash; this is deload, not training</div>
+        <div class="bw-exercise"><div class="ex-name">Bodyweight Squats</div><div class="ex-detail">2 &times; 10 &middot; Slow and controlled &middot; Full depth &middot; 45 sec rest between sets, 90 sec before next exercise</div></div>
+        <div class="bw-exercise"><div class="ex-name">Push-Ups</div><div class="ex-detail">2 &times; 8 &middot; Slow tempo (3 sec down, 1 sec up) &middot; Stop well before failure &middot; 45 sec rest between sets, 90 sec before next exercise</div></div>
+        <div class="bw-exercise"><div class="ex-name">Scapular Push-Ups</div><div class="ex-detail">2 &times; 10 &middot; Plank position, protract and retract shoulder blades without bending elbows &middot; Serratus activation &middot; 45 sec rest between sets, 90 sec before next exercise</div></div>
+        <div class="bw-exercise"><div class="ex-name">Bodyweight Hip Hinges</div><div class="ex-detail">2 &times; 10 each side &middot; Stand on one leg, hinge forward, return &middot; 45 sec rest between sets, 90 sec before next exercise</div></div>
+        <div class="bw-exercise"><div class="ex-name">Dead Bug</div><div class="ex-detail">2 &times; 8 each side &middot; On back, opposite arm-leg extension &middot; Breathe throughout &middot; 45 sec rest between sets</div></div>
+        <div style="margin-top:var(--md);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:var(--xs);">Mobility Focus &mdash; 15 min</div>
+        <div style="font-size:12px;color:var(--text-tertiary);margin-bottom:var(--sm);">Move directly from one pose to the next &mdash; no rest needed between stretches. Breathe slowly throughout each hold.</div>
+        <div class="yoga-sequence">
+          <div class="pose-item"><div class="pose-name">Hip Flexor Lunge Stretch</div><div class="pose-detail">60 sec each side &middot; Low lunge, back knee on floor, drive hips gently forward &middot; Releases the hip flexors loaded heavily by kicking</div></div>
+          <div class="pose-item"><div class="pose-name">Pigeon Pose (or Figure-4)</div><div class="pose-detail">60 sec each side &middot; Targets the hip rotators &mdash; the lead side especially, which is the Mesocycle 5 focus. Go to edge of discomfort, not pain.</div></div>
+          <div class="pose-item"><div class="pose-name">Thread the Needle</div><div class="pose-detail">30 sec each side &middot; On all fours, thread one arm under the body &middot; Thoracic rotation and shoulder stretch</div></div>
+          <div class="pose-item"><div class="pose-name">Child&rsquo;s Pose with Lat Reach</div><div class="pose-detail">45 sec each side &middot; From child&rsquo;s pose, walk hands to one side &middot; Lat and shoulder stretch</div></div>
+          <div class="pose-item"><div class="pose-name">Supine Spinal Twist</div><div class="pose-detail">45 sec each side &middot; On back, bring one knee across the body &middot; Lower back and hip rotation release</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEDNESDAY -->
+    <div class="day-card active-day">
+      <div class="day-header">
+        <div class="day-name">Wednesday</div>
+        <span class="day-badge badge-walk">Walk</span>
+      </div>
+      <div class="day-desc">Mid-week easy walk. No other structure required today. Let the body move without any demands.</div>
+      <ul class="activity-list">
+        <li class="walk">Outdoor walk &mdash; 30&ndash;40 min, easy pace &middot; Hilly terrain fine if enjoyable, not required</li>
+        <li class="cervical">Cervical prehab &mdash; 5 min (optional but recommended)</li>
+      </ul>
+    </div>
+
+    <!-- THURSDAY -->
+    <div class="day-card rest-day">
+      <div class="day-header">
+        <div class="day-name">Thursday</div>
+        <span class="day-badge badge-rest">Rest</span>
+      </div>
+      <div class="day-desc">Full rest day. No structured movement. Short easy walk if you feel restless is fine &mdash; but nothing longer than 20 minutes and entirely optional.</div>
+    </div>
+
+    <!-- FRIDAY -->
+    <div class="day-card active-day">
+      <div class="day-header">
+        <div class="day-name">Friday</div>
+        <span class="day-badge badge-yoga">Yoga &amp; Mobility</span>
+      </div>
+      <div class="day-desc">Replaces the normal Session B bag session. Full mobility focus &mdash; no bodyweight strength today, just movement quality and flexibility work.</div>
+      <button class="expand-btn" onclick="toggleExpand(this)">
+        <svg class="chv" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        See full session
+      </button>
+      <div class="expandable">
+        <div class="prehab-compact"><strong>Cervical prehab first &mdash; 5 min</strong><br>Full routine as usual</div>
+        <div style="margin-top:var(--sm);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:var(--xs);">Full Mobility Session &mdash; 25 min</div>
+        <div style="font-size:12px;color:var(--text-tertiary);margin-bottom:var(--sm);">Move directly from one pose to the next &mdash; no rest needed between stretches. Take 1&ndash;2 slow breaths to settle into each position before the timer starts.</div>
+        <div class="yoga-sequence">
+          <div class="pose-item"><div class="pose-name">Cat-Cow Warm-Up</div><div class="pose-detail">10 slow cycles &middot; On all fours, alternate spinal flexion and extension &middot; Warms the spine before deeper mobility work</div></div>
+          <div class="pose-item"><div class="pose-name">World&rsquo;s Greatest Stretch</div><div class="pose-detail">5 reps each side &middot; Hold each position 10 sec (lunge bottom, rotation at top) &middot; Lunge with thoracic rotation &middot; Hits hip flexor, thoracic spine, and shoulder in one movement</div></div>
+          <div class="pose-item"><div class="pose-name">Hip Flexor Lunge + Quad Stretch</div><div class="pose-detail">60 sec each side &middot; From lunge, reach back and grab the rear ankle to add quad stretch &middot; Full anterior chain release</div></div>
+          <div class="pose-item"><div class="pose-name">Pigeon Pose</div><div class="pose-detail">90 sec each side &middot; Longer hold than Tuesday &middot; Lead hip side first &middot; Breathe into the stretch, do not force</div></div>
+          <div class="pose-item"><div class="pose-name">Lateral Hip Swings</div><div class="pose-detail">15 each side &middot; Standing, swing one leg laterally across the body and out &middot; Same movement as the warm-up drill for mawashi geri &middot; Maintaining the hip rotator mobility built this cycle</div></div>
+          <div class="pose-item"><div class="pose-name">Chest Opener (Doorway Stretch)</div><div class="pose-detail">45 sec each side &middot; Arm at 90&deg;, chest opens forward against a door frame &middot; Counters the anterior shoulder tightness from punching volume</div></div>
+          <div class="pose-item"><div class="pose-name">Overhead Lat Stretch</div><div class="pose-detail">45 sec each side &middot; One arm overhead, lean away &middot; Lat and shoulder release</div></div>
+          <div class="pose-item"><div class="pose-name">Supine Spinal Twist</div><div class="pose-detail">60 sec each side &middot; On back, one knee crosses to the opposite side &middot; Lower back and thoracic release</div></div>
+          <div class="pose-item"><div class="pose-name">Legs Up the Wall</div><div class="pose-detail">3&ndash;5 min &middot; Lie on back, legs vertical up the wall &middot; Promotes venous return from the legs &middot; Excellent passive recovery tool &middot; Just breathe</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SATURDAY -->
+    <div class="day-card active-day">
+      <div class="day-header">
+        <div class="day-name">Saturday</div>
+        <span class="day-badge badge-combo">Walk + Optional Shadowboxing</span>
+      </div>
+      <div class="day-desc">End-of-week active day. Walk first, then if you feel the urge, one short shadowboxing session to keep the striking patterns warm before Mesocycle 5 begins Tuesday.</div>
+      <ul class="activity-list">
+        <li class="walk">Outdoor walk &mdash; 30&ndash;40 min, easy pace</li>
+        <li class="body">Optional shadowboxing &mdash; 10 min maximum &middot; No bag, no power &middot; Slow patterns only &middot; Jab, cross, hooks, slow kicks in the air &middot; If it starts feeling like training, stop</li>
+        <li class="cervical">Cervical prehab &mdash; 5 min</li>
+      </ul>
+      <div style="margin-top:var(--sm);font-size:12px;color:var(--text-tertiary);font-style:italic;">Mesocycle 5 starts Monday. This is your last deload day.</div>
+    </div>
+
+    <!-- SUNDAY -->
+    <div class="day-card rest-day">
+      <div class="day-header">
+        <div class="day-name">Sunday</div>
+        <span class="day-badge badge-rest">Rest</span>
+      </div>
+      <div class="day-desc">Full rest. The week is done. Mesocycle 5 starts tomorrow.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- NUTRITION NOTE -->
+<div class="section">
+  <div class="section-title">Nutrition This Week</div>
+  <div class="principle-callout">
+    <div class="title">Simple adjustments &mdash; no strict protocol</div>
+    <p>Training volume is down ~80% this week so energy expenditure drops. You do not need to drastically reduce food &mdash; but be aware that appetite may not drop as fast as expenditure, which can lead to slight excess. A few practical adjustments:</p>
+    <p style="margin-top:var(--sm);"><strong>Keep protein high:</strong> protein is the main driver of adaptation consolidation. Aim for the same protein intake as a normal training week &mdash; fish, legumes, eggs, Greek yoghurt.</p>
+    <p style="margin-top:var(--sm);"><strong>Reduce portion size slightly on non-active days</strong> (Thursday and Sunday) &mdash; no complex calculation, just eat until satisfied rather than full.</p>
+    <p style="margin-top:var(--sm);"><strong>Hydrate well:</strong> recovery and adaptation are both enhanced by good hydration. Water and herbal tea &mdash; reduce coffee if sleep is the priority.</p>
+    <p style="margin-top:var(--sm);"><strong>Anti-inflammatory foods:</strong> Mediterranean staples &mdash; olive oil, oily fish, berries, walnuts, leafy greens &mdash; actively support the recovery process. Nothing exotic, just the base of what you already eat.</p>
+  </div>
+</div>
+
+<!-- SLEEP -->
+<div class="section">
+  <div class="section-title">Sleep Priority</div>
+  <div class="green-callout"><strong>Sleep is the most important recovery tool this week.</strong> If you can add 30 minutes per night &mdash; earlier bedtime, no screen 30 min before sleep &mdash; do it. Growth hormone peaks during deep sleep, which is when structural adaptation consolidates. The training created the signal. Sleep is where the response happens.</div>
+</div>
+
+<script>
+function toggleExpand(btn){
+  btn.classList.toggle('open');
+  const exp = btn.nextElementSibling;
+  exp.classList.toggle('open');
+}
+</script>
+</body>
+</html>
