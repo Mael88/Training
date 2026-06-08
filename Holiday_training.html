@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Holiday Plan &mdash; Hip, Swimming &amp; Running</title>
+<style>
+:root{--bg:#111113;--surface:#1a1a1f;--surface-raised:#222228;--border:#2a2a32;--text-primary:#e8e8ed;--text-secondary:#8e8e9a;--text-tertiary:#5a5a66;--accent:#e8913a;--accent-dim:rgba(232,145,58,0.12);--green:#4ade80;--green-dim:rgba(74,222,128,0.12);--blue:#60a5fa;--blue-dim:rgba(96,165,250,0.12);--red:#f87171;--red-dim:rgba(248,113,113,0.12);--yellow:#facc15;--yellow-dim:rgba(250,204,21,0.12);--teal:#2dd4bf;--teal-dim:rgba(45,212,191,0.12);--orange:#fb923c;--orange-dim:rgba(251,146,60,0.12);--purple:#c084fc;--purple-dim:rgba(192,132,252,0.12);--radius:12px;--xs:4px;--sm:8px;--md:16px;--lg:24px;--xl:32px;--2xl:48px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;background:var(--bg);color:var(--text-primary);line-height:1.5;-webkit-font-smoothing:antialiased;padding:0;padding-bottom:80px;}
+.tab-bar{display:flex;position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);overflow-x:auto;}
+.tab{flex:1;min-width:80px;padding:14px var(--sm);text-align:center;font-size:13px;font-weight:600;color:var(--text-tertiary);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;-webkit-tap-highlight-color:transparent;white-space:nowrap;}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-content{display:none;padding:var(--md);}
+.tab-content.active{display:block;}
+.sh{padding:var(--lg) 0 var(--md);border-bottom:1px solid var(--border);margin-bottom:var(--lg);}
+.sh .lbl{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--xs);}
+.sh h1{font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1.2;margin-bottom:var(--xs);}
+.sh .sub{font-size:13px;color:var(--text-secondary);}
+.sl{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:var(--md);}
+.tc{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--border);margin-bottom:var(--lg);font-size:14px;color:var(--text-secondary);line-height:1.55;}
+.tc strong{color:var(--text-primary);}
+.info-box{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--border);margin-bottom:var(--md);font-size:13px;color:var(--text-secondary);line-height:1.55;}
+.info-box .ib-title{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:var(--sm);}
+.info-box.teal{border-color:var(--teal);}.info-box.teal .ib-title{color:var(--teal);}
+.info-box.blue{border-color:var(--blue);}.info-box.blue .ib-title{color:var(--blue);}
+.info-box.orange{border-color:var(--orange);}.info-box.orange .ib-title{color:var(--orange);}
+.info-box.green{border-color:var(--green);}.info-box.green .ib-title{color:var(--green);}
+.info-box.purple{border-color:var(--purple);}.info-box.purple .ib-title{color:var(--purple);}
+.info-box.yellow{border-color:var(--yellow);}.info-box.yellow .ib-title{color:var(--yellow);}
+.rest-box{background:var(--accent-dim);border-left:3px solid var(--accent);border-radius:0 var(--sm) var(--sm) 0;padding:var(--sm) var(--md);font-size:13px;color:var(--text-secondary);margin-bottom:var(--lg);line-height:1.5;}
+.rest-box strong{color:var(--accent);}
+/* Exercise cards */
+.ex-card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:var(--sm);overflow:hidden;}
+.ex-header{display:flex;align-items:center;padding:var(--md);cursor:pointer;-webkit-tap-highlight-color:transparent;gap:var(--sm);}
+.ex-num{width:28px;height:28px;border-radius:8px;background:var(--teal-dim);color:var(--teal);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ex-title{flex:1;font-size:14px;font-weight:600;}
+.ex-meta{font-size:12px;color:var(--text-tertiary);white-space:nowrap;}
+.chv{color:var(--text-tertiary);transition:transform .2s;flex-shrink:0;}
+.ex-card.open .chv,.sess-card.open .chv{transform:rotate(180deg);}
+.ex-body{display:none;padding:0 var(--md) var(--md);}
+.ex-card.open .ex-body{display:block;}
+.ex-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:var(--xs);}
+.ex-cue{font-size:13px;color:var(--text-secondary);line-height:1.55;margin-bottom:var(--sm);}
+.ex-cue strong{color:var(--text-primary);font-weight:600;}
+.rest-pill{display:inline-block;background:var(--surface-raised);border:1px solid var(--border);border-radius:20px;padding:3px 10px;font-size:12px;color:var(--text-secondary);margin-top:var(--xs);}
+.rest-pill span{color:var(--accent);font-weight:600;}
+.error-note{font-size:12px;color:var(--red);background:var(--red-dim);padding:var(--sm);border-radius:var(--sm);margin-bottom:var(--sm);}
+/* Session cards (swim + run) */
+.sess-card{border-radius:var(--radius);border:1px solid var(--border);margin-bottom:var(--sm);overflow:hidden;}
+.sess-card.swim{border-color:var(--blue);background:var(--surface);}
+.sess-card.run{border-color:var(--purple);background:var(--surface);}
+.sess-header{display:flex;align-items:center;padding:var(--md);cursor:pointer;-webkit-tap-highlight-color:transparent;gap:var(--sm);}
+.sess-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;}
+.sess-card.swim .sess-icon{background:var(--blue-dim);color:var(--blue);}
+.sess-card.run .sess-icon{background:var(--purple-dim);color:var(--purple);}
+.sess-title{flex:1;font-size:14px;font-weight:600;}
+.sess-dur{font-size:12px;color:var(--text-tertiary);}
+.sess-body{display:none;padding:0 var(--md) var(--md);}
+.sess-card.open .sess-body{display:block;}
+.sess-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:var(--xs);}
+.sess-card.swim .sess-label{color:var(--blue);}
+.sess-card.run .sess-label{color:var(--purple);}
+.sess-cue{font-size:13px;color:var(--text-secondary);line-height:1.55;margin-bottom:var(--sm);}
+.sess-cue strong{color:var(--text-primary);font-weight:600;}
+.sess-block{background:var(--surface-raised);border-radius:var(--sm);padding:var(--sm) var(--md);border:1px solid var(--border);margin-bottom:var(--xs);}
+.sess-block .sb-name{font-size:13px;font-weight:600;margin-bottom:2px;}
+.sess-card.swim .sess-block .sb-name{color:var(--blue);}
+.sess-card.run .sess-block .sb-name{color:var(--purple);}
+.sess-block .sb-detail{font-size:12px;color:var(--text-secondary);}
+/* Week calendar */
+.week-section{margin-bottom:var(--2xl);}
+.week-title{font-size:16px;font-weight:700;margin-bottom:var(--md);padding-bottom:var(--sm);border-bottom:1px solid var(--border);}
+.week-title span{font-size:12px;font-weight:500;color:var(--text-secondary);margin-left:var(--sm);}
+.week-cal{display:flex;flex-direction:column;gap:var(--sm);margin-bottom:var(--md);}
+.day-row{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--border);display:grid;grid-template-columns:80px 1fr;gap:var(--sm) var(--md);align-items:center;}
+.day-row.swim-day{border-color:var(--blue);}
+.day-row.run-day{border-color:var(--purple);}
+.day-row.hip-only{border-color:var(--teal);}
+.day-row.rest-day{opacity:.6;border-style:dashed;}
+.day-label{font-size:14px;font-weight:700;color:var(--text-primary);}
+.day-content{font-size:13px;color:var(--text-secondary);}
+.day-content .type{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px;}
+.type-swim{color:var(--blue);}
+.type-run{color:var(--purple);}
+.type-hip{color:var(--teal);}
+.type-rest{color:var(--text-tertiary);}
+</style>
+</head>
+<body>
+
+<div class="tab-bar">
+  <button class="tab active" data-tab="hip">Hip</button>
+  <button class="tab" data-tab="swim">Swimming</button>
+  <button class="tab" data-tab="run">Running</button>
+  <button class="tab" data-tab="week">Week Plan</button>
+</div>
+
+<!-- HIP EXERCISES -->
+<div id="hip" class="tab-content active">
+  <div class="sh">
+    <div class="lbl">Both Weeks &middot; Daily</div>
+    <h1>Hip Exercises</h1>
+    <div class="sub">Lead hip rotators &middot; No equipment &middot; Beach, trail or room</div>
+  </div>
+
+  <div class="tc">
+    These four exercises target the <strong>lead hip external rotators and abductors</strong> &mdash; the muscles that drive the lead mawashi geri. Done daily across both holiday weeks, the accumulated volume will produce meaningful early-stage strength adaptation before returning to the bag.
+  </div>
+
+  <div class="rest-box">
+    <strong>Rest protocol:</strong> 30 sec between sets of the same exercise &middot; 60 sec between exercises
+  </div>
+
+  <div class="info-box orange">
+    <div class="ib-title">Lead hip first &mdash; always</div>
+    For every exercise, start with the lead leg. The lead side is the weaker side &mdash; it gets the first rep when the muscles are freshest.
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-header" onclick="toggleCard(this)">
+      <div class="ex-num">1</div>
+      <div class="ex-title">Clamshells</div>
+      <div class="ex-meta">2 &times; 15 each side</div>
+      <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="ex-body">
+      <div class="ex-label">Setup</div>
+      <div class="ex-cue">Lie on your side. Hips stacked, knees bent at 90&deg;, feet together.</div>
+      <div class="ex-label">Movement</div>
+      <div class="ex-cue">Keeping the feet together, rotate the top knee upward as high as you can without the top hip rolling backward. Hold 1 sec at the top, lower with control.</div>
+      <div class="ex-cue"><strong>Feel:</strong> burn in the outer glute and hip. If you feel it in the lower back, the hip is rolling &mdash; reduce the range.</div>
+      <div class="error-note">Common error: pelvis tilts backward as the knee rises. Keep hips stacked and the movement in the hip joint only.</div>
+      <div class="rest-pill">30 sec between sets &middot; <span>60 sec</span> before next exercise</div>
+    </div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-header" onclick="toggleCard(this)">
+      <div class="ex-num">2</div>
+      <div class="ex-title">Side-Lying Hip Abduction</div>
+      <div class="ex-meta">2 &times; 12 each side</div>
+      <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="ex-body">
+      <div class="ex-label">Setup</div>
+      <div class="ex-cue">Lie on your side. Bottom knee slightly bent. Top leg fully straight, toes pointing forward not toward the ceiling.</div>
+      <div class="ex-label">Movement</div>
+      <div class="ex-cue">Lift the top leg to 45&deg;, then lower with control. <strong>3 seconds on the way down</strong> &mdash; the eccentric phase is where the strength adaptation happens. Do not let the leg drop.</div>
+      <div class="error-note">Common error: toes rotate toward the ceiling, turning it into a hip flexor exercise. Keep toes pointing forward throughout.</div>
+      <div class="rest-pill">30 sec between sets &middot; <span>60 sec</span> before next exercise</div>
+    </div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-header" onclick="toggleCard(this)">
+      <div class="ex-num">3</div>
+      <div class="ex-title">Fire Hydrants</div>
+      <div class="ex-meta">2 &times; 12 each side</div>
+      <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="ex-body">
+      <div class="ex-label">Setup</div>
+      <div class="ex-cue">On all fours. Wrists under shoulders, knees under hips. Spine neutral, core lightly engaged.</div>
+      <div class="ex-label">Movement</div>
+      <div class="ex-cue">Keeping the knee bent at 90&deg;, lift one knee out to the side to hip height. Hold 1 sec at the top, return with control. The rest of the body stays completely still.</div>
+      <div class="ex-cue"><strong>Why this matters:</strong> this is the same hip joint action as the mawashi geri &mdash; external rotation with abduction. You are training the exact muscles that drive the roundhouse kick.</div>
+      <div class="error-note">Common error: pelvis tilts to the opposite side as the leg lifts. If the body tilts, reduce the range of motion.</div>
+      <div class="rest-pill">30 sec between sets &middot; <span>60 sec</span> before next exercise</div>
+    </div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-header" onclick="toggleCard(this)">
+      <div class="ex-num">4</div>
+      <div class="ex-title">Standing Hip Circles</div>
+      <div class="ex-meta">2 &times; 10 each side &middot; both directions</div>
+      <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="ex-body">
+      <div class="ex-label">Setup</div>
+      <div class="ex-cue">Stand on one leg. Light touch on a wall or tree for balance if needed. Raise the opposite knee to hip height in front.</div>
+      <div class="ex-label">Movement</div>
+      <div class="ex-cue">Draw large, slow circles with the raised knee &mdash; forward, out to the side, behind, and back to front. 10 reps clockwise then 10 counter-clockwise on the same leg before switching. The slower the circle, the harder the hip has to work.</div>
+      <div class="rest-pill">30 sec between sets &middot; No rest after &mdash; last exercise</div>
+    </div>
+  </div>
+
+  <div class="info-box green" style="margin-top:var(--lg);">
+    <div class="ib-title">Total time &amp; timing</div>
+    Full block takes 10&ndash;12 minutes. Do it in the morning before activity or in the evening. Leave at least 1 hour between hip exercises and swimming or running in either direction.
+  </div>
+</div>
+
+<!-- SWIMMING — WEEK 1 -->
+<div id="swim" class="tab-content">
+  <div class="sh">
+    <div class="lbl">Week 1 &middot; Beach &middot; 3&ndash;4&times; per week</div>
+    <h1>Swimming Sessions</h1>
+    <div class="sub">Open water &middot; Z2 base + one Z3 session per week</div>
+  </div>
+
+  <div class="tc">
+    Two types of session: <strong>easy base sessions</strong> most days and <strong>one harder session per week</strong>. Open water does not suit structured intervals &mdash; keep it continuous and controlled. Goal is cardiovascular base building, not high-output training.
+  </div>
+
+  <div class="info-box blue">
+    <div class="ib-title">HR target</div>
+    Stay below 152 bpm (Z3 ceiling) for easy sessions. If breathing so hard that conversation is impossible, you are going too hard. Use Garmin to check occasionally but do not obsess over it.
+  </div>
+
+  <div class="sess-card swim">
+    <div class="sess-header" onclick="toggleCard(this)">
+      <div class="sess-icon">&#9675;</div>
+      <div class="sess-title">Easy Base Session</div>
+      <div class="sess-dur">20&ndash;25 min</div>
+      <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="sess-body">
+      <div class="sess-label">2&ndash;3 times per week &middot; Z2 &middot; Conversational pace</div>
+      <div class="sess-block"><div class="sb-name">Warm-up &mdash; 3 min</div><div class="sb-detail">Very easy entry. Light movement, get comfortable in the water.</div></div>
+      <div class="sess-block"><div class="sb-name">Main &mdash; 18&ndash;20 min continuous</div><div class="sb-detail">Steady pace where you could speak in short sentences. Any stroke comfortable for open water. No sprinting, no stopping to rest.</div></div>
+      <div class="sess-block"><div class="sb-name">Cool-down &mdash; 2 min</div><div class="sb-detail">Slow down progressively. Float on your back for 1 minute at the end if conditions allow.</div></div>
+    </div>
+  </div>
+
+  <div class="sess-card swim">
+    <div class="sess-header" onclick="toggleCard(this)">
+      <div class="sess-icon">&#9679;</div>
+      <div class="sess-title">Harder Session</div>
+      <div class="sess-dur">25&ndash;30 min</div>
+      <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="sess-body">
+      <div class="sess-label">Once per week only &middot; Z3 intervals &middot; RPE 7</div>
+      <div class="sess-block"><div class="sb-name">Warm-up &mdash; 5 min</div><div class="sb-detail">Easy continuous swimming. Settle in before pushing pace.</div></div>
+      <div class="sess-block"><div class="sb-name">Main &mdash; 4 rounds</div><div class="sb-detail">3 min at a hard-but-controlled pace (talking difficult but not sprinting) &rarr; 2 min floating or treading water &rarr; repeat 4 times.</div></div>
+      <div class="sess-block"><div class="sb-name">Cool-down &mdash; 5 min</div><div class="sb-detail">Easy swimming back to resting pace. HR below 133 before leaving the water. Float on back 1&ndash;2 min at the end.</div></div>
+    </div>
+  </div>
+
+  <div class="info-box teal">
+    <div class="ib-title">Safety &mdash; open water</div>
+    Never swim alone. Stay within standing depth until warmed up. Be aware of currents. If conditions are unsuitable, skip the session.
+  </div>
+</div>
+
+<!-- RUNNING — WEEK 2 -->
+<div id="run" class="tab-content">
+  <div class="sh">
+    <div class="lbl">Week 2 &middot; Mountains &middot; 3&ndash;4&times; per week</div>
+    <h1>Running Sessions</h1>
+    <div class="sub">Trail running &middot; Z2 base + one Z3 session per week</div>
+  </div>
+
+  <div class="tc">
+    Same cardiovascular structure as the swimming week &mdash; easy base sessions most days, one harder session per week. Mountain trails are <strong>cervical-friendly</strong> compared to pavement because the softer uneven ground absorbs impact rather than transmitting it up the spine. Stick to paths and trails, not road.
+  </div>
+
+  <div class="info-box yellow">
+    <div class="ib-title">Altitude &mdash; important</div>
+    If you are above ~1500m, your HR will run higher than usual at the same effort because the heart works harder in thinner air. <strong>Use RPE as your primary guide this week, not HR targets.</strong> Easy should feel easy, regardless of what the watch shows. The HR numbers will normalise when you return to lower altitude.
+  </div>
+
+  <div class="info-box purple">
+    <div class="ib-title">Running warm-up &mdash; mandatory</div>
+    Always start every run session with 5 minutes of easy walking before breaking into a jog. Cold muscles on mountain trails increase the risk of ankle rolls and strains. The cervical prehab routine before running is also recommended &mdash; it only takes 5 minutes and primes the neck for the impact.
+  </div>
+
+  <div class="sess-card run">
+    <div class="sess-header" onclick="toggleCard(this)">
+      <div class="sess-icon">&#9675;</div>
+      <div class="sess-title">Easy Base Session</div>
+      <div class="sess-dur">20&ndash;25 min</div>
+      <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="sess-body">
+      <div class="sess-label">2&ndash;3 times per week &middot; RPE 5&ndash;6 &middot; Conversational pace</div>
+      <div class="sess-block"><div class="sb-name">Walk warm-up &mdash; 5 min</div><div class="sb-detail">Easy walking before any running. Essential on mountain terrain. Primes ankles and calves.</div></div>
+      <div class="sess-block"><div class="sb-name">Main &mdash; 15&ndash;20 min easy jog</div><div class="sb-detail">Steady pace where you could hold a conversation. On trails, slow down significantly for technical sections or uphill &mdash; hiking uphill and jogging flat or downhill is perfectly valid. Total time is the goal, not continuous running. Keep RPE 5&ndash;6 throughout.</div></div>
+      <div class="sess-block"><div class="sb-name">Walk cool-down &mdash; 3&ndash;5 min</div><div class="sb-detail">Slow down to a walk for the last 3&ndash;5 minutes. Do not stop abruptly. Light lower body stretching after &mdash; calf and hip flexor stretch, 30 sec each side.</div></div>
+      <div class="sess-cue" style="margin-top:var(--sm);"><strong>On hills:</strong> running uphill significantly raises HR and RPE. Walk all significant uphills and jog the flat and downhill sections. This keeps the effort in the right zone and is also easier on the knees and cervical spine.</div>
+    </div>
+  </div>
+
+  <div class="sess-card run">
+    <div class="sess-header" onclick="toggleCard(this)">
+      <div class="sess-icon">&#9679;</div>
+      <div class="sess-title">Harder Session</div>
+      <div class="sess-dur">25&ndash;30 min</div>
+      <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="sess-body">
+      <div class="sess-label">Once per week only &middot; RPE 7 intervals &middot; Use RPE not HR at altitude</div>
+      <div class="sess-block"><div class="sb-name">Walk warm-up &mdash; 5 min</div><div class="sb-detail">Easy walking before any running. Do not skip at altitude.</div></div>
+      <div class="sess-block"><div class="sb-name">Easy jog &mdash; 5 min</div><div class="sb-detail">Settle into a comfortable jog before the intervals begin.</div></div>
+      <div class="sess-block"><div class="sb-name">Main &mdash; 4 rounds</div><div class="sb-detail">3 min at RPE 7 (harder pace, talking becomes difficult) &rarr; 2 min easy walk or very slow jog to recover &rarr; repeat 4 times. On mountain trails, a flat or gently downhill section is ideal for the effort intervals. Do not attempt RPE 7 intervals on steep uphill terrain.</div></div>
+      <div class="sess-block"><div class="sb-name">Walk cool-down &mdash; 5 min</div><div class="sb-detail">Easy walk back to full rest. Calf stretch 30 sec each side, hip flexor lunge 45 sec each side after stopping.</div></div>
+      <div class="sess-cue" style="margin-top:var(--sm);"><strong>Altitude note:</strong> at altitude, RPE 7 may correspond to a much lower actual pace than at sea level. That is fine &mdash; the physiological demand is the same. Do not try to match your usual sea-level running pace.</div>
+    </div>
+  </div>
+
+  <div class="info-box teal">
+    <div class="ib-title">Trail safety</div>
+    Watch your footing on uneven terrain, especially on descents where ankle rolls are most likely. Reduce pace significantly on technical sections. If a path is too steep or technical to run safely, walk it. The session goal is cardiovascular stimulus, not trail running performance.
+  </div>
+</div>
+
+<!-- WEEK PLAN -->
+<div id="week" class="tab-content">
+  <div class="sh">
+    <div class="lbl">Full Holiday &middot; 2 Weeks</div>
+    <h1>Week Plans</h1>
+    <div class="sub">Week 1: Beach &middot; Week 2: Mountains</div>
+  </div>
+
+  <div class="info-box orange">
+    <div class="ib-title">Both weeks &mdash; hip exercises every day</div>
+    The hip block (10&ndash;12 min) is done daily on both weeks. It is the one constant. Leave at least 1 hour between hip exercises and any swimming or running session.
+  </div>
+
+  <!-- WEEK 1 -->
+  <div class="week-section">
+    <div class="week-title">Week 1 &mdash; Beach <span>Swimming + Hip Exercises</span></div>
+    <div class="week-cal">
+      <div class="day-row swim-day">
+        <div class="day-label">Monday</div>
+        <div class="day-content"><div class="type type-swim">Easy Swim + Hip</div>Easy base session (20&ndash;25 min) &middot; Hip block (10 min) &middot; Calisthenics as normal</div>
+      </div>
+      <div class="day-row hip-only">
+        <div class="day-label">Tuesday</div>
+        <div class="day-content"><div class="type type-hip">Hip Only</div>Hip block (10 min) &middot; Calisthenics as normal &middot; Rest from swimming</div>
+      </div>
+      <div class="day-row swim-day">
+        <div class="day-label">Wednesday</div>
+        <div class="day-content"><div class="type type-swim">Harder Swim + Hip</div>Harder session (25&ndash;30 min) &mdash; the one Z3 session this week &middot; Hip block (10 min) &middot; Calisthenics as normal</div>
+      </div>
+      <div class="day-row hip-only">
+        <div class="day-label">Thursday</div>
+        <div class="day-content"><div class="type type-hip">Hip Only</div>Hip block (10 min) &middot; Calisthenics as normal &middot; Rest from swimming</div>
+      </div>
+      <div class="day-row swim-day">
+        <div class="day-label">Friday</div>
+        <div class="day-content"><div class="type type-swim">Easy Swim + Hip</div>Easy base session (20&ndash;25 min) &middot; Hip block (10 min) &middot; Calisthenics as normal</div>
+      </div>
+      <div class="day-row swim-day">
+        <div class="day-label">Saturday</div>
+        <div class="day-content"><div class="type type-swim">Easy Swim + Hip</div>Easy base session (20&ndash;25 min) &middot; Hip block (10 min) &middot; Calisthenics as normal</div>
+      </div>
+      <div class="day-row rest-day">
+        <div class="day-label">Sunday</div>
+        <div class="day-content"><div class="type type-rest">Rest</div>Hip block optional &middot; No swimming &middot; No calisthenics &middot; Enjoy the beach</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 2 -->
+  <div class="week-section">
+    <div class="week-title">Week 2 &mdash; Mountains <span>Running + Hip Exercises</span></div>
+    <div class="week-cal">
+      <div class="day-row run-day">
+        <div class="day-label">Monday</div>
+        <div class="day-content"><div class="type type-run">Easy Run + Hip</div>Easy base session (20&ndash;25 min) &middot; Hip block (10 min) &middot; Calisthenics as normal</div>
+      </div>
+      <div class="day-row hip-only">
+        <div class="day-label">Tuesday</div>
+        <div class="day-content"><div class="type type-hip">Hip Only</div>Hip block (10 min) &middot; Calisthenics as normal &middot; Rest from running</div>
+      </div>
+      <div class="day-row run-day">
+        <div class="day-label">Wednesday</div>
+        <div class="day-content"><div class="type type-run">Harder Run + Hip</div>Harder session (25&ndash;30 min) &mdash; the one RPE 7 session this week &middot; Hip block (10 min) &middot; Calisthenics as normal</div>
+      </div>
+      <div class="day-row hip-only">
+        <div class="day-label">Thursday</div>
+        <div class="day-content"><div class="type type-hip">Hip Only</div>Hip block (10 min) &middot; Calisthenics as normal &middot; Rest from running</div>
+      </div>
+      <div class="day-row run-day">
+        <div class="day-label">Friday</div>
+        <div class="day-content"><div class="type type-run">Easy Run + Hip</div>Easy base session (20&ndash;25 min) &middot; Hip block (10 min) &middot; Calisthenics as normal</div>
+      </div>
+      <div class="day-row run-day">
+        <div class="day-label">Saturday</div>
+        <div class="day-content"><div class="type type-run">Easy Run + Hip</div>Easy base session (20&ndash;25 min) &middot; Hip block (10 min) &middot; Calisthenics as normal</div>
+      </div>
+      <div class="day-row rest-day">
+        <div class="day-label">Sunday</div>
+        <div class="day-content"><div class="type type-rest">Rest</div>Hip block optional &middot; No running &middot; No calisthenics &middot; Enjoy the mountains</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box green">
+    <div class="ib-title">When you get back home</div>
+    Hip exercises reduce to 3&times; per week (Monday, Wednesday, Saturday) &middot; Bag sessions resume at Week 2 level &middot; All standard training rest protocols apply.
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.tab').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));t.classList.add('active');document.getElementById(t.dataset.tab).classList.add('active');});});
+function toggleCard(h){h.parentElement.classList.toggle('open');}
+</script>
+</body>
+</html>
