@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Training</title>
+<style>
+  :root {
+    --bg: #111113;
+    --surface: #1a1a1f;
+    --surface-raised: #222228;
+    --border: #2a2a32;
+    --border-focus: #3a3a44;
+    --text-primary: #e8e8ed;
+    --text-secondary: #8e8e9a;
+    --text-tertiary: #5a5a66;
+    --accent: #e8913a;
+    --accent-dim: rgba(232,145,58,0.12);
+    --green: #4ade80;
+    --green-dim: rgba(74,222,128,0.12);
+    --blue: #60a5fa;
+    --blue-dim: rgba(96,165,250,0.12);
+    --red: #f87171;
+    --red-dim: rgba(248,113,113,0.12);
+    --yellow: #facc15;
+    --yellow-dim: rgba(250,204,21,0.12);
+    --purple: #a78bfa;
+    --purple-dim: rgba(167,139,250,0.12);
+    --radius: 12px;
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    padding: var(--space-md);
+    padding-bottom: var(--space-2xl);
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    padding: var(--space-lg) 0 var(--space-md);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: var(--space-lg);
+  }
+  .header .label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--space-xs);
+  }
+  .header h1 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: var(--space-xs);
+  }
+  .header .sub { font-size: 14px; color: var(--text-secondary); }
+
+  .section { margin-bottom: var(--space-2xl); }
+  .section-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-md);
+  }
+  .section-title .muted {
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--text-tertiary);
+  }
+
+  /* Status card */
+  .status-card {
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
+    border-radius: var(--radius);
+    padding: var(--space-md);
+  }
+  .status-head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-sm);
+  }
+  .status-head .phase { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
+  .status-head .pill {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .status-card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: var(--space-sm);
+  }
+  .status-card p:last-child { margin-bottom: 0; }
+  .status-card strong { color: var(--text-primary); }
+
+  .restrict-list {
+    list-style: none;
+    margin-top: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--border);
+  }
+  .restrict-list li {
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding: 5px 0 5px 20px;
+    position: relative;
+    line-height: 1.45;
+  }
+  .restrict-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 8px;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--accent);
+  }
+  .restrict-list li strong { color: var(--text-primary); font-weight: 600; }
+
+  /* Nav cards */
+  .nav-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+  @media (min-width: 560px) {
+    .nav-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .nav-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-md);
+    text-decoration: none;
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
+    transition: border-color 0.15s, background 0.15s, transform 0.1s;
+  }
+  .nav-card:hover { border-color: var(--border-focus); background: var(--surface-raised); }
+  .nav-card:active { transform: scale(0.99); }
+  .nav-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .ic-accent { background: var(--accent-dim); color: var(--accent); }
+  .ic-red { background: var(--red-dim); color: var(--red); }
+  .ic-yellow { background: var(--yellow-dim); color: var(--yellow); }
+  .ic-green { background: var(--green-dim); color: var(--green); }
+  .ic-blue { background: var(--blue-dim); color: var(--blue); }
+  .ic-purple { background: var(--purple-dim); color: var(--purple); }
+  .nav-text { flex: 1; min-width: 0; }
+  .nav-text .t { font-size: 15px; font-weight: 600; line-height: 1.3; }
+  .nav-text .d {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin-top: 1px;
+  }
+  .nav-arrow { color: var(--text-tertiary); flex-shrink: 0; }
+
+  /* Schedule table */
+  .sched {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .sched-row {
+    display: grid;
+    grid-template-columns: 46px 1fr;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+  }
+  .sched-row:last-child { border-bottom: none; }
+  .sched-row.rest { opacity: 0.55; }
+  .sched-day {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+  .sched-main { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm); }
+  .sched-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+  .b-upper { background: var(--blue-dim); color: var(--blue); }
+  .b-legs { background: var(--green-dim); color: var(--green); }
+  .b-baga { background: var(--accent-dim); color: var(--accent); }
+  .b-bagb { background: var(--red-dim); color: var(--red); }
+  .b-hip { background: var(--purple-dim); color: var(--purple); }
+  .b-rest { background: var(--surface-raised); color: var(--text-tertiary); }
+  .sched-note { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+
+  .daily-strip {
+    margin-top: var(--space-sm);
+    background: var(--green-dim);
+    border-left: 3px solid var(--green);
+    border-radius: 0 var(--space-sm) var(--space-sm) 0;
+    padding: var(--space-sm) var(--space-md);
+  }
+  .daily-strip .dt {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: var(--space-xs);
+  }
+  .daily-strip .dd { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+  .daily-strip .dd strong { color: var(--text-primary); }
+
+  .note-callout {
+    background: var(--accent-dim);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--space-sm) var(--space-sm) 0;
+    padding: var(--space-sm) var(--space-md);
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: var(--space-sm);
+    line-height: 1.5;
+  }
+  .note-callout strong { color: var(--text-primary); }
+
+  /* Red flags */
+  .flag {
+    background: var(--red-dim);
+    border-left: 3px solid var(--red);
+    border-radius: 0 var(--space-sm) var(--space-sm) 0;
+    padding: var(--space-sm) var(--space-md);
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: var(--space-sm);
+  }
+  .flag:last-child { margin-bottom: 0; }
+  .flag strong { color: var(--red); }
+
+  .footer {
+    border-top: 1px solid var(--border);
+    padding-top: var(--space-md);
+    font-size: 12px;
+    color: var(--text-tertiary);
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="label">Mauro · Training</div>
+  <h1>Training Hub</h1>
+  <div class="sub">Programs, sessions and rehab — all in one place</div>
+</div>
+
+<!-- ============================================================
+     CURRENT BLOCK — edit this card whenever the phase changes
+     ============================================================ -->
+<div class="section">
+  <div class="section-title">Where I Am Right Now</div>
+  <div class="status-card">
+    <div class="status-head">
+      <span class="phase">Week 7 — Re-entry</span>
+      <span class="pill">Post-illness</span>
+    </div>
+    <p><strong>Aim:</strong> re-expose the body after two weeks off (week 6 lost to gastroenteritis). This is not a deload — enough rest has already happened. Three light sessions, everything well short of failure, then straight into the new mesocycle.</p>
+    <p><strong>This week only:</strong> 1 technical bag session (RPE 5, Z2, ~30 min, no output rounds) + 1 light upper + 1 light legs. If energy is still low, drop the bag session.</p>
+    <ul class="restrict-list">
+      <li><strong>Upper intensity capped</strong> — 2–3 reps from failure, no max sets, through week 3 of the new cycle</li>
+      <li><strong>No explosive pulling</strong> — muscle-up prep phase only (false grip, scapular pulls, ring support, assisted transitions)</li>
+      <li><strong>Kick volume moderate</strong> — first 2 weeks, while the legs adapt to doubled frequency</li>
+      <li><strong>Shoulder depression</strong> — master cue on every punch, every round</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================================================
+     WEEKLY SCHEDULE — standard template for the new mesocycle
+     ============================================================ -->
+<div class="section">
+  <div class="section-title">Weekly Schedule <span class="muted">· new mesocycle template</span></div>
+  <div class="sched">
+    <div class="sched-row">
+      <div class="sched-day">Mon</div>
+      <div class="sched-main">
+        <span class="sched-badge b-upper">Upper</span>
+        <span class="sched-badge b-hip">Hip 12′</span>
+        <span class="sched-note">Rings · capped · muscle-up prep · hips after</span>
+      </div>
+    </div>
+    <div class="sched-row">
+      <div class="sched-day">Tue</div>
+      <div class="sched-main">
+        <span class="sched-badge b-legs">Legs</span>
+        <span class="sched-note">CalisthenicsApp · full 45 min</span>
+      </div>
+    </div>
+    <div class="sched-row">
+      <div class="sched-day">Wed</div>
+      <div class="sched-main">
+        <span class="sched-badge b-baga">Bag A</span>
+        <span class="sched-note">Technique · longer rounds, more rest</span>
+      </div>
+    </div>
+    <div class="sched-row">
+      <div class="sched-day">Thu</div>
+      <div class="sched-main">
+        <span class="sched-badge b-upper">Upper</span>
+        <span class="sched-badge b-hip">Hip 12′</span>
+        <span class="sched-note">Rings · capped · muscle-up prep · hips after</span>
+      </div>
+    </div>
+    <div class="sched-row">
+      <div class="sched-day">Fri</div>
+      <div class="sched-main">
+        <span class="sched-badge b-legs">Legs</span>
+        <span class="sched-note">CalisthenicsApp · full 45 min</span>
+      </div>
+    </div>
+    <div class="sched-row">
+      <div class="sched-day">Sat</div>
+      <div class="sched-main">
+        <span class="sched-badge b-bagb">Bag B</span>
+        <span class="sched-note">Output · shorter rounds, push intensity</span>
+      </div>
+    </div>
+    <div class="sched-row">
+      <div class="sched-day">Sun</div>
+      <div class="sched-main">
+        <span class="sched-badge b-rest">Rest</span>
+        <span class="sched-badge b-hip">Hip 12′</span>
+        <span class="sched-note">Standalone block · active recovery, not a session</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="daily-strip">
+    <div class="dt">Every day — including rest days</div>
+    <div class="dd">
+      <strong>Cervical prehab</strong> ~5 min · <strong>DNF Stage 2</strong> craniocervical holds, building to 10×10 sec · <strong>Desk micro-breaks</strong> every 30–45 min (chin tucks + shoulder rolls) · second prehab dose on heavy desk days.
+    </div>
+  </div>
+
+  <div class="note-callout">
+    <strong>Why it's laid out this way:</strong> upper and legs each sit three days apart, and the hardest day (Bag B) falls right before the rest day. The compromise is Friday legs into Saturday Bag B — that's why kick volume stays moderate early in the cycle.<br><br>
+    <strong>Hip blocks (3×12 min)</strong> go on the upper days and Sunday, not the leg days: legs are fresh so the work is high quality, and the 45-minute cap on Tuesday and Friday stays intact. Sunday's block can move to Wednesday <em>before</em> Bag A instead, used as a kicking-specific warm-up.
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGES — to add a new one, copy the block below and edit it:
+
+     <a class="nav-card" href="FILENAME.html">
+       <div class="nav-icon ic-purple">ICON SVG</div>
+       <div class="nav-text">
+         <div class="t">TITLE</div>
+         <div class="d">SHORT DESCRIPTION</div>
+       </div>
+       <svg class="nav-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+     </a>
+
+     Icon colour classes: ic-accent · ic-red · ic-yellow · ic-green · ic-blue · ic-purple
+     ============================================================ -->
+<div class="section">
+  <div class="section-title">Programs &amp; Sessions</div>
+  <div class="nav-grid">
+
+    <a class="nav-card" href="mesocycle_overview.html">
+      <div class="nav-icon ic-accent">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      </div>
+      <div class="nav-text">
+        <div class="t">Current Mesocycle</div>
+        <div class="d">6-week plan, phases, HR zones, progression</div>
+      </div>
+      <svg class="nav-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+    <a class="nav-card" href="bag_sessions.html">
+      <div class="nav-icon ic-red">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>
+      </div>
+      <div class="nav-text">
+        <div class="t">Bag Sessions</div>
+        <div class="d">This week's rounds, cues and session log</div>
+      </div>
+      <svg class="nav-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+    <a class="nav-card" href="neck_plan.html">
+      <div class="nav-icon ic-blue">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+      </div>
+      <div class="nav-text">
+        <div class="t">Neck Rehab</div>
+        <div class="d">Prehab, DNF stages, desk setup, red flags</div>
+      </div>
+      <svg class="nav-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+    <a class="nav-card" href="hip_training.html">
+      <div class="nav-icon ic-green">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L5 14h6l-2 8 8-12h-6l2-8z"/></svg>
+      </div>
+      <div class="nav-text">
+        <div class="t">Hip Exercises</div>
+        <div class="d">Mobility and strength work for the hips</div>
+      </div>
+      <svg class="nav-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+    <a class="nav-card" href="deload_week.html">
+      <div class="nav-icon ic-yellow">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+      </div>
+      <div class="nav-text">
+        <div class="t">Deload Week</div>
+        <div class="d">Recovery protocol between mesocycles</div>
+      </div>
+      <svg class="nav-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     STOP CRITERIA — these do not change between cycles
+     ============================================================ -->
+<div class="section">
+  <div class="section-title">Stop Criteria <span class="muted">· non-negotiable</span></div>
+  <div class="flag"><strong>Headache during or right after a session, or a cervical flare-up</strong> → cut the week and rest. No mid-week negotiation.</div>
+  <div class="flag"><strong>Arm pain, numbness, tingling or weakness below the shoulder</strong> → stop training and get assessed. Nerve territory, not muscle tension.</div>
+  <div class="flag"><strong>Headaches persisting past 4 weeks</strong> despite desk changes and daily prehab → book physio for the muscular driver.</div>
+</div>
+
+<div class="footer">
+  Log after every session: cervical status · evening headache · desk hours · prehab done.<br>
+  The correlation that matters is headache vs desk hours, not headache vs training.
+</div>
+
+</body>
+</html>
