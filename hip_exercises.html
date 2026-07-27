@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Hip Exercises</title>
+<style>
+:root{--bg:#111113;--surface:#1a1a1f;--surface-raised:#222228;--border:#2a2a32;--text-primary:#e8e8ed;--text-secondary:#8e8e9a;--text-tertiary:#5a5a66;--accent:#e8913a;--accent-dim:rgba(232,145,58,0.12);--green:#4ade80;--green-dim:rgba(74,222,128,0.12);--blue:#60a5fa;--blue-dim:rgba(96,165,250,0.12);--red:#f87171;--red-dim:rgba(248,113,113,0.12);--yellow:#facc15;--yellow-dim:rgba(250,204,21,0.12);--teal:#2dd4bf;--teal-dim:rgba(45,212,191,0.12);--orange:#fb923c;--orange-dim:rgba(251,146,60,0.12);--purple:#c084fc;--purple-dim:rgba(192,132,252,0.12);--radius:12px;--xs:4px;--sm:8px;--md:16px;--lg:24px;--xl:32px;--2xl:48px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;background:var(--bg);color:var(--text-primary);line-height:1.5;-webkit-font-smoothing:antialiased;padding:var(--md);padding-bottom:80px;max-width:720px;margin:0 auto;}
+
+/* Back link */
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--text-tertiary);text-decoration:none;padding:var(--sm) 0;-webkit-tap-highlight-color:transparent;}
+.back:hover{color:var(--accent);}
+
+.sh{padding:var(--md) 0 var(--md);border-bottom:1px solid var(--border);margin-bottom:var(--lg);}
+.sh .lbl{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--xs);}
+.sh h1{font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.2;margin-bottom:var(--xs);}
+.sh .sub{font-size:13px;color:var(--text-secondary);}
+.sl{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:var(--md);}
+.tc{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--border);margin-bottom:var(--lg);font-size:14px;color:var(--text-secondary);line-height:1.55;}
+.tc strong{color:var(--text-primary);}
+.info-box{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--border);margin-bottom:var(--md);font-size:13px;color:var(--text-secondary);line-height:1.55;}
+.info-box .ib-title{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:var(--sm);}
+.info-box strong{color:var(--text-primary);}
+.info-box.teal{border-color:var(--teal);}.info-box.teal .ib-title{color:var(--teal);}
+.info-box.blue{border-color:var(--blue);}.info-box.blue .ib-title{color:var(--blue);}
+.info-box.orange{border-color:var(--orange);}.info-box.orange .ib-title{color:var(--orange);}
+.info-box.green{border-color:var(--green);}.info-box.green .ib-title{color:var(--green);}
+.rest-box{background:var(--accent-dim);border-left:3px solid var(--accent);border-radius:0 var(--sm) var(--sm) 0;padding:var(--sm) var(--md);font-size:13px;color:var(--text-secondary);margin-bottom:var(--lg);line-height:1.5;}
+.rest-box strong{color:var(--accent);}
+
+/* Schedule strip */
+.sched{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sm);margin-bottom:var(--md);}
+.sched-day{background:var(--surface);border:1px solid var(--teal);border-radius:var(--sm);padding:var(--sm);text-align:center;}
+.sched-day .d{font-size:13px;font-weight:700;color:var(--teal);}
+.sched-day .n{font-size:11px;color:var(--text-tertiary);margin-top:2px;line-height:1.35;}
+
+/* Exercise cards */
+.ex-card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:var(--sm);overflow:hidden;}
+.ex-header{display:flex;align-items:center;padding:var(--md);cursor:pointer;-webkit-tap-highlight-color:transparent;gap:var(--sm);}
+.ex-num{width:28px;height:28px;border-radius:8px;background:var(--teal-dim);color:var(--teal);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ex-title{flex:1;font-size:14px;font-weight:600;}
+.ex-meta{font-size:12px;color:var(--text-tertiary);white-space:nowrap;}
+.chv{color:var(--text-tertiary);transition:transform .2s;flex-shrink:0;}
+.ex-card.open .chv{transform:rotate(180deg);}
+.ex-body{display:none;padding:0 var(--md) var(--md);}
+.ex-card.open .ex-body{display:block;}
+.ex-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:var(--xs);}
+.ex-cue{font-size:13px;color:var(--text-secondary);line-height:1.55;margin-bottom:var(--sm);}
+.ex-cue strong{color:var(--text-primary);font-weight:600;}
+.rest-pill{display:inline-block;background:var(--surface-raised);border:1px solid var(--border);border-radius:20px;padding:3px 10px;font-size:12px;color:var(--text-secondary);margin-top:var(--xs);}
+.rest-pill span{color:var(--accent);font-weight:600;}
+.error-note{font-size:12px;color:var(--red);background:var(--red-dim);padding:var(--sm);border-radius:var(--sm);margin-bottom:var(--sm);}
+</style>
+</head>
+<body>
+
+<a class="back" href="index.html">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+  Training Hub
+</a>
+
+<div class="sh">
+  <div class="lbl">3&times; per week &middot; 10&ndash;12 min</div>
+  <h1>Hip Exercises</h1>
+  <div class="sub">Lead hip rotators &middot; No equipment &middot; Anywhere</div>
+</div>
+
+<div class="tc">
+  These four exercises target the <strong>lead hip external rotators and abductors</strong> &mdash; the muscles that drive the lead mawashi geri. They address the specific fault where the torso tilts away as the leg rises: the hip cannot drive forward and laterally into the kick if the rotators are not strong enough to hold the position.
+</div>
+
+<!-- SCHEDULE -->
+<div class="sl">When</div>
+<div class="sched">
+  <div class="sched-day"><div class="d">Mon</div><div class="n">after upper</div></div>
+  <div class="sched-day"><div class="d">Thu</div><div class="n">after upper</div></div>
+  <div class="sched-day"><div class="d">Sun</div><div class="n">standalone</div></div>
+</div>
+<div class="info-box teal">
+  <div class="ib-title">Why these days</div>
+  Legs are fresh on the upper days, so the work is high quality rather than something ground out on tired glutes &mdash; and Tuesday and Friday leg sessions stay inside the 45-minute cap. Sunday's block is active recovery, not a session. <strong>Alternative:</strong> Sunday's block can move to Wednesday <em>before</em> Bag A, used as a kicking-specific warm-up.
+</div>
+
+<!-- PROTOCOL -->
+<div class="sl" style="margin-top:var(--xl);">Protocol</div>
+<div class="rest-box">
+  <strong>Rest:</strong> 30 sec between sets of the same exercise &middot; 60 sec between exercises
+</div>
+
+<div class="info-box orange">
+  <div class="ib-title">Lead hip first &mdash; always</div>
+  For every exercise, start with the lead leg. The lead side is the weaker side &mdash; it gets the first rep when the muscles are freshest.
+</div>
+
+<!-- EXERCISES -->
+<div class="sl" style="margin-top:var(--xl);">The Block</div>
+
+<div class="ex-card">
+  <div class="ex-header" onclick="toggleCard(this)">
+    <div class="ex-num">1</div>
+    <div class="ex-title">Clamshells</div>
+    <div class="ex-meta">2 &times; 15 each side</div>
+    <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+  <div class="ex-body">
+    <div class="ex-label">Setup</div>
+    <div class="ex-cue">Lie on your side. Hips stacked, knees bent at 90&deg;, feet together.</div>
+    <div class="ex-label">Movement</div>
+    <div class="ex-cue">Keeping the feet together, rotate the top knee upward as high as you can without the top hip rolling backward. Hold 1 sec at the top, lower with control.</div>
+    <div class="ex-cue"><strong>Feel:</strong> burn in the outer glute and hip. If you feel it in the lower back, the hip is rolling &mdash; reduce the range.</div>
+    <div class="error-note">Common error: pelvis tilts backward as the knee rises. Keep hips stacked and the movement in the hip joint only.</div>
+    <div class="rest-pill">30 sec between sets &middot; <span>60 sec</span> before next exercise</div>
+  </div>
+</div>
+
+<div class="ex-card">
+  <div class="ex-header" onclick="toggleCard(this)">
+    <div class="ex-num">2</div>
+    <div class="ex-title">Side-Lying Hip Abduction</div>
+    <div class="ex-meta">2 &times; 12 each side</div>
+    <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+  <div class="ex-body">
+    <div class="ex-label">Setup</div>
+    <div class="ex-cue">Lie on your side. Bottom knee slightly bent. Top leg fully straight, toes pointing forward not toward the ceiling.</div>
+    <div class="ex-label">Movement</div>
+    <div class="ex-cue">Lift the top leg to 45&deg;, then lower with control. <strong>3 seconds on the way down</strong> &mdash; the eccentric phase is where the strength adaptation happens. Do not let the leg drop.</div>
+    <div class="error-note">Common error: toes rotate toward the ceiling, turning it into a hip flexor exercise. Keep toes pointing forward throughout.</div>
+    <div class="rest-pill">30 sec between sets &middot; <span>60 sec</span> before next exercise</div>
+  </div>
+</div>
+
+<div class="ex-card">
+  <div class="ex-header" onclick="toggleCard(this)">
+    <div class="ex-num">3</div>
+    <div class="ex-title">Fire Hydrants</div>
+    <div class="ex-meta">2 &times; 12 each side</div>
+    <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+  <div class="ex-body">
+    <div class="ex-label">Setup</div>
+    <div class="ex-cue">On all fours. Wrists under shoulders, knees under hips. Spine neutral, core lightly engaged.</div>
+    <div class="ex-label">Movement</div>
+    <div class="ex-cue">Keeping the knee bent at 90&deg;, lift one knee out to the side to hip height. Hold 1 sec at the top, return with control. The rest of the body stays completely still.</div>
+    <div class="ex-cue"><strong>Why this matters:</strong> this is the same hip joint action as the mawashi geri &mdash; external rotation with abduction. You are training the exact muscles that drive the roundhouse kick.</div>
+    <div class="error-note">Common error: pelvis tilts to the opposite side as the leg lifts. If the body tilts, reduce the range of motion.</div>
+    <div class="rest-pill">30 sec between sets &middot; <span>60 sec</span> before next exercise</div>
+  </div>
+</div>
+
+<div class="ex-card">
+  <div class="ex-header" onclick="toggleCard(this)">
+    <div class="ex-num">4</div>
+    <div class="ex-title">Standing Hip Circles</div>
+    <div class="ex-meta">2 &times; 10 each side &middot; both directions</div>
+    <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+  <div class="ex-body">
+    <div class="ex-label">Setup</div>
+    <div class="ex-cue">Stand on one leg. Light touch on a wall for balance if needed. Raise the opposite knee to hip height in front.</div>
+    <div class="ex-label">Movement</div>
+    <div class="ex-cue">Draw large, slow circles with the raised knee &mdash; forward, out to the side, behind, and back to front. 10 reps clockwise then 10 counter-clockwise on the same leg before switching. The slower the circle, the harder the hip has to work.</div>
+    <div class="rest-pill">30 sec between sets &middot; No rest after &mdash; last exercise</div>
+  </div>
+</div>
+
+<div class="info-box green" style="margin-top:var(--lg);">
+  <div class="ib-title">Total time &amp; placement</div>
+  The full block takes <strong>10&ndash;12 minutes</strong>. On Monday and Thursday, do it straight after the upper session &mdash; the legs are fresh and the rings work does not interfere. On Sunday it stands alone; morning or evening, whichever fits.
+</div>
+
+<div class="info-box blue">
+  <div class="ib-title">Progression</div>
+  Once 2&times;15 clamshells and 2&times;12 abductions feel easy with clean form, add a third set before adding reps. Resistance bands are the next step after that &mdash; but only when the unloaded version is technically perfect on both sides, lead side included.
+</div>
+
+<script>
+function toggleCard(h){h.parentElement.classList.toggle('open');}
+</script>
+</body>
+</html>
