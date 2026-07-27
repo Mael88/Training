@@ -231,6 +231,52 @@
     font-weight: 700;
   }
   .setup-list li strong { color: var(--text-primary); font-weight: 600; }
+  /* ---- Progress markers (shared pattern) ---- */
+  [data-prog] {
+    position: relative;
+    padding-right: 42px;
+    transition: opacity .2s, border-color .2s, box-shadow .2s;
+  }
+  [data-prog] .prog-dot {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface-raised);
+    color: var(--text-tertiary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: all .15s;
+  }
+  [data-prog] .prog-dot:hover { color: var(--text-secondary); }
+  [data-prog].is-done { opacity: .45; }
+  [data-prog].is-done .prog-dot {
+    background: var(--green-dim);
+    border-color: var(--green);
+    color: var(--green);
+  }
+  [data-prog].is-current {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+  [data-prog].is-current .prog-dot {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #111;
+  }
+  .prog-hint {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-bottom: var(--space-sm);
+    line-height: 1.45;
+  }
 </style>
 </head>
 <body>
@@ -274,23 +320,24 @@
 <!-- TIMELINE -->
 <div class="section">
   <div class="section-title">Timeline</div>
-  <div class="timeline">
-    <div class="tl-week done">
+  <div class="prog-hint">Tap a circle to mark where you are. Earlier steps grey out automatically; tap again to clear.</div>
+  <div class="timeline" data-prog-group="timeline" data-prog-default="wk7">
+    <div class="tl-week" data-prog="wk6">
       <div class="tl-num">Week 6</div>
       <div class="tl-phase">Complete rest — unplanned</div>
       <div class="tl-detail">No training (gastroenteritis). Taper week lost.</div>
     </div>
-    <div class="tl-week current">
+    <div class="tl-week" data-prog="wk7">
       <div class="tl-num">Week 7</div>
       <div class="tl-phase">Re-entry — not a deload</div>
       <div class="tl-detail">Two weeks off is already enough rest. Re-expose gently: 1 technical bag session (RPE 5, Z2, ~30 min, no output rounds) + 1 light upper + 1 light legs, well short of failure. If energy is still low post-illness, drop the bag session. Daily prehab; <strong>DNF Stage 2 starts.</strong></div>
     </div>
-    <div class="tl-week">
+    <div class="tl-week" data-prog="cycle-wk1-3">
       <div class="tl-num">Wk 1–3<br>new cycle</div>
       <div class="tl-phase">Rebuild — 2 Upper + 2 Legs + 2 Bag</div>
       <div class="tl-detail">Upper intensity capped: 2–3 reps from failure, no max sets. Muscle-up <strong>preparatory</strong> work only — no explosive pulling. Bag keeps the full strike toolkit but restarts volume/intensity around week-3 level. Daily prehab continues.</div>
     </div>
-    <div class="tl-week">
+    <div class="tl-week" data-prog="cycle-wk4-6">
       <div class="tl-num">Wk 4–6<br>new cycle</div>
       <div class="tl-phase">Progress — conditional</div>
       <div class="tl-detail">If the log shows the neck quiet for ≥3 weeks: rebuild upper intensity, add explosive pulling to the muscle-up progression, return bag to Intensification. If not: hold the cap and book physio.</div>
@@ -323,13 +370,16 @@
     <p>The deep flexors (longus colli, longus capitis) are the stabilizing "core" of the cervical spine. When they fatigue or weaken, the superficial muscles — SCM and upper traps — take over. That substitution is exactly what hours at a desk produce, and it is the same pattern as your left trap overactivation when striking. Training the DNFs is the best-evidenced intervention for reducing cervicogenic and tension-type headache frequency. It is threshold-raising work: boring, low-intensity, effective.</p>
   </div>
 
-  <div class="card">
+  <div class="prog-hint">Tap a circle to mark the stage you're on.</div>
+  <div data-prog-group="dnf" data-prog-default="stage2">
+
+  <div class="card" data-prog="stage1">
     <h3>Stage 1 — Motor Control <span class="tag tag-now">Baseline</span></h3>
     <p><strong>Chin tucks, 2×10 daily</strong> (already in the routine above). A pure "nod" — the back of the head slides up, the chin drops slightly. No forward flexion, no SCM bulging.</p>
     <div class="criteria"><strong>Move to Stage 2 when:</strong> tucks feel effortless and symptom-free. You are there now — start Stage 2 in week 7.</div>
   </div>
 
-  <div class="card">
+  <div class="card" data-prog="stage2">
     <h3>Stage 2 — Craniocervical Flexion Holds <span class="tag tag-stage">Start week 7</span></h3>
     <p><strong>Setup:</strong> lying on your back, knees bent, tongue on the roof of the mouth, jaw relaxed.</p>
     <p><strong>Movement:</strong> gentle nod as if saying "yes" — the smallest movement that slightly flattens the curve of the neck. Hold 10 seconds, breathe normally, release.</p>
@@ -338,7 +388,7 @@
     <div class="criteria"><strong>Move to Stage 3 when:</strong> 10×10 sec is easy with zero SCM substitution and no symptoms, for at least a week.</div>
   </div>
 
-  <div class="card">
+  <div class="card" data-prog="stage3">
     <h3>Stage 3 — Low-Load Endurance <span class="tag tag-stage">~Wk 2–3 of new cycle</span></h3>
     <ul class="exercise-list">
       <li><strong>Head lift with tuck</strong> — supine, chin tucked, lift the head 1 cm off the floor. Hold 5–10 sec, 3×5. The tuck must not release during the lift.</li>
@@ -346,6 +396,8 @@
     </ul>
     <p style="margin-top:var(--space-sm);">3–4 days/week alongside the daily prehab. Replaces the Stage 2 holds on the days it is done.</p>
     <div class="criteria"><strong>Maintain long-term:</strong> once headache frequency drops, 2×/week keeps the adaptation.</div>
+  </div>
+
   </div>
 </div>
 
@@ -371,5 +423,54 @@
   <div class="warn-callout"><strong>After 4+ weeks of the plan:</strong> if headaches persist despite the desk changes, reduced load and daily prehab → physio for manual therapy and a supervised rehab block. Not to fix the hernia — to manage the muscular driver.</div>
 </div>
 
+<script>
+/* ---- Progress markers (shared pattern) ----
+   Mark the page, then tag any progression:
+     <div data-prog-group="NAME" data-prog-default="ID"> ... </div>
+     <div class="card" data-prog="ID"> ... </div>
+   State persists in localStorage per page + group.                     */
+const PROG_PAGE = 'neck_plan';
+
+(function initProgress() {
+  document.querySelectorAll('[data-prog-group]').forEach(group => {
+    const key = 'prog:' + PROG_PAGE + ':' + group.dataset.progGroup;
+    const items = Array.from(group.querySelectorAll('[data-prog]'));
+    if (!items.length) return;
+
+    const apply = (currentId) => {
+      const idx = items.findIndex(el => el.dataset.prog === currentId);
+      items.forEach((el, i) => {
+        el.classList.remove('is-done', 'is-current');
+        if (idx < 0) return;
+        if (i < idx) el.classList.add('is-done');
+        else if (i === idx) el.classList.add('is-current');
+      });
+    };
+
+    const save = (val) => {
+      try { localStorage.setItem(key, val); } catch (e) {}
+    };
+
+    items.forEach(el => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'prog-dot';
+      dot.setAttribute('aria-label', 'Mark as current');
+      dot.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
+      dot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const val = el.classList.contains('is-current') ? '' : el.dataset.prog;
+        save(val);
+        apply(val);
+      });
+      el.appendChild(dot);
+    });
+
+    let saved = null;
+    try { saved = localStorage.getItem(key); } catch (e) {}
+    apply(saved !== null ? saved : (group.dataset.progDefault || ''));
+  });
+})();
+</script>
 </body>
 </html>
