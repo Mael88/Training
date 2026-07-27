@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Cervical Management Plan</title>
+<style>
+  :root {
+    --bg: #111113;
+    --surface: #1a1a1f;
+    --surface-raised: #222228;
+    --border: #2a2a32;
+    --text-primary: #e8e8ed;
+    --text-secondary: #8e8e9a;
+    --text-tertiary: #5a5a66;
+    --accent: #e8913a;
+    --accent-dim: rgba(232,145,58,0.12);
+    --green: #4ade80;
+    --green-dim: rgba(74,222,128,0.12);
+    --blue: #60a5fa;
+    --blue-dim: rgba(96,165,250,0.12);
+    --red: #f87171;
+    --red-dim: rgba(248,113,113,0.12);
+    --yellow: #facc15;
+    --yellow-dim: rgba(250,204,21,0.12);
+    --radius: 12px;
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    padding: var(--space-md);
+    padding-bottom: 80px;
+  }
+  .header {
+    padding: var(--space-lg) 0 var(--space-md);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: var(--space-lg);
+  }
+  .header .label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--space-xs);
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: var(--space-xs);
+  }
+  .header .dates {
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+  .section { margin-bottom: var(--space-2xl); }
+  .section-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-md);
+  }
+  .card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+    margin-bottom: var(--space-sm);
+  }
+  .card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+  .card h3 .tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+  .tag-daily { background: var(--green-dim); color: var(--green); }
+  .tag-stage { background: var(--blue-dim); color: var(--blue); }
+  .tag-now { background: var(--accent-dim); color: var(--accent); }
+  .tag-priority { background: var(--red-dim); color: var(--red); }
+  .card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: var(--space-sm);
+  }
+  .card p:last-child { margin-bottom: 0; }
+  .card p strong { color: var(--text-primary); }
+  .exercise-list {
+    list-style: none;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .exercise-list li {
+    padding: var(--space-sm) 0;
+    padding-left: var(--space-md);
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.5;
+  }
+  .exercise-list li:last-child { border-bottom: none; }
+  .exercise-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 15px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .exercise-list li strong { color: var(--text-primary); font-weight: 600; }
+  .note-callout {
+    background: var(--accent-dim);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--space-sm) var(--space-sm) 0;
+    padding: var(--space-sm) var(--space-md);
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: var(--space-md);
+    line-height: 1.5;
+  }
+  .note-callout strong { color: var(--text-primary); }
+  .warn-callout {
+    background: var(--red-dim);
+    border-left: 3px solid var(--red);
+    border-radius: 0 var(--space-sm) var(--space-sm) 0;
+    padding: var(--space-sm) var(--space-md);
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: var(--space-sm);
+  }
+  .warn-callout strong { color: var(--red); }
+
+  /* Timeline */
+  .timeline { display: flex; flex-direction: column; gap: var(--space-sm); }
+  .tl-week {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-xs) var(--space-md);
+    align-items: start;
+  }
+  .tl-week.current { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .tl-week.done { opacity: 0.5; }
+  .tl-num {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    line-height: 1.3;
+    grid-row: span 2;
+    align-self: center;
+    min-width: 62px;
+  }
+  .tl-week.current .tl-num { color: var(--accent); }
+  .tl-phase { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+  .tl-detail { font-size: 13px; color: var(--text-secondary); line-height: 1.45; }
+
+  .criteria {
+    margin-top: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top: 1px dashed var(--border);
+    font-size: 12px;
+    color: var(--green);
+  }
+  .criteria strong { color: var(--green); }
+
+  .check-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+  }
+  .check-item {
+    background: var(--surface);
+    border-radius: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .check-item strong { display: block; color: var(--text-primary); font-size: 13px; margin-bottom: 2px; }
+
+  /* Desk setup diagram */
+  .setup-list {
+    list-style: none;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .setup-list li {
+    padding: var(--space-sm) 0;
+    padding-left: 26px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.5;
+  }
+  .setup-list li:last-child { border-bottom: none; }
+  .setup-list li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    color: var(--green);
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .setup-list li strong { color: var(--text-primary); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="label">Cervical Management</div>
+  <h1>Neck Plan</h1>
+  <div class="dates">Re-entry &amp; new mesocycle · Updated for desk-driven symptom pattern</div>
+</div>
+
+<!-- WHY -->
+<div class="section">
+  <div class="section-title">Why This Plan Exists</div>
+  <div class="card">
+    <p><strong>The situation:</strong> recurring tension headaches with an active cervical hernia. Headaches appear at the end of the day, not after morning training — and they track with <strong>desk/PC hours</strong> more than with operating days.</p>
+    <p><strong>What that means:</strong> training is probably not the trigger. Sustained static neck flexion at a desk is the prime suspect; training was lowering the threshold rather than causing the problem. The OR is uncomfortable but bounded — you move between cases. Desk work is hours of the head held forward with no position change, which fatigues the deep neck flexors and hands the job to the upper traps. That is the same substitution pattern showing up as left trapezius overactivation in your striking.</p>
+    <p><strong>The strategy:</strong> fix the desk exposure first, raise the neck's tolerance with daily prehab and deep neck flexor strength, reduce direct cervical training load temporarily, and use the log to confirm the pattern.</p>
+  </div>
+</div>
+
+<!-- DESK -->
+<div class="section">
+  <div class="section-title">Desk &amp; Screen Setup <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-tertiary)">· highest-yield change in this plan</span></div>
+  <div class="card">
+    <h3>Workstation <span class="tag tag-priority">Priority</span></h3>
+    <ul class="setup-list">
+      <li><strong>Top of the screen at eye level</strong> — if your chin drops to read, the setup is wrong.</li>
+      <li><strong>Screen about an arm's length away</strong> — closer pulls the head forward.</li>
+      <li><strong>No laptop-only work</strong> — external monitor, or a laptop stand plus separate keyboard.</li>
+      <li><strong>Forearms supported</strong> — unsupported arms hang from the traps all day.</li>
+      <li><strong>Documents and second screens in front, not to the side</strong> — sustained rotation is worse than sustained flexion.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Break the static load <span class="tag tag-daily">Every 30–45 min</span></h3>
+    <p>Set a timer. <strong>30 seconds:</strong> 5 chin tucks, 5 shoulder rolls backward, stand up.</p>
+    <p>This is the single highest-yield intervention available to you — more than anything in the training program. The problem is duration of a fixed position, not intensity, so the fix is interruption, not stretching.</p>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="section">
+  <div class="section-title">Timeline</div>
+  <div class="timeline">
+    <div class="tl-week done">
+      <div class="tl-num">Week 6</div>
+      <div class="tl-phase">Complete rest — unplanned</div>
+      <div class="tl-detail">No training (gastroenteritis). Taper week lost.</div>
+    </div>
+    <div class="tl-week current">
+      <div class="tl-num">Week 7</div>
+      <div class="tl-phase">Re-entry — not a deload</div>
+      <div class="tl-detail">Two weeks off is already enough rest. Re-expose gently: 1 technical bag session (RPE 5, Z2, ~30 min, no output rounds) + 1 light upper + 1 light legs, well short of failure. If energy is still low post-illness, drop the bag session. Daily prehab; <strong>DNF Stage 2 starts.</strong></div>
+    </div>
+    <div class="tl-week">
+      <div class="tl-num">Wk 1–3<br>new cycle</div>
+      <div class="tl-phase">Rebuild — 2 Upper + 2 Legs + 2 Bag</div>
+      <div class="tl-detail">Upper intensity capped: 2–3 reps from failure, no max sets. Muscle-up <strong>preparatory</strong> work only — no explosive pulling. Bag keeps the full strike toolkit but restarts volume/intensity around week-3 level. Daily prehab continues.</div>
+    </div>
+    <div class="tl-week">
+      <div class="tl-num">Wk 4–6<br>new cycle</div>
+      <div class="tl-phase">Progress — conditional</div>
+      <div class="tl-detail">If the log shows the neck quiet for ≥3 weeks: rebuild upper intensity, add explosive pulling to the muscle-up progression, return bag to Intensification. If not: hold the cap and book physio.</div>
+    </div>
+  </div>
+</div>
+
+<!-- DAILY ROUTINE -->
+<div class="section">
+  <div class="section-title">Daily Prehab <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-tertiary)">· every day, not just training days · ~5 min</span></div>
+  <div class="card">
+    <h3>Morning routine <span class="tag tag-daily">Daily</span></h3>
+    <ul class="exercise-list">
+      <li><strong>Chin tucks</strong> — 2×10, slow and controlled. Seated or standing.</li>
+      <li><strong>Cervical rotations</strong> — 5 each side, pain-free range only.</li>
+      <li><strong>Lateral neck stretch</strong> — 20–30 sec each side, gravity only.</li>
+      <li><strong>Scapular retractions</strong> — 2×15. Unloads the cervical spine.</li>
+      <li><strong>Shoulder rolls</strong> — 10 forward, 10 backward.</li>
+    </ul>
+    <div class="note-callout">
+      <strong>Second full dose on heavy desk days.</strong> Midday or as soon as you finish a long screen block. The micro-breaks every 30–45 min are separate and non-negotiable.
+    </div>
+  </div>
+</div>
+
+<!-- DNF PROGRAM -->
+<div class="section">
+  <div class="section-title">Deep Neck Flexor Program</div>
+  <div class="card">
+    <p>The deep flexors (longus colli, longus capitis) are the stabilizing "core" of the cervical spine. When they fatigue or weaken, the superficial muscles — SCM and upper traps — take over. That substitution is exactly what hours at a desk produce, and it is the same pattern as your left trap overactivation when striking. Training the DNFs is the best-evidenced intervention for reducing cervicogenic and tension-type headache frequency. It is threshold-raising work: boring, low-intensity, effective.</p>
+  </div>
+
+  <div class="card">
+    <h3>Stage 1 — Motor Control <span class="tag tag-now">Baseline</span></h3>
+    <p><strong>Chin tucks, 2×10 daily</strong> (already in the routine above). A pure "nod" — the back of the head slides up, the chin drops slightly. No forward flexion, no SCM bulging.</p>
+    <div class="criteria"><strong>Move to Stage 2 when:</strong> tucks feel effortless and symptom-free. You are there now — start Stage 2 in week 7.</div>
+  </div>
+
+  <div class="card">
+    <h3>Stage 2 — Craniocervical Flexion Holds <span class="tag tag-stage">Start week 7</span></h3>
+    <p><strong>Setup:</strong> lying on your back, knees bent, tongue on the roof of the mouth, jaw relaxed.</p>
+    <p><strong>Movement:</strong> gentle nod as if saying "yes" — the smallest movement that slightly flattens the curve of the neck. Hold 10 seconds, breathe normally, release.</p>
+    <p><strong>Dose:</strong> start 5×10 sec, build to 10×10 sec. Daily. Rest ~10 sec between holds.</p>
+    <p><strong>The test:</strong> two fingers lightly on the SCM at the side of the neck. If it fires hard, the effort is too high — make the nod smaller. The work must stay deep.</p>
+    <div class="criteria"><strong>Move to Stage 3 when:</strong> 10×10 sec is easy with zero SCM substitution and no symptoms, for at least a week.</div>
+  </div>
+
+  <div class="card">
+    <h3>Stage 3 — Low-Load Endurance <span class="tag tag-stage">~Wk 2–3 of new cycle</span></h3>
+    <ul class="exercise-list">
+      <li><strong>Head lift with tuck</strong> — supine, chin tucked, lift the head 1 cm off the floor. Hold 5–10 sec, 3×5. The tuck must not release during the lift.</li>
+      <li><strong>Resisted isometrics</strong> — hand against forehead, back of head, then each side. Push gently, neck does not move. 3×10 sec each direction.</li>
+    </ul>
+    <p style="margin-top:var(--space-sm);">3–4 days/week alongside the daily prehab. Replaces the Stage 2 holds on the days it is done.</p>
+    <div class="criteria"><strong>Maintain long-term:</strong> once headache frequency drops, 2×/week keeps the adaptation.</div>
+  </div>
+</div>
+
+<!-- TRACKING -->
+<div class="section">
+  <div class="section-title">Tracking — The Log Is the Diagnostic</div>
+  <div class="check-grid">
+    <div class="check-item"><strong>Cervical status</strong>After every session: good / mild / flare</div>
+    <div class="check-item"><strong>Headache</strong>Each evening: yes / no + rough intensity</div>
+    <div class="check-item"><strong>Desk hours</strong>Rough total of screen/desk time that day</div>
+    <div class="check-item"><strong>Prehab done</strong>Morning dose · micro-breaks · second dose</div>
+  </div>
+  <div class="note-callout">
+    The correlation to watch is <strong>headache vs desk hours</strong>, not headache vs training. If a 6-hour desk day reliably produces a headache and a training day without desk work does not, the lever is the workstation and the micro-breaks — and upper-body training can be rebuilt faster than planned.
+  </div>
+</div>
+
+<!-- STOP CRITERIA -->
+<div class="section">
+  <div class="section-title">Stop Criteria — Non-Negotiable</div>
+  <div class="warn-callout"><strong>During a training week:</strong> headache during or immediately after a session, or cervical status "flare-up" → cut the week short and return to rest. No mid-week negotiation.</div>
+  <div class="warn-callout"><strong>Any time:</strong> arm pain, numbness, tingling or weakness radiating below the shoulder → stop training and get it assessed. That is nerve territory, not muscle tension.</div>
+  <div class="warn-callout"><strong>After 4+ weeks of the plan:</strong> if headaches persist despite the desk changes, reduced load and daily prehab → physio for manual therapy and a supervised rehab block. Not to fix the hernia — to manage the muscular driver.</div>
+</div>
+
+</body>
+</html>
