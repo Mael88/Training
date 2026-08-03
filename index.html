@@ -3,7 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Training</title>
+<script>
+// Forces the iOS "Add to Home Screen" icon to fetch a fresh copy whenever
+// this file is regenerated, instead of showing a stale cached WebClip snapshot.
+// BUILD_VERSION is bumped by Claude every time this file is regenerated.
+(function () {
+  var BUILD_VERSION = 'v2026-08-03-1';
+  try {
+    var stored = localStorage.getItem('hub-build-version');
+    if (stored !== BUILD_VERSION) {
+      localStorage.setItem('hub-build-version', BUILD_VERSION);
+      if (!sessionStorage.getItem('hub-reloaded-' + BUILD_VERSION)) {
+        sessionStorage.setItem('hub-reloaded-' + BUILD_VERSION, '1');
+        var freshUrl = location.href.split('?')[0] + '?v=' + Date.now();
+        location.replace(freshUrl);
+      }
+    }
+  } catch (e) {}
+})();
+</script>
 <style>
   :root {
     --bg: #111113; --surface: #1a1a1f; --surface-raised: #222228; --border: #2a2a32; --border-focus: #3a3a44;
