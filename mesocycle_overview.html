@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Mesocycle 5 &mdash; Overview</title>
+<title>Mesocycle 6 &mdash; Overview</title>
 <style>
 :root{--bg:#111113;--surface:#1a1a1f;--surface-raised:#222228;--border:#2a2a32;--text-primary:#e8e8ed;--text-secondary:#8e8e9a;--text-tertiary:#5a5a66;--accent:#e8913a;--accent-dim:rgba(232,145,58,0.12);--green:#4ade80;--green-dim:rgba(74,222,128,0.12);--blue:#60a5fa;--blue-dim:rgba(96,165,250,0.12);--red:#f87171;--red-dim:rgba(248,113,113,0.12);--yellow:#facc15;--yellow-dim:rgba(250,204,21,0.12);--teal:#2dd4bf;--teal-dim:rgba(45,212,191,0.12);--orange:#fb923c;--orange-dim:rgba(251,146,60,0.12);--radius:12px;--xs:4px;--sm:8px;--md:16px;--lg:24px;--xl:32px;--2xl:48px;}
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -40,22 +40,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue'
 .zone-label{font-size:14px;font-weight:700;letter-spacing:.02em;}
 .zone-feel{font-size:13px;color:var(--text-secondary);}
 .zone-bpm{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--text-primary);white-space:nowrap;}
-.z2 .zone-label{color:var(--green);}
-.z3 .zone-label{color:var(--blue);}
-.z4 .zone-label{color:var(--accent);}
-.z5 .zone-label{color:var(--red);}
+.z2 .zone-label{color:var(--green);}.z3 .zone-label{color:var(--blue);}.z4 .zone-label{color:var(--accent);}.z5 .zone-label{color:var(--red);}
 .intensity-table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;}
 .intensity-table thead th{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-tertiary);text-align:left;padding:var(--sm);border-bottom:1px solid var(--border);}
 .intensity-table tbody td{padding:var(--sm);border-bottom:1px solid var(--border);color:var(--text-secondary);vertical-align:middle;}
 .intensity-table tbody tr:last-child td{border-bottom:none;}
 .intensity-table .week-col{font-weight:600;color:var(--text-primary);font-variant-numeric:tabular-nums;}
 .intensity-table .rpe-col{font-weight:600;color:var(--accent);}
-.prehab-list{list-style:none;display:flex;flex-direction:column;gap:var(--sm);}
-.prehab-item{background:var(--surface);border-radius:var(--sm);padding:var(--sm) var(--md);border:1px solid var(--border);}
-.prehab-item .name{font-size:14px;font-weight:600;color:var(--text-primary);margin-bottom:2px;}
-.prehab-item .detail{font-size:12px;color:var(--text-secondary);}
-.prehab-item.new-item{border-color:var(--teal);}
-.prehab-item.new-item .name{color:var(--teal);}
 .phase-card{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--border);margin-bottom:var(--sm);}
 .phase-card h3{font-size:15px;font-weight:600;margin-bottom:var(--sm);}
 .phase-card p{font-size:13px;color:var(--text-secondary);line-height:1.55;margin-bottom:var(--sm);}
@@ -64,112 +55,117 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue'
 .template-grid .t-label{font-size:12px;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.05em;}
 .template-grid .t-value{font-size:13px;color:var(--text-secondary);}
 .note-callout{background:var(--accent-dim);border-left:3px solid var(--accent);border-radius:0 var(--sm) var(--sm) 0;padding:var(--sm) var(--md);font-size:13px;color:var(--text-secondary);margin-top:var(--md);line-height:1.5;}
-.focus-callout{background:var(--teal-dim);border-left:3px solid var(--teal);border-radius:0 var(--sm) var(--sm) 0;padding:var(--sm) var(--md);font-size:13px;color:var(--text-secondary);margin-top:var(--sm);line-height:1.5;}
-.focus-callout strong{color:var(--teal);}
-.mc4-summary{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--green);margin-bottom:var(--sm);}
-.mc4-summary h3{font-size:14px;font-weight:600;color:var(--green);margin-bottom:var(--sm);}
-.mc4-summary p{font-size:13px;color:var(--text-secondary);line-height:1.55;margin-bottom:var(--sm);}
-.mc4-summary p:last-child{margin-bottom:0;}
+.origin-card{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--red);margin-bottom:var(--sm);}
+.origin-card h3{font-size:14px;font-weight:600;color:var(--red);margin-bottom:var(--sm);}
+.origin-card p{font-size:13px;color:var(--text-secondary);line-height:1.55;margin-bottom:var(--sm);}
+.origin-card p:last-child{margin-bottom:0;}
+.thread-card{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--teal);margin-bottom:var(--sm);}
+.thread-card h4{font-size:14px;font-weight:600;color:var(--teal);margin-bottom:var(--xs);}
+.thread-card p{font-size:13px;color:var(--text-secondary);line-height:1.55;}
+
+/* ---- Progress markers (shared pattern) ---- */
+[data-prog] { position: relative; padding-right: 42px; transition: opacity .2s, border-color .2s, box-shadow .2s; }
+[data-prog] .prog-dot { position: absolute; top: 12px; right: 12px; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--border); background: var(--surface-raised); color: var(--text-tertiary); display: flex; align-items: center; justify-content: center; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: all .15s; }
+[data-prog] .prog-dot:hover { color: var(--text-secondary); }
+[data-prog].is-done { opacity: .45; }
+[data-prog].is-done .prog-dot { background: var(--green-dim); border-color: var(--green); color: var(--green); }
+[data-prog].is-current { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+[data-prog].is-current .prog-dot { background: var(--accent); border-color: var(--accent); color: #111; }
+.prog-hint { font-size: 12px; color: var(--text-tertiary); margin-bottom: var(--sm); line-height: 1.45; }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="label">Mesocycle 5</div>
+  <div class="label">Mesocycle 6</div>
   <h1>Training Plan</h1>
-  <div class="dates">12 May &ndash; 28 Jun 2026</div>
+  <div class="dates">Starting this week (post re-entry) &middot; 6 weeks + deload</div>
 </div>
 
-<!-- MC4 CARRYOVER -->
+<!-- WHY THE SPLIT CHANGED -->
 <div class="section">
-  <div class="section-title">Carried Over From Mesocycle 4</div>
-  <div class="mc4-summary">
-    <h3>What Mesocycle 4 Built</h3>
-    <p>Full striking toolkit established: jab, cross, lead and rear hook (mawashi-zuki), mae geri, mawashi geri, hiza geri. Three-range atemi-waza awareness achieved. Shoulder blade depression confirmed as universal cue across all punches and hooks. Cardiovascular adaptation visible in HR data across the cycle. Real max HR confirmed at 190 bpm.</p>
-    <p><strong>Lead mawashi geri</strong> is the primary technical carry-forward &mdash; hip drive and range of motion need dedicated work. Cardiovascular conditioning continues to be the main limiter for output sessions &mdash; addressed in the intensification phase of this cycle.</p>
-  </div>
-  <div class="focus-callout">
-    <strong>Mesocycle 5 is consolidation + deepening, not expansion.</strong> No new strikes will be introduced unless the existing toolkit is fully solid. The priority is making what exists sharper, stronger, and more tactically connected &mdash; particularly the mawashi geri and the use of atemi as jujitsu setup sequences.
+  <div class="section-title">Why This Cycle Looks Different</div>
+  <div class="origin-card">
+    <h3>Origin: Illness + Suspected Overtraining</h3>
+    <p>Mesocycle 5 ended early &mdash; Week 6 was lost entirely to gastroenteritis. Around the same period, a cervical flare-up developed, suspected to be linked to upper body overtraining on the previous 3 upper + 1 legs split. The flare-up resolved fully after one week of rest, confirming the connection was plausible.</p>
+    <p><strong>Response:</strong> the weekly split changes to 2 upper + 2 legs + 2 bag, redistributing load away from repeated upper body sessions. One re-entry bag session (RPE 5, mechanics only) has already been completed &mdash; everything checked out structurally sound.</p>
   </div>
 </div>
 
 <!-- WEEKLY SPLIT -->
 <div class="section">
-  <div class="section-title">Weekly Split</div>
+  <div class="section-title">Weekly Split &mdash; New</div>
   <div class="week-split">
     <div class="day-card"><div class="day-name">Mon</div><div class="day-type"><span class="badge badge-upper">Upper</span></div></div>
-    <div class="day-card"><div class="day-name">Tue</div><div class="day-type"><span class="badge badge-bag-a">Bag A</span></div></div>
-    <div class="day-card"><div class="day-name">Wed</div><div class="day-type"><span class="badge badge-lower">Lower</span></div></div>
+    <div class="day-card"><div class="day-name">Tue</div><div class="day-type"><span class="badge badge-lower">Legs</span></div></div>
+    <div class="day-card"><div class="day-name">Wed</div><div class="day-type"><span class="badge badge-bag-a">Bag A</span></div></div>
     <div class="day-card"><div class="day-name">Thu</div><div class="day-type"><span class="badge badge-upper">Upper</span></div></div>
-    <div class="day-card"><div class="day-name">Fri</div><div class="day-type"><span class="badge badge-bag-b">Bag B</span></div></div>
-    <div class="day-card"><div class="day-name">Sat</div><div class="day-type"><span class="badge badge-upper">Upper</span></div></div>
+    <div class="day-card"><div class="day-name">Fri</div><div class="day-type"><span class="badge badge-lower">Legs</span></div></div>
+    <div class="day-card"><div class="day-name">Sat</div><div class="day-type"><span class="badge badge-bag-b">Bag B</span></div></div>
     <div class="day-card rest"><div class="day-name">Sun</div><div class="day-type"><span class="badge badge-rest">Rest</span></div></div>
   </div>
-  <div class="note-callout"><strong>A</strong> = Technique (longer rounds, more rest, tactical focus) &middot; <strong>B</strong> = Output (shorter rounds, push intensity, cardio conditioning)</div>
+  <div class="note-callout">
+    <strong>Bag days moved to Wed/Sat</strong> (from Tue/Fri) since legs now occupy Tue and Fri. Both bag sessions now follow a legs day &mdash; this is exactly why kick volume stays moderate for the first 2 weeks, giving the legs time to adapt to double frequency before full kick loading resumes.
+  </div>
 </div>
 
 <!-- CALENDAR -->
 <div class="section">
   <div class="section-title">6-Week Calendar</div>
-  <div class="calendar">
-    <div class="cal-week current">
+  <div class="prog-hint">Tap a week to mark it current. Earlier weeks grey out automatically; tap again to clear.</div>
+  <div class="calendar" data-prog-group="mc6-calendar" data-prog-default="w1">
+    <div class="cal-week" data-prog="w1">
       <div class="cal-num">1</div>
-      <div class="cal-meta"><span class="cal-phase">Accumulation A</span><span class="cal-dates">12&ndash;18 May</span></div>
-      <div class="cal-detail"><span class="cal-focus">Re-establishment + Mawashi foundation</span><br>Full toolkit at low intensity &mdash; prioritise mechanics over output. Dedicated mawashi geri hip mobility work begins.</div>
+      <div class="cal-meta"><span class="cal-phase">Rebuild A</span></div>
+      <div class="cal-detail"><span class="cal-focus">Restart near Week 3 intensity, moderate kicks</span><br>Full toolkit already established. Upper capped. Continue rear mawashi recovery &amp; lead mawashi hip corrections.</div>
     </div>
-    <div class="cal-week">
+    <div class="cal-week" data-prog="w2">
       <div class="cal-num">2</div>
-      <div class="cal-meta"><span class="cal-phase">Accumulation A</span><span class="cal-dates">19&ndash;25 May</span></div>
-      <div class="cal-detail"><span class="cal-focus">Consolidation + Atemi setup introduction</span><br>Combinations consolidated. Technique sessions begin introducing strikes as jujitsu setup sequences &mdash; atemi creating openings for clinch entries and takedowns.</div>
+      <div class="cal-meta"><span class="cal-phase">Rebuild A</span></div>
+      <div class="cal-detail"><span class="cal-focus">Consolidate on new split</span><br>Kick volume still moderate. Upper still capped. Confirm legs adapting to double frequency without excess soreness.</div>
     </div>
-    <div class="cal-week">
+    <div class="cal-week" data-prog="w3">
       <div class="cal-num">3</div>
-      <div class="cal-meta"><span class="cal-phase">Accumulation B</span><span class="cal-dates">26 May&ndash;1 Jun</span></div>
-      <div class="cal-detail"><span class="cal-focus">Tactical combinations + Cardiovascular build</span><br>Longer combination sequences. Atemi-as-setup sequences developed further in technique sessions. Output sessions push cardiovascular ceiling.</div>
+      <div class="cal-meta"><span class="cal-phase">Rebuild B</span></div>
+      <div class="cal-detail"><span class="cal-focus">Upper cap lifts, kicks return to full volume</span><br>If legs and cervical status are both stable, full training volume resumes across the board.</div>
     </div>
-    <div class="cal-week">
+    <div class="cal-week" data-prog="w4">
       <div class="cal-num">4</div>
-      <div class="cal-meta"><span class="cal-phase">Intensification A</span><span class="cal-dates">2&ndash;8 Jun</span></div>
-      <div class="cal-detail"><span class="cal-focus">Output push + Mawashi power</span><br>RPE and HR targets step up. Mawashi geri introduced at higher output. Cardiovascular conditioning is the primary challenge.</div>
+      <div class="cal-meta"><span class="cal-phase">Intensification A</span></div>
+      <div class="cal-detail"><span class="cal-focus">Push output, continue technical corrections</span><br>RPE and HR targets step up. Rear mawashi recovery and lead mawashi hip work continue under fatigue.</div>
     </div>
-    <div class="cal-week">
+    <div class="cal-week" data-prog="w5">
       <div class="cal-num">5</div>
-      <div class="cal-meta"><span class="cal-phase">Intensification B</span><span class="cal-dates">9&ndash;15 Jun</span></div>
-      <div class="cal-detail"><span class="cal-focus">Full tactical sequences at maximum output</span><br>Complete three-range combinations at RPE 8&ndash;9. Atemi-as-setup sequences under fatigue. Peak cardiovascular demand.</div>
+      <div class="cal-meta"><span class="cal-phase">Intensification B</span></div>
+      <div class="cal-detail"><span class="cal-focus">Peak output</span><br>Full tactical sequences at maximum controlled output. HR recovery tracked at matched RPE for a cleaner trend than Mesocycle 5 allowed.</div>
     </div>
-    <div class="cal-week">
+    <div class="cal-week" data-prog="w6">
       <div class="cal-num">6</div>
-      <div class="cal-meta"><span class="cal-phase">Taper</span><span class="cal-dates">16&ndash;22 Jun</span></div>
-      <div class="cal-detail"><span class="cal-focus">Volume &minus;30%, sharpness up</span><br>Full toolkit. Arrive at deload sharp and confident.</div>
+      <div class="cal-meta"><span class="cal-phase">Taper</span></div>
+      <div class="cal-detail"><span class="cal-focus">Volume &minus;30%, sharpness up</span><br>Arrive at deload sharp and cervically stable.</div>
     </div>
-    <div class="cal-week deload">
+    <div class="cal-week deload" data-prog="deload">
       <div class="cal-num">7</div>
-      <div class="cal-meta"><span class="cal-phase">Deload</span><span class="cal-dates">23&ndash;28 Jun</span></div>
-      <div class="cal-detail">Active recovery &middot; Light shadowboxing only &middot; No bag contact</div>
+      <div class="cal-meta"><span class="cal-phase">Deload</span></div>
+      <div class="cal-detail">Active recovery &middot; easy movement &middot; no bag contact</div>
     </div>
   </div>
 </div>
 
-<!-- MESOCYCLE 5 PRIORITIES -->
+<!-- OPEN THREADS FROM MC5 -->
 <div class="section">
-  <div class="section-title">Cycle Priorities</div>
-  <div class="phase-card">
-    <h3>Priority 1 &mdash; Lead Mawashi Geri</h3>
-    <p>The lead hip rotators are weaker and less mobile than the rear side. This is addressed on two fronts: dedicated hip mobility work added to every warm-up, and lead mawashi geri given focused attention in technique sessions throughout the cycle. By Week 4, the lead roundhouse should match the rear in terms of mechanical quality if not yet in power.</p>
-    <p style="color:var(--teal);font-weight:500;font-size:12px;">Corrective cue carried forward: drive the hip forward and laterally into the kick. Torso stays upright. The hip leads &mdash; the leg follows.</p>
+  <div class="section-title">Threads Carried From Mesocycle 5</div>
+  <div class="thread-card">
+    <h4>Rear Mawashi Geri Recovery</h4>
+    <p>Correction drill continues: after impact, actively pull the knee back to chamber before placing the foot down, rather than letting the leg drop. Self-diagnosed correctly in Mesocycle 5 &mdash; expect another 3&ndash;5 weeks of dedicated work.</p>
   </div>
-  <div class="phase-card">
-    <h3>Priority 2 &mdash; Atemi as Jujitsu Setup Sequences</h3>
-    <p>From Week 2 onward, technique sessions begin developing strikes with explicit jujitsu intent: the jab disrupts posture and sets up a cross; a front kick creates distance for a clinch entry; a hook closes range and loads the opponent for a takedown. This is not new material &mdash; it is the same strikes with a tactical frame that makes them atemi-waza rather than boxing.</p>
-    <p style="color:var(--accent);font-weight:500;font-size:12px;">Introduced gradually in technique sessions. Output sessions condition the patterns at speed.</p>
+  <div class="thread-card">
+    <h4>Lead Mawashi Geri Hip Strength</h4>
+    <p>Stable at &ldquo;moderate&rdquo; quality across Mesocycle 5. Continue the 3&times;/week hip protocol without changes. Ballistic strength adaptation in these muscles takes longer than one cycle.</p>
   </div>
-  <div class="phase-card">
-    <h3>Priority 3 &mdash; Cardiovascular Conditioning</h3>
-    <p>Breathing/cardio was the primary fatigue signal by end of Mesocycle 4. This is addressed by progressively higher cardiovascular demand in output sessions &mdash; shorter rest, more rounds in the intensification phase. The goal is for RPE 8 to feel like RPE 7 by the end of the cycle.</p>
-  </div>
-  <div class="phase-card" style="border-style:dashed;opacity:0.8;">
-    <h3>Priority 4 &mdash; General Technique Consolidation</h3>
-    <p>All combinations that felt mechanical at the end of Mesocycle 4 &mdash; particularly jab-lead hook and cross-rear hook &mdash; get continued repetition. No rush to add new strikes until the existing toolkit flows automatically under fatigue.</p>
+  <div class="thread-card">
+    <h4>HR Recovery Tracking</h4>
+    <p>Mesocycle 5 data had too many confounds (RPE, temperature, energy state all shifting at once) for a clean trend. This cycle, track recovery at matched RPE and similar conditions where possible.</p>
   </div>
 </div>
 
@@ -182,7 +178,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue'
     <div class="zone-row z4"><div class="zone-label">Z4</div><div class="zone-feel">Uncomfortable, can&rsquo;t talk</div><div class="zone-bpm">152&ndash;171</div></div>
     <div class="zone-row z5"><div class="zone-label">Z5</div><div class="zone-feel">Max effort, short bursts only</div><div class="zone-bpm">171&ndash;190</div></div>
   </div>
-  <div class="note-callout">Zones recalculated from confirmed max HR of 190 bpm (measured Week 5 Session B). Previous Tanaka formula estimate of 183 was incorrect for this athlete.</div>
 </div>
 
 <!-- INTENSITY PROGRESSION -->
@@ -192,83 +187,81 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue'
     <table class="intensity-table">
       <thead><tr><th>Wk</th><th>Phase</th><th>Session</th><th>RPE</th><th>HR Target</th></tr></thead>
       <tbody>
-        <tr><td class="week-col">1&ndash;2</td><td>Accum A</td><td>Tech (A)</td><td class="rpe-col">5&ndash;6</td><td>Z2&ndash;Z3 / 114&ndash;152</td></tr>
-        <tr><td class="week-col">1&ndash;2</td><td>Accum A</td><td>Output (B)</td><td class="rpe-col">7</td><td>Z3&ndash;Z4 / 133&ndash;165</td></tr>
-        <tr><td class="week-col">3</td><td>Accum B</td><td>Tech (A)</td><td class="rpe-col">6</td><td>Z3 / 133&ndash;152</td></tr>
-        <tr><td class="week-col">3</td><td>Accum B</td><td>Output (B)</td><td class="rpe-col">7&ndash;8</td><td>Z4 / 152&ndash;171</td></tr>
+        <tr><td class="week-col">1</td><td>Rebuild A</td><td>Tech (A)</td><td class="rpe-col">6</td><td>Z3 / 133&ndash;152</td></tr>
+        <tr><td class="week-col">1</td><td>Rebuild A</td><td>Output (B)</td><td class="rpe-col">7</td><td>Z3&ndash;Z4 / 133&ndash;165</td></tr>
+        <tr><td class="week-col">2&ndash;3</td><td>Rebuild</td><td>Tech (A)</td><td class="rpe-col">6&ndash;7</td><td>Z3&ndash;Z4 / 133&ndash;158</td></tr>
+        <tr><td class="week-col">2&ndash;3</td><td>Rebuild</td><td>Output (B)</td><td class="rpe-col">7&ndash;8</td><td>Z4 / 152&ndash;171</td></tr>
         <tr><td class="week-col">4&ndash;5</td><td>Intensif.</td><td>Tech (A)</td><td class="rpe-col">6&ndash;7</td><td>Z3&ndash;Z4 / 133&ndash;165</td></tr>
-        <tr><td class="week-col">4&ndash;5</td><td>Intensif.</td><td>Output (B)</td><td class="rpe-col">8&ndash;9</td><td>Z4&ndash;Z5 / 160&ndash;185</td></tr>
+        <tr><td class="week-col">4&ndash;5</td><td>Intensif.</td><td>Output (B)</td><td class="rpe-col">7&ndash;8</td><td>Z4&ndash;Z5 / 160&ndash;185</td></tr>
         <tr><td class="week-col">6</td><td>Taper</td><td>Both</td><td class="rpe-col">6&ndash;7</td><td>Z3&ndash;Z4 / 133&ndash;165</td></tr>
       </tbody>
     </table>
   </div>
+  <div class="note-callout">RPE 9 hard-stop rule remains a standing rule from Mesocycle 5: if RPE reaches 9 before a session ends, remaining rounds drop to recovery pace.</div>
 </div>
 
 <!-- PHASE DESCRIPTIONS -->
 <div class="section">
   <div class="section-title">Phase Details</div>
   <div class="phase-card">
-    <h3>Weeks 1&ndash;2 &mdash; Accumulation A</h3>
-    <p>Full toolkit re-established at low-medium intensity. Mawashi geri hip mobility work begins in every warm-up. Week 2 introduces the first atemi-as-setup sequences in technique sessions &mdash; the jab as a posture disruptor, the front kick as a distance-creator before clinch entry.</p>
-    <p style="color:var(--accent);font-weight:500;font-size:12px;">Do not try to immediately match Week 5 Mesocycle 4 intensity. Re-build from the base up.</p>
-  </div>
-  <div class="phase-card">
-    <h3>Week 3 &mdash; Accumulation B</h3>
-    <p>Combination sequences become longer and more tactically connected. Technique sessions develop the atemi-as-setup concept further &mdash; hook closing into clinch range, mae geri creating a takedown entry window. Output sessions begin pushing the cardiovascular ceiling above Mesocycle 4 baseline.</p>
+    <h3>Weeks 1&ndash;3 &mdash; Rebuild</h3>
+    <p>Upper body intensity capped (2&ndash;3 reps from failure, no max sets) to protect against the overtraining pattern suspected in the cervical flare-up. Bag work restarts near Week 3 Mesocycle 5 intensity &mdash; the toolkit doesn&rsquo;t need re-teaching, just re-loading. Kick volume stays moderate for the first 2 weeks specifically because both bag days now follow a legs day.</p>
+    <p style="color:var(--accent);font-weight:500;font-size:12px;">Upper cap lifts at Week 3 if cervical status has stayed good throughout.</p>
   </div>
   <div class="phase-card">
     <h3>Weeks 4&ndash;5 &mdash; Intensification</h3>
-    <p>RPE and HR targets reach and exceed Mesocycle 4 peaks. The full tactical sequence (strike &rarr; setup &rarr; entry point) is drilled under output conditions. Mawashi geri is pushed at higher output. This is where the cardiovascular conditioning target is stress-tested.</p>
-    <p style="color:var(--accent);font-weight:500;font-size:12px;">Breathing/cardio will be the limiter again. That is expected and correct. The goal is to push that ceiling further than Mesocycle 4.</p>
+    <p>RPE and HR targets step up. Rear mawashi recovery and lead mawashi hip corrections continue under real fatigue &mdash; this is where they get properly tested. HR recovery tracked at matched conditions for a cleaner signal than Mesocycle 5 provided.</p>
   </div>
   <div class="phase-card">
     <h3>Week 6 &mdash; Taper</h3>
-    <p>Volume drops ~30%, intensity stays. Same full toolkit. Arrive at deload sharp and consolidated.</p>
+    <p>Volume drops ~30%, intensity holds. Arrive at deload sharp, with both open technical threads showing measurable progress.</p>
   </div>
-  <div class="phase-card" style="border-style:dashed;opacity:.7;">
-    <h3>Week 7 &mdash; Deload</h3>
-    <p>Active recovery. Daily easy walking or cycling (20&ndash;30 min, no breathing effort). Optional light shadowboxing 1&ndash;2 times (10 min, no bag, no power &mdash; pattern maintenance only). Standard calisthenics deload per CalisthenicsApp. Extra sleep and mobility focus.</p>
-  </div>
-</div>
-
-<!-- UPDATED WARM-UP -->
-<div class="section">
-  <div class="section-title">Updated Warm-Up Protocol <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-tertiary)">&middot; every bag session &middot; 6 min</span></div>
-  <ul class="prehab-list">
-    <li class="prehab-item"><div class="name">Chin Tucks</div><div class="detail">2&times;10 reps, slow. Head slides back, gaze level. 15&ndash;30 sec between sets.</div></li>
-    <li class="prehab-item"><div class="name">Cervical Rotations</div><div class="detail">5 reps each side. Pain-free range only.</div></li>
-    <li class="prehab-item"><div class="name">Lateral Neck Stretch</div><div class="detail">20&ndash;30 sec each side. Gravity only.</div></li>
-    <li class="prehab-item"><div class="name">Scapular Retractions</div><div class="detail">2&times;15 reps. Mid-back activation, unloads cervical spine.</div></li>
-    <li class="prehab-item"><div class="name">Shoulder Rolls</div><div class="detail">10 forward, 10 backward. Releases upper trapezius.</div></li>
-    <li class="prehab-item"><div class="name">Shoulder Depression Drill</div><div class="detail">10 reps &mdash; actively push shoulders DOWN away from ears, hold 3 sec. Universal prep cue for all punches and hooks.</div></li>
-    <li class="prehab-item new-item"><div class="name">Hip Rotator Mobility &mdash; New This Cycle</div><div class="detail">10 wide hip circles each side (slow) + 10 lateral hip swings each side + 10 slow mawashi geri in the air each side. Targets the lead hip rotators specifically. Not optional.</div></li>
-    <li class="prehab-item"><div class="name">Movement Prep</div><div class="detail">Light shadowboxing (no power) + 10 knee raises each side + 30 sec bounce.</div></li>
-  </ul>
-  <div class="focus-callout"><strong>Hip rotator mobility is new this cycle</strong> and directly targets the lead mawashi geri weakness. The lead hip rotators are undertrained relative to the rear side &mdash; consistent warm-up activation will build both mobility and proprioception over the 6-week cycle.</div>
 </div>
 
 <!-- SESSION TEMPLATE -->
 <div class="section">
-  <div class="section-title">Session Template</div>
+  <div class="section-title">Bag Session Template</div>
   <div class="template-grid">
     <div class="t-label">Warm-up</div><div class="t-value">8&ndash;9 min &mdash; Cervical prehab + shoulder depression + hip rotator mobility + movement prep</div>
-    <div class="t-label">Main</div><div class="t-value">30&ndash;32 min &mdash; Rounds (see weekly session files)</div>
-    <div class="t-label">Cool-down</div><div class="t-value">7 min &mdash; Upper body stretches + extended lower body (hip flexors, quads, lateral hips) + breathing reset</div>
+    <div class="t-label">Main</div><div class="t-value">28&ndash;32 min &mdash; Rounds (see weekly session files)</div>
+    <div class="t-label">Cool-down</div><div class="t-value">7 min &mdash; Upper body stretches + extended lower body + breathing reset</div>
   </div>
 </div>
 
-<!-- ATEMI-WAZA CONTEXT -->
-<div class="section">
-  <div class="section-title">Atemi-Waza Development &mdash; Mesocycle 5 Context</div>
-  <div class="phase-card">
-    <p><strong>Strikes as setups, not endpoints.</strong> In jujitsu, atemi-waza exists to create conditions for throws, joint locks, and takedowns &mdash; not as a standalone striking system. From Week 2 this cycle, technique sessions begin framing each combination with its jujitsu purpose: what does this strike set up, and what entry does it create?</p>
-    <p><strong>The three entry patterns to develop:</strong></p>
-    <p>1. <em>Posture disruption</em> &mdash; jab or cross destabilises balance, creating a kuzushi-like opening for a clinch or takedown entry.</p>
-    <p>2. <em>Distance creation</em> &mdash; mae geri or mawashi geri pushes the opponent to the range where a throw entry or level change becomes available.</p>
-    <p>3. <em>Closing with control</em> &mdash; hook or knee closes into clinch range; the next action is a grip, a throw, or a takedown &mdash; not another strike.</p>
-    <p style="color:var(--accent);font-weight:500;font-size:12px;">These patterns begin in technique sessions. Output sessions condition the striking mechanics &mdash; the tactical framing is applied in the slower, more deliberate A sessions.</p>
-  </div>
-</div>
 
+<script>
+const PROG_PAGE = 'mesocycle_overview';
+(function initProgress() {
+  document.querySelectorAll('[data-prog-group]').forEach(group => {
+    const key = 'prog:' + PROG_PAGE + ':' + group.dataset.progGroup;
+    const items = Array.from(group.querySelectorAll('[data-prog]'));
+    if (!items.length) return;
+    const apply = (currentId) => {
+      const idx = items.findIndex(el => el.dataset.prog === currentId);
+      items.forEach((el, i) => {
+        el.classList.remove('is-done', 'is-current');
+        if (idx < 0) return;
+        if (i < idx) el.classList.add('is-done');
+        else if (i === idx) el.classList.add('is-current');
+      });
+    };
+    const save = (val) => { try { localStorage.setItem(key, val); } catch (e) {} };
+    items.forEach(el => {
+      const dot = document.createElement('button');
+      dot.type = 'button'; dot.className = 'prog-dot'; dot.setAttribute('aria-label', 'Mark as current');
+      dot.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
+      dot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const val = el.classList.contains('is-current') ? '' : el.dataset.prog;
+        save(val); apply(val);
+      });
+      el.appendChild(dot);
+    });
+    let saved = null;
+    try { saved = localStorage.getItem(key); } catch (e) {}
+    apply(saved !== null ? saved : (group.dataset.progDefault || ''));
+  });
+})();
+</script>
 </body>
 </html>
