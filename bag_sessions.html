@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Week 1 &mdash; Bag Sessions</title>
+<title>Week 2 &mdash; Bag Sessions</title>
 <style>
-:root{--bg:#111113;--surface:#1a1a1f;--surface-raised:#222228;--border:#2a2a32;--text-primary:#e8e8ed;--text-secondary:#8e8e9a;--text-tertiary:#5a5a66;--accent:#e8913a;--accent-dim:rgba(232,145,58,0.12);--green:#4ade80;--green-dim:rgba(74,222,128,0.12);--blue:#60a5fa;--blue-dim:rgba(96,165,250,0.12);--red:#f87171;--red-dim:rgba(248,113,113,0.12);--yellow:#facc15;--yellow-dim:rgba(250,204,21,0.12);--teal:#2dd4bf;--teal-dim:rgba(45,212,191,0.12);--orange:#fb923c;--orange-dim:rgba(251,146,60,0.12);--radius:12px;--xs:4px;--sm:8px;--md:16px;--lg:24px;--xl:32px;}
+:root{--bg:#111113;--surface:#1a1a1f;--surface-raised:#222228;--border:#2a2a32;--text-primary:#e8e8ed;--text-secondary:#8e8e9a;--text-tertiary:#5a5a66;--accent:#e8913a;--accent-dim:rgba(232,145,58,0.12);--green:#4ade80;--green-dim:rgba(74,222,128,0.12);--blue:#60a5fa;--blue-dim:rgba(96,165,250,0.12);--red:#f87171;--red-dim:rgba(248,113,113,0.12);--yellow:#facc15;--yellow-dim:rgba(250,204,21,0.12);--teal:#2dd4bf;--teal-dim:rgba(45,212,191,0.12);--orange:#fb923c;--orange-dim:rgba(251,146,60,0.12);--purple:#c084fc;--purple-dim:rgba(192,132,252,0.12);--radius:12px;--xs:4px;--sm:8px;--md:16px;--lg:24px;--xl:32px;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;background:var(--bg);color:var(--text-primary);line-height:1.5;-webkit-font-smoothing:antialiased;padding:0;padding-bottom:100px;}
 .tab-bar{display:flex;position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);}
@@ -18,7 +18,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue'
 .sh h1{font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1.2;margin-bottom:var(--xs);}
 .sh .meta{font-size:13px;color:var(--text-secondary);display:flex;flex-wrap:wrap;gap:var(--sm) var(--md);}
 .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:6px;font-size:12px;font-weight:600;}
-.ba{background:var(--accent-dim);color:var(--accent);}.bh{background:var(--red-dim);color:var(--red);}.bt{background:var(--blue-dim);color:var(--blue);}.bg{background:var(--green-dim);color:var(--green);}.by{background:var(--yellow-dim);color:var(--yellow);}
+.ba{background:var(--accent-dim);color:var(--accent);}.bh{background:var(--red-dim);color:var(--red);}.bt{background:var(--blue-dim);color:var(--blue);}.bg{background:var(--green-dim);color:var(--green);}.bp{background:var(--purple-dim);color:var(--purple);}
 .tc{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--border);margin-bottom:var(--lg);font-size:14px;color:var(--text-secondary);line-height:1.55;}
 .tc strong{color:var(--text-primary);}
 .dc{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--border);margin-bottom:var(--md);font-size:13px;color:var(--text-secondary);line-height:1.55;}
@@ -26,7 +26,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue'
 .dc.good{border-color:var(--green);}.dc.good .dt{color:var(--green);}
 .dc.info{border-color:var(--blue);}.dc.info .dt{color:var(--blue);}
 .dc.orange{border-color:var(--orange);}.dc.orange .dt{color:var(--orange);}
-.dc.teal{border-color:var(--teal);}.dc.teal .dt{color:var(--teal);}
+.dc.purple{border-color:var(--purple);}.dc.purple .dt{color:var(--purple);}
 .sl{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:var(--md);}
 .bc{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--border);margin-bottom:var(--md);}
 .bc h3{font-size:14px;font-weight:600;margin-bottom:var(--sm);display:flex;justify-content:space-between;align-items:center;}
@@ -41,24 +41,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue'
 .rc{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:var(--sm);overflow:hidden;}
 .rc.or{border-color:var(--orange);}
 .rc.mw{border-color:var(--teal);}
+.rc.pp{border-color:var(--purple);}
 .rh{display:flex;align-items:center;padding:var(--md);cursor:pointer;-webkit-tap-highlight-color:transparent;gap:var(--sm);}
 .rn{width:28px;height:28px;border-radius:8px;background:var(--accent-dim);color:var(--accent);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .rc.or .rn{background:var(--orange-dim);color:var(--orange);}
 .rc.mw .rn{background:var(--teal-dim);color:var(--teal);}
+.rc.pp .rn{background:var(--purple-dim);color:var(--purple);}
 .rt{flex:1;font-size:14px;font-weight:600;}
 .nb{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:.05em;flex-shrink:0;}
 .nb.or{background:var(--orange-dim);color:var(--orange);}
 .nb.mw{background:var(--teal-dim);color:var(--teal);}
+.nb.pp{background:var(--purple-dim);color:var(--purple);}
 .chv{color:var(--text-tertiary);transition:transform .2s;flex-shrink:0;}
 .rc.open .chv{transform:rotate(180deg);}
 .rb{display:none;padding:0 var(--md) var(--md);}
 .rc.open .rb{display:block;}
 .fl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--xs);}
 .fl.or{color:var(--orange);}
+.fl.pp{color:var(--purple);}
 .cue{font-size:13px;color:var(--text-secondary);line-height:1.55;margin-bottom:var(--sm);}
 .cue strong{color:var(--text-primary);font-weight:600;}
 .en{font-size:12px;color:var(--red);background:var(--red-dim);padding:var(--sm);border-radius:var(--sm);margin-bottom:var(--sm);}
 .oc{font-size:12px;color:var(--orange);background:var(--orange-dim);padding:var(--sm);border-radius:var(--sm);border-left:3px solid var(--orange);margin-bottom:var(--sm);}
+.pc{font-size:12px;color:var(--purple);background:var(--purple-dim);padding:var(--sm);border-radius:var(--sm);border-left:3px solid var(--purple);margin-bottom:var(--sm);}
 .pat{font-size:13px;color:var(--accent);font-weight:500;margin-bottom:var(--sm);}
 .rno{margin-top:var(--sm);border-top:1px solid var(--border);padding-top:var(--sm);}
 .rno textarea{width:100%;background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--sm);color:var(--text-primary);font-family:inherit;font-size:13px;padding:var(--sm);resize:vertical;min-height:36px;line-height:1.4;}
@@ -107,7 +112,7 @@ table.mt tbody tr:last-child td{border-bottom:none;}
 <!-- SESSION A -->
 <div id="sa" class="tab-content active">
   <div class="sh">
-    <div class="lbl">Week 1 &middot; Mesocycle 6 &middot; Rebuild A</div>
+    <div class="lbl">Week 2 &middot; Mesocycle 6 &middot; Rebuild A</div>
     <h1>Session A &mdash; Technique</h1>
     <div class="meta">
       <span class="badge bt">~40 min</span>
@@ -117,23 +122,23 @@ table.mt tbody tr:last-child td{border-bottom:none;}
     </div>
   </div>
 
-  <div class="sl">Re-Entry Debrief</div>
+  <div class="sl">Week 1 Debrief</div>
 
-  <div class="dc good">
-    <div class="dt">Re-Entry Session &mdash; Structurally Sound</div>
-    Completed all 4 rounds, cervical good throughout, general physical state fine. RPE 6 and HR 180 (higher than the RPE 5 target) with low energy is most likely a lingering post-illness hydration/deconditioning effect, not a cervical or fitness concern. Proceeding into Mesocycle 6 as planned.
-  </div>
   <div class="dc info">
-    <div class="dt">New Split, New Bag Days</div>
-    Bag sessions now sit Wednesday and Saturday, each following a legs day. This is the direct reason kick volume stays moderate this week and next &mdash; the legs are absorbing double their previous training frequency, and asking them to also handle full kick volume immediately would be poor sequencing.
+    <div class="dt">Cardio Back as the Limiter &mdash; Expected</div>
+    Breathing/cardio topped fatigue in both sessions, after briefly being overtaken by legs/hips at the end of Mesocycle 5. A week of illness plus a light re-entry week is enough to dent cardiovascular conditioning meaningfully. This rebuilds the same way it did last cycle &mdash; no cause for concern, just patience over the next few weeks.
   </div>
   <div class="dc orange">
-    <div class="dt">Rear Mawashi Recovery &mdash; Continuing</div>
-    Self-diagnosed correction from Mesocycle 5: controlled chamber return after impact, not a drop. Still active this week, built into the same isolation-drill format.
+    <div class="dt">Rear Mawashi Recovery &mdash; Breaks Down Specifically Late in the Session</div>
+    Held well through most of Session A, then reverted to dropping the leg once real fatigue set in. This is useful, specific information: the correction is technically solid but not yet fatigue-resistant. Today's Round 2 stays as isolated work; a new later-round check is added to test it under accumulated fatigue directly, which is exactly the condition it broke down in last week.
+  </div>
+  <div class="dc good">
+    <div class="dt">Legs &amp; Everything Else</div>
+    Soreness manageable both sessions &mdash; the new leg frequency is landing reasonably well. Lead mawashi hip quality holding at &ldquo;moderate,&rdquo; consistent with the pre-illness plateau. All established combinations still feel natural and integrated.
   </div>
 
   <div class="tc" style="margin-top:var(--lg);">
-    <strong>Restarting near Week 3 Mesocycle 5 intensity &mdash; but eased in given the elevated re-entry HR.</strong> Full toolkit, moderate kick volume, established combinations. No new technical material this week.
+    <strong>Same targets as Week 1.</strong> RPE running a point above plan last week is fully explained by post-illness cardio deconditioning and is not something to fight against &mdash; expect a similar pattern this week, improving gradually from here.
   </div>
 
   <div class="sl">Warm-Up</div>
@@ -167,7 +172,7 @@ table.mt tbody tr:last-child td{border-bottom:none;}
 
   <div class="rs">
     <div class="sl">Main Work &mdash; 5 Rounds</div>
-    <div class="ri">3 min rounds &middot; 90 sec rest &middot; RPE 6 &middot; Moderate kick volume &mdash; legs adapting to new frequency.</div>
+    <div class="ri">3 min rounds &middot; 90 sec rest &middot; RPE 6 &middot; Moderate kick volume continues.</div>
 
     <div class="rc">
       <div class="rh" onclick="TR(this)">
@@ -175,57 +180,60 @@ table.mt tbody tr:last-child td{border-bottom:none;}
         <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="rb">
-        <div class="cue">Jab, cross, both hooks, all combinations. 65&ndash;70% effort. Shoulder blade active throughout. Punches carry no volume restriction this week &mdash; only kicks are moderated.</div>
+        <div class="cue">Jab, cross, both hooks, all combinations. 65&ndash;70% effort. Shoulder blade active throughout.</div>
         <div class="rno"><textarea data-key="a-r1" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
 
     <div class="rc or">
       <div class="rh" onclick="TR(this)">
-        <div class="rn">2</div><div class="rt">Rear Mawashi Recovery &mdash; Continued</div>
+        <div class="rn">2</div><div class="rt">Rear Mawashi Recovery &mdash; Isolation</div>
         <span class="nb or">ONGOING</span>
         <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="rb">
-        <div class="fl or">Same Correction, Moderate Volume</div>
-        <div class="oc">Rear mawashi geri, slow tempo, alternating with lead mawashi for contrast. After impact, pull the knee back to chamber before placing the foot down. Fewer total reps than a peak-volume week &mdash; quality over quantity given legs are also handling a new Tuesday legs session two days prior.</div>
-        <div class="pat">Lead mawashi (natural recovery) &rarr; rear mawashi (deliberate chamber return) &rarr; repeat, moderate total volume.</div>
+        <div class="fl or">Fresh &mdash; Same Standard as Always</div>
+        <div class="oc">Rear mawashi geri, slow tempo, alternating with lead mawashi. Pull the knee back to chamber before placing the foot down. Fresh legs, full attention &mdash; this should feel controlled. The real test comes later in the session.</div>
+        <div class="pat">Lead mawashi (natural recovery) &rarr; rear mawashi (deliberate chamber return) &rarr; repeat.</div>
         <div class="rno"><textarea data-key="a-r2" placeholder="Round notes..."></textarea></div>
-      </div>
-    </div>
-
-    <div class="rc">
-      <div class="rh" onclick="TR(this)">
-        <div class="rn">3</div><div class="rt">Hook-Knee Flow + Mae Geri Check</div>
-        <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-      </div>
-      <div class="rb">
-        <div class="cue">Lead hook &rarr; rear hiza geri, flowing with no pause. Then a few mae geri reps to confirm chamber and hip drive. 65% effort, moderate total kick count.</div>
-        <div class="pat">Lead hook &rarr; rear hiza geri (flow) &rarr; release &rarr; step back &rarr; reset.</div>
-        <div class="rno"><textarea data-key="a-r3" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
 
     <div class="rc mw">
       <div class="rh" onclick="TR(this)">
-        <div class="rn">4</div><div class="rt">Rear Mawashi + Cross-Lead Hook + Rear Hiza Geri</div>
+        <div class="rn">3</div><div class="rt">Rear Mawashi + Cross-Lead Hook + Rear Hiza Geri</div>
         <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="rb">
-        <div class="cue">Your sharpest combination. Rear mawashi with controlled recovery &rarr; pause &rarr; step off swing line &rarr; cross-lead hook &rarr; rear hiza geri (flow). 65&ndash;70% effort, moderate rep count on the kick portion.</div>
+        <div class="cue">Sharpest combination. Rear mawashi with controlled recovery &rarr; pause &rarr; step off swing line &rarr; cross-lead hook &rarr; rear hiza geri (flow). 65&ndash;70% effort, moderate kick reps.</div>
         <div class="pat">Rear mawashi (controlled recovery) &rarr; pause &rarr; step off line &rarr; cross-lead hook &rarr; rear hiza geri (flow) &rarr; step back &rarr; reset.</div>
-        <div class="rno"><textarea data-key="a-r4" placeholder="Round notes..."></textarea></div>
+        <div class="rno"><textarea data-key="a-r3" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
 
     <div class="rc">
       <div class="rh" onclick="TR(this)">
-        <div class="rn">5</div><div class="rt">Free Round &mdash; Full Toolkit, Moderate Kicks</div>
+        <div class="rn">4</div><div class="rt">Punches + Knees &mdash; Kick-Light Round</div>
         <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="rb">
-        <div class="cue">No prescribed combination. Full toolkit available, but lean toward punches and knees over kicks this round &mdash; a natural way to keep kick volume moderate without rigid counting.</div>
-        <div class="cue" style="color:var(--accent);">Legs will tell you if the new frequency is too much this week. Listen to that signal.</div>
+        <div class="cue">Jab-cross-lead hook &rarr; rear hiza geri (flow). Punch-heavy entry, no dedicated kick work this round &mdash; a deliberate way to keep total weekly kick volume moderate while still training output.</div>
+        <div class="pat">Jab-cross-lead hook &rarr; rear hiza geri (flow) &rarr; step back &rarr; reset.</div>
+        <div class="rno"><textarea data-key="a-r4" placeholder="Round notes..."></textarea></div>
+      </div>
+    </div>
+
+    <div class="rc or">
+      <div class="rh" onclick="TR(this)">
+        <div class="rn">5</div><div class="rt">Rear Mawashi Recovery &mdash; Fatigue Check</div>
+        <span class="nb or">FATIGUE TEST</span>
+        <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="rb">
+        <div class="fl or">The Real Test &mdash; Late in the Session</div>
+        <div class="oc">This is where last week's recovery correction broke down. Same drill as Round 2 &mdash; rear mawashi with deliberate chamber return, alternating with lead mawashi &mdash; but now with accumulated fatigue in the legs. Slow the tempo down further than Round 2 if needed; the priority is holding the correction, not the number of reps.</div>
+        <div class="cue">If it breaks down here too, that's expected and simply tells us the fatigue-resistance stage of this fix needs more weeks. Not a failure &mdash; just data.</div>
+        <div class="pat">Lead mawashi &rarr; rear mawashi (deliberate chamber return, slow) &rarr; repeat, prioritising quality over volume.</div>
         <div class="rno"><textarea data-key="a-r5" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
@@ -243,8 +251,9 @@ table.mt tbody tr:last-child td{border-bottom:none;}
     </div>
     <div class="fr"><label>Cervical Status</label><div class="ct" data-key="a-cervical"><button onclick="SC(this,'good')">Good</button><button onclick="SC(this,'mild')">Mild tension</button><button onclick="SC(this,'flare')">Flare-up</button></div></div>
     <div class="fr"><label>Energy Level (going in)</label><select data-key="a-energy"><option value="">&#8212;</option><option>Low &mdash; sluggish</option><option>Medium &mdash; normal</option><option>High &mdash; sharp</option></select></div>
-    <div class="fr"><label>Legs &mdash; how do they feel after new Tue+Fri frequency?</label><select data-key="a-legs"><option value="">&#8212;</option><option>Fresh &mdash; no issue</option><option>Some soreness, manageable</option><option>Notably fatigued or sore</option></select></div>
-    <div class="fr"><label>Rear mawashi recovery &mdash; status?</label><select data-key="a-recovery"><option value="">&#8212;</option><option>Held the correction</option><option>Partially</option><option>Reverted to dropping the leg</option></select></div>
+    <div class="fr"><label>Legs &mdash; soreness level</label><select data-key="a-legs"><option value="">&#8212;</option><option>Fresh &mdash; no issue</option><option>Some soreness, manageable</option><option>Notably fatigued or sore</option></select></div>
+    <div class="fr"><label>Rear mawashi recovery &mdash; Round 2 (fresh)?</label><select data-key="a-recovery-fresh"><option value="">&#8212;</option><option>Held throughout</option><option>Partially</option><option>Broke down</option></select></div>
+    <div class="fr"><label>Rear mawashi recovery &mdash; Round 5 (fatigued)?</label><select data-key="a-recovery-fatigue"><option value="">&#8212;</option><option>Held throughout</option><option>Partially</option><option>Broke down</option></select></div>
     <div class="fr"><label>What felt natural?</label><textarea data-key="a-natural" placeholder="..."></textarea></div>
     <div class="fr"><label>What felt off?</label><textarea data-key="a-forced" placeholder="..."></textarea></div>
     <div class="fr"><label>Fatigue first</label><select data-key="a-fatigue"><option value="">&#8212;</option><option>Arms / shoulders</option><option>Legs / hips</option><option>Breathing / cardio</option><option>Core</option><option>General / even</option></select></div>
@@ -253,41 +262,47 @@ table.mt tbody tr:last-child td{border-bottom:none;}
 
   <div class="cn">
     <h3>Coaching Notes</h3>
-    <p><strong>Legs check is the priority this week.</strong> More important than any bag metric is whether the doubled leg frequency is landing well. If legs feel notably fatigued going into Wednesday, that's useful information for how quickly kick volume ramps back up.</p>
-    <p><strong>HR:</strong> if it's still elevated versus normal for RPE 6, that's expected this week post-illness. Should normalise within 1&ndash;2 sessions.</p>
+    <p><strong>Round 2 vs Round 5 comparison is the key data point this week.</strong> A big gap between fresh and fatigued recovery quality tells us exactly how much more fatigue-resistance work is needed &mdash; more useful than either number alone.</p>
+    <p><strong>HR strap:</strong> confirm it connects before starting. Ankle-based optical readings from last week aren't reliable enough to track trends against.</p>
   </div>
 </div>
 
 <!-- SESSION B -->
 <div id="sb" class="tab-content">
   <div class="sh">
-    <div class="lbl">Week 1 &middot; Mesocycle 6 &middot; Rebuild A</div>
+    <div class="lbl">Week 2 &middot; Mesocycle 6 &middot; Rebuild A</div>
     <h1>Session B &mdash; Output</h1>
     <div class="meta">
       <span class="badge bt">~40 min</span>
       <span class="badge ba">RPE 7</span>
       <span class="badge bh">Z3&ndash;Z4 &middot; 133&ndash;165 bpm</span>
-      <span class="badge bg">Moderate kicks</span>
+      <span class="badge bp">14oz gloves</span>
     </div>
   </div>
 
+  <div class="dc purple">
+    <div class="dt">New 14oz Gloves &mdash; Expect an Adjustment Period</div>
+    Heavier gloves add real rotational resistance to every punch &mdash; your arm is moving more mass on each strike than it was on 10&ndash;12oz. This fatigues the shoulder and arm faster, especially by the back half of a session, and is exactly what you felt last week. It is not a technique regression. Lean harder into the shoulder blade depression cue this week &mdash; it matters even more with added glove weight, since a lazy shoulder now has more mass to compensate for with the arm alone. Expect this to feel normal again within 1&ndash;2 sessions.
+  </div>
+
   <div class="tc">
-    Slightly more output than Wednesday. <strong>RPE 7 ceiling &mdash; not 8 yet.</strong> First full week back after illness and onto the new split; ease in rather than testing limits. Hard-stop rule remains standing: RPE 9 triggers a drop to recovery pace.
+    Same targets as Week 1. Confirm the HR chest strap connects before starting &mdash; last week's data came from an ankle-placed optical sensor and wasn't reliable.
   </div>
 
   <div class="sl">Warm-Up</div>
   <div class="bc"><h3>Cervical Prehab + Shoulder Depression <span class="dur">5 min</span></h3><ul class="bl"><li>Chin tucks &mdash; 2&times;10</li><li>Cervical rotations &mdash; 5 each side</li><li>Lateral neck stretch &mdash; 20&ndash;30 sec each side</li><li>Scapular retractions &mdash; 2&times;15</li><li>Shoulder rolls &mdash; 10 each direction</li><li class="hl">Shoulder depression drill &mdash; 10 reps, hold 3 sec</li></ul></div>
   <div class="bc"><h3>Hip Rotator Mobility <span class="dur">2 min</span></h3><ul class="bl"><li class="te">10 wide hip circles each side</li><li class="te">10 lateral hip swings each side</li><li class="te">10 slow mawashi geri each side &mdash; controlled chamber return</li></ul></div>
-  <div class="bc"><h3>Movement Prep <span class="dur">2 min</span></h3><ul class="bl"><li>Light shadowboxing &mdash; all weapons</li><li>10 knee raises each side</li><li>30 sec bounce</li></ul></div>
+  <div class="bc"><h3>Movement Prep <span class="dur">2 min</span></h3><ul class="bl"><li>Light shadowboxing &mdash; get a feel for the new glove weight before the bag</li><li>10 knee raises each side</li><li>30 sec bounce</li></ul></div>
 
   <div class="rs">
     <div class="sl">Main Work &mdash; 6 Rounds</div>
-    <div class="ri">2 min rounds &middot; 60 sec rest &middot; RPE 7 &middot; Moderate kicks. Hard stop at RPE 9.</div>
+    <div class="ri">2 min rounds &middot; 60 sec rest &middot; RPE 7 &middot; New glove adjustment. Moderate kicks continue.</div>
 
-    <div class="rc">
-      <div class="rh" onclick="TR(this)"><div class="rn">1</div><div class="rt">Punch Toolkit</div><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+    <div class="rc pp">
+      <div class="rh" onclick="TR(this)"><div class="rn">1</div><div class="rt">Punch Toolkit &mdash; Glove Adjustment</div><span class="nb pp">14OZ</span><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
       <div class="rb">
-        <div class="cue">Full punch toolkit at 70%. All combinations. Shoulder blade active throughout.</div>
+        <div class="pc">First round with the new gloves this session. 60&ndash;65% effort &mdash; slightly lower than usual to let the arms calibrate to the added weight before pushing pace. Shoulder blade depression is doing more work than usual here; commit to it consciously each strike.</div>
+        <div class="cue">Full punch toolkit, all combinations.</div>
         <div class="rno"><textarea data-key="b-r1" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
@@ -295,7 +310,7 @@ table.mt tbody tr:last-child td{border-bottom:none;}
     <div class="rc">
       <div class="rh" onclick="TR(this)"><div class="rn">2</div><div class="rt">Hook-Knee Flow + Light Kick Check</div><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
       <div class="rb">
-        <div class="cue">Lead hook &rarr; rear hiza geri, flowing, 70% effort. A handful of mae geri and mawashi reps to keep kicks present without high volume.</div>
+        <div class="cue">Lead hook &rarr; rear hiza geri, flowing, 70% effort. A few mae geri and mawashi reps to keep kicks present without high volume.</div>
         <div class="rno"><textarea data-key="b-r2" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
@@ -303,7 +318,7 @@ table.mt tbody tr:last-child td{border-bottom:none;}
     <div class="rc mw">
       <div class="rh" onclick="TR(this)"><div class="rn">3</div><div class="rt">Rear Mawashi + Cross-Lead Hook + Rear Hiza Geri</div><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
       <div class="rb">
-        <div class="cue">Sharpest combination, moderate kick portion. Rear mawashi (controlled recovery) &rarr; pause &rarr; step off swing line &rarr; cross-lead hook &rarr; rear hiza geri (flow). Push to RPE 7.</div>
+        <div class="cue">Sharpest combination. Rear mawashi (controlled recovery) &rarr; pause &rarr; step off swing line &rarr; cross-lead hook &rarr; rear hiza geri (flow). Push to RPE 7.</div>
         <div class="pat">Rear mawashi &rarr; pause &rarr; step off line &rarr; cross-lead hook &rarr; rear hiza geri (flow) &rarr; step back &rarr; reset.</div>
         <div class="rno"><textarea data-key="b-r3" placeholder="Round notes..."></textarea></div>
       </div>
@@ -312,26 +327,27 @@ table.mt tbody tr:last-child td{border-bottom:none;}
     <div class="rc">
       <div class="rh" onclick="TR(this)"><div class="rn">4</div><div class="rt">Lead Mawashi + Jab-Cross + Rear Hiza Geri</div><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
       <div class="rb">
-        <div class="cue">Same combination as before Mesocycle 5 ended. Log hip drive quality. Moderate reps on this round given it's kick-heavy.</div>
+        <div class="cue">Same combination as usual. Log hip drive quality. Moderate kick reps this round.</div>
         <div class="pat">Lead mawashi &rarr; pause &rarr; step in &rarr; jab-cross &rarr; rear hiza geri (flow) &rarr; step back &rarr; reset.</div>
         <div class="rno"><textarea data-key="b-r4" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
 
-    <div class="rc">
-      <div class="rh" onclick="TR(this)"><div class="rn">5</div><div class="rt">Jab-Cross-Lead Hook + Rear Hiza Geri</div><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+    <div class="rc pp">
+      <div class="rh" onclick="TR(this)"><div class="rn">5</div><div class="rt">Jab-Cross-Lead Hook + Rear Hiza Geri</div><span class="nb pp">GLOVE ENDURANCE</span><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
       <div class="rb">
-        <div class="cue">Punch-heavy entry, knee finish &mdash; a good round for keeping total kick count moderate while still training output. Push to RPE 7.</div>
+        <div class="fl pp">Punch-Heavy Round &mdash; Test the Glove Adjustment Under Fatigue</div>
+        <div class="pc">Punch-heavy combination, later in the session when arms are already carrying some fatigue from the new glove weight. If the shoulder blade cue starts slipping as fatigue builds, that's the glove-adjustment signal to watch &mdash; slow down rather than let the arm compensate alone.</div>
         <div class="pat">Jab-cross-lead hook &rarr; rear hiza geri (flow) &rarr; step back &rarr; reset.</div>
         <div class="rno"><textarea data-key="b-r5" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
 
     <div class="rc">
-      <div class="rh" onclick="TR(this)"><div class="rn">6</div><div class="rt">Free Round &mdash; Full Toolkit, Listen to the Legs</div><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+      <div class="rh" onclick="TR(this)"><div class="rn">6</div><div class="rt">Free Round &mdash; Full Toolkit</div><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
       <div class="rb">
         <div class="cue">No prescribed combination. RPE 7 ceiling. Favour punches and knees over repeated kicking if legs are signalling fatigue.</div>
-        <div class="cue" style="color:var(--accent);font-weight:600;">Week 1 of Mesocycle 6 done. Same approach next week, then the upper cap and kick moderation both lift at Week 3 if everything has held up.</div>
+        <div class="cue" style="color:var(--accent);font-weight:600;">Week 2 of Mesocycle 6 done. One more week at this level, then the upper cap lifts and kicks return to full volume at Week 3.</div>
         <div class="rno"><textarea data-key="b-r6" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
@@ -345,11 +361,12 @@ table.mt tbody tr:last-child td{border-bottom:none;}
     <h3>Post-Session Log</h3>
     <div class="if">
       <div class="fr"><label>Felt RPE</label><select data-key="b-rpe"><option value="">&#8212;</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option></select></div>
-      <div class="fr"><label>Peak HR (bpm)</label><input type="number" data-key="b-peak-hr" placeholder="e.g. 165" inputmode="numeric"></div>
+      <div class="fr"><label>Peak HR (bpm) &mdash; strap connected?</label><input type="number" data-key="b-peak-hr" placeholder="e.g. 165" inputmode="numeric"></div>
     </div>
     <div class="fr"><label>Cervical Status</label><div class="ct" data-key="b-cervical"><button onclick="SC(this,'good')">Good</button><button onclick="SC(this,'mild')">Mild tension</button><button onclick="SC(this,'flare')">Flare-up</button></div></div>
     <div class="fr"><label>Energy Level (going in)</label><select data-key="b-energy"><option value="">&#8212;</option><option>Low &mdash; sluggish</option><option>Medium &mdash; normal</option><option>High &mdash; sharp</option></select></div>
-    <div class="fr"><label>Legs &mdash; feeling after this week's frequency change?</label><select data-key="b-legs"><option value="">&#8212;</option><option>Fresh &mdash; no issue</option><option>Some soreness, manageable</option><option>Notably fatigued or sore</option></select></div>
+    <div class="fr"><label>Legs &mdash; soreness level</label><select data-key="b-legs"><option value="">&#8212;</option><option>Fresh &mdash; no issue</option><option>Some soreness, manageable</option><option>Notably fatigued or sore</option></select></div>
+    <div class="fr"><label>14oz gloves &mdash; adjusting?</label><select data-key="b-gloves"><option value="">&#8212;</option><option>Yes &mdash; felt more normal this time</option><option>Partially &mdash; still noticeable</option><option>No change from last week</option></select></div>
     <div class="fr"><label>Lead mawashi hip quality</label><select data-key="b-mwq"><option value="">&#8212;</option><option>Weak</option><option>Moderate</option><option>Strong</option></select></div>
     <div class="fr"><label>What felt natural?</label><textarea data-key="b-natural" placeholder="..."></textarea></div>
     <div class="fr"><label>What felt off?</label><textarea data-key="b-forced" placeholder="..."></textarea></div>
@@ -359,38 +376,37 @@ table.mt tbody tr:last-child td{border-bottom:none;}
 
   <div class="cn">
     <h3>Coaching Notes</h3>
-    <p><strong>Legs signal governs Week 2 planning.</strong> If soreness is manageable, Week 2 stays similar. If legs are notably fatigued, Week 2 may need kick volume trimmed further rather than progressed &mdash; send the feedback either way and I'll adjust.</p>
+    <p><strong>Glove adjustment tracking:</strong> if it's still very noticeable in 2 more sessions, that's still within normal range &mdash; some people take 3&ndash;4 sessions to stop consciously feeling the extra weight.</p>
+    <p><strong>Week 3 preview:</strong> upper intensity cap lifts and kick volume returns to full if legs and cervical status have both stayed stable across these two weeks.</p>
   </div>
 </div>
 
 <!-- MISTAKES REF -->
 <div id="ref" class="tab-content">
   <div class="sh">
-    <div class="lbl">Week 1 &middot; Reference</div>
+    <div class="lbl">Week 2 &middot; Reference</div>
     <h1>Mistakes Reference</h1>
-    <div class="meta"><span class="badge bt">Carried from Mesocycle 5</span></div>
+    <div class="meta"><span class="badge bt">Carried forward + glove note</span></div>
   </div>
 
-  <div class="tc">No new corrections this week. Everything below carries forward unchanged.</div>
+  <div class="tc">No new technical corrections this week &mdash; the focus is fatigue-resistance on the existing rear mawashi fix, and adaptation to the new gloves.</div>
 
   <table class="mt">
     <thead><tr><th>Strike</th><th>Key error</th><th>Cue</th></tr></thead>
     <tbody>
-      <tr><td style="font-weight:600;color:var(--accent);">Cross / Hooks</td><td>Shoulder rides up, elbow flares</td><td class="fc">Blade down, elbow close, hip snaps first</td></tr>
+      <tr><td style="font-weight:600;color:var(--accent);">Cross / Hooks</td><td>Shoulder rides up, elbow flares &mdash; more likely with heavier gloves</td><td class="fc">Blade down, elbow close, hip snaps first</td></tr>
       <tr><td style="font-weight:600;color:var(--teal);">Lead Mawashi</td><td>Weaker hip drive than rear</td><td class="fc">Patience &mdash; hip leads, torso neutral, pause after landing</td></tr>
-      <tr><td style="font-weight:600;color:var(--teal);">Rear Mawashi</td><td>Leg drops instead of controlled recovery</td><td class="fc">Pull knee back to chamber before placing foot down</td></tr>
+      <tr><td style="font-weight:600;color:var(--orange);">Rear Mawashi</td><td>Leg drops instead of controlled recovery, especially late in a session</td><td class="fc">Pull knee back to chamber before placing foot down &mdash; now tested at both fresh and fatigued states</td></tr>
       <tr><td style="font-weight:600;color:var(--orange);">Hiza Geri</td><td>Knee swings wide</td><td class="fc">Vertical drive, flow from hook, no pause</td></tr>
     </tbody>
   </table>
 
-  <div class="sl" style="margin-top:var(--lg);">Pause vs Flow</div>
-  <table class="mt">
-    <thead><tr><th>Situation</th><th>Rule</th></tr></thead>
-    <tbody>
-      <tr><td style="font-weight:600;color:var(--teal);">After any kick</td><td class="fc">Pause, check distance, then punch</td></tr>
-      <tr><td style="font-weight:600;color:var(--orange);">Hook &rarr; knee</td><td class="fc">No pause &mdash; flow together</td></tr>
-    </tbody>
-  </table>
+  <div class="sl" style="margin-top:var(--lg);">New Equipment Note</div>
+  <div class="bc" style="border-color:var(--purple);">
+    <ul class="bl">
+      <li><strong>14oz gloves:</strong> heavier than the previous 10&ndash;12oz &mdash; adds real rotational resistance to every punch. Expect faster arm/shoulder fatigue for the first several sessions. Shoulder blade depression cue matters more now, not less &mdash; it's what prevents the arm from compensating alone for the extra mass.</li>
+    </ul>
+  </div>
 </div>
 
 <div class="eb"><button class="ebtn" onclick="EXP()">Copy Summary for Claude</button></div>
@@ -400,7 +416,7 @@ table.mt tbody tr:last-child td{border-bottom:none;}
 document.querySelectorAll('.tab').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));t.classList.add('active');document.getElementById(t.dataset.tab).classList.add('active');});});
 function TR(h){h.parentElement.classList.toggle('open');}
 function SC(btn,lv){const g=btn.parentElement;g.querySelectorAll('button').forEach(b=>{b.className='';});btn.classList.add(lv==='good'?'sg':lv==='mild'?'sm2':'sf');g.dataset.value=lv;SD();}
-const SK='mc6-week1-bag';
+const SK='mc6-week2-bag';
 function GA(){return document.querySelectorAll('[data-key]');}
 function SD(){const d={};GA().forEach(el=>{const k=el.dataset.key;if(el.tagName==='TEXTAREA'||el.tagName==='INPUT')d[k]=el.value;else if(el.tagName==='SELECT')d[k]=el.value;else if(el.classList.contains('ct'))d[k]=el.dataset.value||'';});try{localStorage.setItem(SK,JSON.stringify(d));}catch(e){}}
 function LD(){try{const raw=localStorage.getItem(SK);if(!raw)return;const d=JSON.parse(raw);GA().forEach(el=>{const k=el.dataset.key;if(!(k in d)||!d[k])return;if(el.tagName==='TEXTAREA'||el.tagName==='INPUT')el.value=d[k];else if(el.tagName==='SELECT')el.value=d[k];else if(el.classList.contains('ct')){el.dataset.value=d[k];el.querySelectorAll('button').forEach(b=>b.className='');const lv=d[k];if(lv==='good')el.children[0].classList.add('sg');if(lv==='mild')el.children[1].classList.add('sm2');if(lv==='flare')el.children[2].classList.add('sf');}});}catch(e){}}
@@ -408,12 +424,12 @@ document.addEventListener('input',SD);document.addEventListener('change',SD);LD(
 function EXP(){
   const gv=k=>{const el=document.querySelector('[data-key="'+k+'"]');if(!el)return'';if(el.classList.contains('ct'))return el.dataset.value||'';return el.value||'';};
   const rn=(p,n)=>{let o='';for(let i=1;i<=n;i++){const v=gv(p+'-r'+i);if(v)o+='  Round '+i+': '+v+'\n';}return o||'  (no round notes)\n';};
-  let t='## Week 1 Bag Sessions - Feedback\nMesocycle 6 | Rebuild A | New split, moderate kicks\n\n';
+  let t='## Week 2 Bag Sessions - Feedback\nMesocycle 6 | Rebuild A | Fatigue-resistance + new gloves\n\n';
   t+='### Session A (Technique - Wednesday)\n';
-  [['a-rpe','Felt RPE'],['a-peak-hr','Peak HR'],['a-cervical','Cervical'],['a-energy','Energy'],['a-legs','Legs feel'],['a-recovery','Rear mawashi recovery'],['a-fatigue','Fatigue first'],['a-natural','Felt natural'],['a-forced','Felt off'],['a-notes','Notes']].forEach(([k,l])=>{const v=gv(k);if(v)t+='- '+l+': '+v+'\n';});
+  [['a-rpe','Felt RPE'],['a-peak-hr','Peak HR'],['a-cervical','Cervical'],['a-energy','Energy'],['a-legs','Legs feel'],['a-recovery-fresh','Rear mawashi recovery (fresh)'],['a-recovery-fatigue','Rear mawashi recovery (fatigued)'],['a-fatigue','Fatigue first'],['a-natural','Felt natural'],['a-forced','Felt off'],['a-notes','Notes']].forEach(([k,l])=>{const v=gv(k);if(v)t+='- '+l+': '+v+'\n';});
   t+='- Round notes:\n'+rn('a',5)+'\n';
   t+='### Session B (Output - Saturday)\n';
-  [['b-rpe','Felt RPE'],['b-peak-hr','Peak HR'],['b-cervical','Cervical'],['b-energy','Energy'],['b-legs','Legs feel'],['b-mwq','Lead mawashi hip quality'],['b-fatigue','Fatigue first'],['b-natural','Felt natural'],['b-forced','Felt off'],['b-notes','Notes']].forEach(([k,l])=>{const v=gv(k);if(v)t+='- '+l+': '+v+'\n';});
+  [['b-rpe','Felt RPE'],['b-peak-hr','Peak HR'],['b-cervical','Cervical'],['b-energy','Energy'],['b-legs','Legs feel'],['b-gloves','Glove adjustment'],['b-mwq','Lead mawashi hip quality'],['b-fatigue','Fatigue first'],['b-natural','Felt natural'],['b-forced','Felt off'],['b-notes','Notes']].forEach(([k,l])=>{const v=gv(k);if(v)t+='- '+l+': '+v+'\n';});
   t+='- Round notes:\n'+rn('b',6)+'\n';
   navigator.clipboard.writeText(t).then(()=>{const toast=document.getElementById('toast');toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2000);}).catch(()=>{const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);const toast=document.getElementById('toast');toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2000);});
 }
