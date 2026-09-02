@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Week 4 &mdash; Bag Sessions</title>
+<title>Week 5 &mdash; Bag Sessions</title>
 <style>
 :root{--bg:#111113;--surface:#1a1a1f;--surface-raised:#222228;--border:#2a2a32;--text-primary:#e8e8ed;--text-secondary:#8e8e9a;--text-tertiary:#5a5a66;--accent:#e8913a;--accent-dim:rgba(232,145,58,0.12);--green:#4ade80;--green-dim:rgba(74,222,128,0.12);--blue:#60a5fa;--blue-dim:rgba(96,165,250,0.12);--red:#f87171;--red-dim:rgba(248,113,113,0.12);--yellow:#facc15;--yellow-dim:rgba(250,204,21,0.12);--teal:#2dd4bf;--teal-dim:rgba(45,212,191,0.12);--orange:#fb923c;--orange-dim:rgba(251,146,60,0.12);--purple:#c084fc;--purple-dim:rgba(192,132,252,0.12);--radius:12px;--xs:4px;--sm:8px;--md:16px;--lg:24px;--xl:32px;}
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -18,15 +18,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue'
 .sh h1{font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1.2;margin-bottom:var(--xs);}
 .sh .meta{font-size:13px;color:var(--text-secondary);display:flex;flex-wrap:wrap;gap:var(--sm) var(--md);}
 .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:6px;font-size:12px;font-weight:600;}
-.ba{background:var(--accent-dim);color:var(--accent);}.bh{background:var(--red-dim);color:var(--red);}.bt{background:var(--blue-dim);color:var(--blue);}.bg{background:var(--green-dim);color:var(--green);}.bp{background:var(--purple-dim);color:var(--purple);}
+.ba{background:var(--accent-dim);color:var(--accent);}.bh{background:var(--red-dim);color:var(--red);}.bt{background:var(--blue-dim);color:var(--blue);}.bg{background:var(--green-dim);color:var(--green);}.by{background:var(--yellow-dim);color:var(--yellow);}
 .tc{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--border);margin-bottom:var(--lg);font-size:14px;color:var(--text-secondary);line-height:1.55;}
 .tc strong{color:var(--text-primary);}
 .dc{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--border);margin-bottom:var(--md);font-size:13px;color:var(--text-secondary);line-height:1.55;}
 .dc .dt{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:var(--sm);}
 .dc.good{border-color:var(--green);}.dc.good .dt{color:var(--green);}
 .dc.info{border-color:var(--blue);}.dc.info .dt{color:var(--blue);}
-.dc.purple{border-color:var(--purple);}.dc.purple .dt{color:var(--purple);}
 .dc.yellow{border-color:var(--yellow);}.dc.yellow .dt{color:var(--yellow);}
+.dc.teal{border-color:var(--teal);}.dc.teal .dt{color:var(--teal);}
 .sl{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:var(--md);}
 .bc{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--border);margin-bottom:var(--md);}
 .bc h3{font-size:14px;font-weight:600;margin-bottom:var(--sm);display:flex;justify-content:space-between;align-items:center;}
@@ -36,29 +36,28 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue'
 .bl li::before{content:'';position:absolute;left:0;top:11px;width:5px;height:5px;border-radius:50%;background:var(--text-tertiary);}
 .bl li.hl::before{background:var(--accent);}
 .bl li.te::before{background:var(--teal);}
-.bl li.pu::before{background:var(--purple);}
 .rs{margin-bottom:var(--lg);}
 .ri{font-size:13px;color:var(--text-secondary);margin-bottom:var(--md);padding:var(--sm) var(--md);background:var(--accent-dim);border-radius:var(--sm);border-left:3px solid var(--accent);}
 .rc{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:var(--sm);overflow:hidden;}
 .rc.mw{border-color:var(--teal);}
-.rc.pp{border-color:var(--purple);}
+.rc.tg{border-color:var(--yellow);}
 .rh{display:flex;align-items:center;padding:var(--md);cursor:pointer;-webkit-tap-highlight-color:transparent;gap:var(--sm);}
 .rn{width:28px;height:28px;border-radius:8px;background:var(--accent-dim);color:var(--accent);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .rc.mw .rn{background:var(--teal-dim);color:var(--teal);}
-.rc.pp .rn{background:var(--purple-dim);color:var(--purple);}
+.rc.tg .rn{background:var(--yellow-dim);color:var(--yellow);}
 .rt{flex:1;font-size:14px;font-weight:600;}
 .nb{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:.05em;flex-shrink:0;}
-.nb.pp{background:var(--purple-dim);color:var(--purple);}
+.nb.tg{background:var(--yellow-dim);color:var(--yellow);}
 .chv{color:var(--text-tertiary);transition:transform .2s;flex-shrink:0;}
 .rc.open .chv{transform:rotate(180deg);}
 .rb{display:none;padding:0 var(--md) var(--md);}
 .rc.open .rb{display:block;}
 .fl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--xs);}
-.fl.pp{color:var(--purple);}
+.fl.tg{color:var(--yellow);}
 .cue{font-size:13px;color:var(--text-secondary);line-height:1.55;margin-bottom:var(--sm);}
 .cue strong{color:var(--text-primary);font-weight:600;}
 .en{font-size:12px;color:var(--red);background:var(--red-dim);padding:var(--sm);border-radius:var(--sm);margin-bottom:var(--sm);}
-.pc{font-size:12px;color:var(--purple);background:var(--purple-dim);padding:var(--sm);border-radius:var(--sm);border-left:3px solid var(--purple);margin-bottom:var(--sm);}
+.tgc{font-size:12px;color:var(--yellow);background:var(--yellow-dim);padding:var(--sm);border-radius:var(--sm);border-left:3px solid var(--yellow);margin-bottom:var(--sm);}
 .pat{font-size:13px;color:var(--accent);font-weight:500;margin-bottom:var(--sm);}
 .rno{margin-top:var(--sm);border-top:1px solid var(--border);padding-top:var(--sm);}
 .rno textarea{width:100%;background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--sm);color:var(--text-primary);font-family:inherit;font-size:13px;padding:var(--sm);resize:vertical;min-height:36px;line-height:1.4;}
@@ -107,33 +106,33 @@ table.mt tbody tr:last-child td{border-bottom:none;}
 <!-- SESSION A -->
 <div id="sa" class="tab-content active">
   <div class="sh">
-    <div class="lbl">Week 4 &middot; Mesocycle 6 &middot; Intensification A</div>
+    <div class="lbl">Week 5 &middot; Mesocycle 6 &middot; Intensification B</div>
     <h1>Session A &mdash; Technique</h1>
     <div class="meta">
       <span class="badge bt">~42 min</span>
       <span class="badge ba">RPE 6&ndash;7</span>
       <span class="badge bh">Z3&ndash;Z4 &middot; 133&ndash;158 bpm</span>
-      <span class="badge bp">Adductor mobility focus</span>
+      <span class="badge by">Shin vs foot targeting</span>
     </div>
   </div>
 
-  <div class="sl">Week 3 Debrief &mdash; Diagnosis Corrected</div>
+  <div class="sl">Week 4 Debrief</div>
 
-  <div class="dc purple">
-    <div class="dt">Not Supporting-Leg Strength &mdash; Adductor/Hip Mobility</div>
-    Good re-diagnosis. Holding the kicking leg chambered (hip flexed, externally rotated) puts real stretch load on the adductors. Limited mobility in that range, especially cold, produces exactly what you described &mdash; harder at the start, easing as tissue warms. This is a flexibility/warm-up issue, not a strength ceiling. Last week&rsquo;s calf raises and single-leg balance work weren&rsquo;t targeting the actual problem &mdash; replaced this week with proper adductor and hip-opening mobility.
+  <div class="dc good">
+    <div class="dt">Adductor Mobility Fix Confirmed Working</div>
+    &ldquo;Much better, eased quickly&rdquo; in both sessions. The corrected diagnosis was right &mdash; this moves from active correction to maintenance. Keep the dynamic warm-up (lateral lunges, chamber openers, gradual range build-up) as standard practice, but no more dedicated attention needed on it specifically.
   </div>
   <div class="dc yellow">
-    <div class="dt">Monitor &mdash; &ldquo;Slightly Painful&rdquo; Needs a Clear Line</div>
-    Discomfort that eases with warmth is normal tightness. If it&rsquo;s ever sharp, doesn&rsquo;t ease as you warm up, or lingers after the session, that's a different signal &mdash; back off kicks that day and reassess rather than pushing through. Keep this self-check running every session.
+    <div class="dt">Cervical &mdash; Mild in Both Sessions, Worth Watching</div>
+    Individually unremarkable, but two in a row is a pattern worth flagging rather than ignoring &mdash; especially given the entire split change exists to protect the neck. Not a flare, no action required yet, but if it shows up a third consecutive session, that's the point to actively reassess rather than continue monitoring. Full attention on prehab compliance this week.
   </div>
-  <div class="dc good">
-    <div class="dt">Everything Else on Track</div>
-    Mawashi geri overall described as &ldquo;clearly improved a lot&rdquo; since starting this work. Legs fresh both sessions. Rear mawashi recovery holding mostly automatic. Full kick volume landing well. Week 4 moves into Intensification &mdash; the rebuild phase is complete.
+  <div class="dc teal">
+    <div class="dt">New Refinement &mdash; Shin vs Foot Distance for Mawashi Geri</div>
+    Good instinct to start distinguishing these. Shin strikes need you closer, are far more forgiving on timing and injury risk, and produce strong power with less precision required. Foot/instep strikes need more range and precise distance calibration &mdash; too close and you jam the shin into the target instead of landing with the foot; too far and the strike glances weakly. Dedicated round today to build the distance-reading skill explicitly.
   </div>
-
-  <div class="tc" style="margin-top:var(--lg);">
-    <strong>No more held-chamber drilling.</strong> The fix is proper warm-up and letting kicks flow through the chamber rather than pausing there, especially early in the session before the hips are warm.
+  <div class="dc info">
+    <div class="dt">RPE &amp; Cardio &mdash; Expected for Intensification</div>
+    Running about a point above target with cardio back as the primary limiter is exactly what Intensification is supposed to produce &mdash; this phase is designed to push conditioning, not just maintain it. Different context from the earlier post-illness weeks where the same numbers were a concern.
   </div>
 
   <div class="sl">Warm-Up</div>
@@ -149,27 +148,26 @@ table.mt tbody tr:last-child td{border-bottom:none;}
     </ul>
   </div>
   <div class="bc">
-    <h3>Hip &amp; Adductor Mobility <span class="dur">4&ndash;5 min</span></h3>
+    <h3>Hip &amp; Adductor Mobility <span class="dur">4 min</span></h3>
     <ul class="bl">
       <li class="te">10 wide hip circles each side</li>
-      <li class="pu"><strong>New:</strong> dynamic lateral lunges (cossack-style) &mdash; 8 each side, sinking a little deeper each rep. Directly opens the adductors through the range mawashi geri demands.</li>
-      <li class="pu"><strong>New:</strong> dynamic chamber openers &mdash; from standing, lift the knee and rotate the hip open (no kick, no hold), 8 reps each side, gradually increasing range as it warms up.</li>
-      <li class="te">10 lateral hip swings each side &mdash; also a good dynamic adductor stretch</li>
+      <li class="te">Dynamic lateral lunges &mdash; 8 each side</li>
+      <li class="te">Dynamic chamber openers &mdash; 8 each side</li>
     </ul>
   </div>
   <div class="bc">
-    <h3>Movement Prep &mdash; Gradual Kick Build-Up <span class="dur">3 min</span></h3>
+    <h3>Movement Prep <span class="dur">3 min</span></h3>
     <ul class="bl">
       <li>Light shadowboxing &mdash; all weapons, no power</li>
       <li>10 knee raises each side</li>
-      <li class="pu"><strong>New approach:</strong> mawashi geri in the air, both legs &mdash; start at 40% chamber height/openness, build up gradually over 10 reps each side to full range. Do not force full range on the first reps.</li>
+      <li>Mawashi geri in the air, both legs &mdash; build from moderate to full range over 10 reps each side</li>
       <li>30 sec light bounce</li>
     </ul>
   </div>
 
   <div class="rs">
     <div class="sl">Main Work &mdash; 5 Rounds</div>
-    <div class="ri">3 min rounds &middot; 90 sec rest &middot; RPE 6&ndash;7 &middot; Full kick volume. No held chambers.</div>
+    <div class="ri">3 min rounds &middot; 90 sec rest &middot; RPE 6&ndash;7 &middot; Full kick volume. Distance calibration focus.</div>
 
     <div class="rc">
       <div class="rh" onclick="TR(this)">
@@ -178,21 +176,23 @@ table.mt tbody tr:last-child td{border-bottom:none;}
       </div>
       <div class="rb">
         <div class="cue">Jab, cross, both hooks, all combinations. 65&ndash;70% effort. Shoulder blade active throughout.</div>
+        <div class="cue">The cross-to-lead-hook transition has been improving through repetition &mdash; keep noticing that connection this round.</div>
         <div class="rno"><textarea data-key="a-r1" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
 
-    <div class="rc pp">
+    <div class="rc tg">
       <div class="rh" onclick="TR(this)">
-        <div class="rn">2</div><div class="rt">Mawashi Geri &mdash; Flowing, Not Held</div>
-        <span class="nb pp">CORRECTED APPROACH</span>
+        <div class="rn">2</div><div class="rt">Mawashi Geri &mdash; Shin vs Foot Distance Calibration</div>
+        <span class="nb tg">NEW FOCUS</span>
         <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="rb">
-        <div class="fl pp">Let the Kick Flow Through the Chamber</div>
-        <div class="pc">Lead and rear mawashi geri, both legs. Unlike last week, do not pause or hold the chambered position &mdash; let the leg move through it smoothly as part of one continuous motion. If the hips still feel tight this early, keep the range slightly reduced rather than forcing full extension.</div>
-        <div class="cue"><strong>Self-check:</strong> any pulling sensation in the adductors should feel like tightness easing, not sharp discomfort. If it's sharp or not easing, reduce kick height/range for the rest of the round.</div>
-        <div class="pat">Lead mawashi (flowing, moderate range) &rarr; reset &rarr; rear mawashi (flowing, moderate range) &rarr; reset &rarr; repeat, gradually opening range as it warms.</div>
+        <div class="fl tg">Reading Distance Deliberately</div>
+        <div class="tgc"><strong>Shin range:</strong> stand at your normal working distance. Throw a rear mawashi geri aiming to land mid-shin on the bag. This is the more forgiving, more powerful, lower-injury-risk option &mdash; your default when in doubt.</div>
+        <div class="tgc"><strong>Foot range:</strong> step back roughly half a step from shin range. Throw the same kick, but now aim to land with the top of the foot or ball of foot, ankle extended. This requires the leg to fully extend to reach &mdash; if you're still at shin distance, you'll jam the shin into the bag instead of landing clean with the foot.</div>
+        <div class="cue"><strong>The skill:</strong> before committing to power, quickly read which range you're actually at. Shin range = commit with shin. Foot range = extend and land with the foot. Don't guess &mdash; check your distance first.</div>
+        <div class="pat">Shin range rear mawashi &times;3 &rarr; step back half a step &rarr; foot range rear mawashi &times;3 &rarr; step back in &rarr; repeat, both legs.</div>
         <div class="rno"><textarea data-key="a-r2" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
@@ -203,8 +203,8 @@ table.mt tbody tr:last-child td{border-bottom:none;}
         <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="rb">
-        <div class="cue">Sharpest combination, full effort now that hips are warm. Rear mawashi &rarr; pause &rarr; step off swing line &rarr; cross-lead hook &rarr; rear hiza geri (flow). 70% effort.</div>
-        <div class="pat">Rear mawashi &rarr; pause &rarr; step off line &rarr; cross-lead hook &rarr; rear hiza geri (flow) &rarr; step back &rarr; reset.</div>
+        <div class="cue">Sharpest combination, full effort. Default to shin range for the mawashi geri here &mdash; the combination context calls for power and reliability, not precision targeting.</div>
+        <div class="pat">Rear mawashi (shin range) &rarr; pause &rarr; step off swing line &rarr; cross-lead hook &rarr; rear hiza geri (flow) &rarr; step back &rarr; reset.</div>
         <div class="rno"><textarea data-key="a-r3" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
@@ -215,7 +215,7 @@ table.mt tbody tr:last-child td{border-bottom:none;}
         <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="rb">
-        <div class="cue">All three kicks, both legs, full volume. 70% effort. By this round the hips should be fully warm &mdash; full range should feel comfortable.</div>
+        <div class="cue">All three kicks, both legs, full volume, 70% effort. Read your distance before each mawashi geri &mdash; shin or foot, deliberately, not by accident.</div>
         <div class="rno"><textarea data-key="a-r4" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
@@ -226,7 +226,7 @@ table.mt tbody tr:last-child td{border-bottom:none;}
         <svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
       </div>
       <div class="rb">
-        <div class="cue">No prescribed combination. Full kick volume, RPE 6&ndash;7 ceiling. Kicks should feel fully warmed up and comfortable by now.</div>
+        <div class="cue">No prescribed combination. RPE 6&ndash;7 ceiling. Apply the shin/foot distance read naturally as combinations develop.</div>
         <div class="rno"><textarea data-key="a-r5" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
@@ -234,19 +234,18 @@ table.mt tbody tr:last-child td{border-bottom:none;}
 
   <div class="sl">Cool-Down</div>
   <div class="bc"><h3>Upper Body <span class="dur">3 min</span></h3><ul class="bl"><li>Chest &amp; shoulder stretch &mdash; 30 sec each side</li><li>Cross-body shoulder stretch &mdash; 30 sec each side</li><li>Wrist flexor + extensor stretch &mdash; 20 sec each side</li></ul></div>
-  <div class="bc"><h3>Lower Body &amp; Breathing <span class="dur">4&ndash;5 min</span></h3><ul class="bl"><li class="hl">Hip flexor lunge &mdash; 60 sec each side</li><li class="hl">Standing quad stretch &mdash; 30 sec each side</li><li class="pu">Adductor stretch (seated butterfly or standing side lunge, static now that muscles are warm) &mdash; 30&ndash;40 sec each side</li><li class="te">Lateral hip rotator stretch &mdash; 45 sec each side</li><li>Upper trap stretch &mdash; 30 sec each side</li><li>Breathing reset &mdash; 2 min, 4 sec inhale / 6 sec exhale</li></ul></div>
+  <div class="bc"><h3>Lower Body &amp; Breathing <span class="dur">4 min</span></h3><ul class="bl"><li class="hl">Hip flexor lunge &mdash; 60 sec each side</li><li class="hl">Standing quad stretch &mdash; 30 sec each side</li><li>Adductor stretch &mdash; 30 sec each side</li><li class="te">Lateral hip rotator stretch &mdash; 45 sec each side</li><li>Upper trap stretch &mdash; 30 sec each side</li><li>Breathing reset &mdash; 2 min, 4 sec inhale / 6 sec exhale</li></ul></div>
 
   <div class="ps">
     <h3>Post-Session Log</h3>
     <div class="if">
       <div class="fr"><label>Felt RPE</label><select data-key="a-rpe"><option value="">&#8212;</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option></select></div>
-      <div class="fr"><label>Peak HR (bpm)</label><input type="number" data-key="a-peak-hr" placeholder="e.g. 160" inputmode="numeric"></div>
+      <div class="fr"><label>Peak HR (bpm)</label><input type="number" data-key="a-peak-hr" placeholder="e.g. 175" inputmode="numeric"></div>
     </div>
     <div class="fr"><label>Cervical Status</label><div class="ct" data-key="a-cervical"><button onclick="SC(this,'good')">Good</button><button onclick="SC(this,'mild')">Mild tension</button><button onclick="SC(this,'flare')">Flare-up</button></div></div>
     <div class="fr"><label>Energy Level (going in)</label><select data-key="a-energy"><option value="">&#8212;</option><option>Low &mdash; sluggish</option><option>Medium &mdash; normal</option><option>High &mdash; sharp</option></select></div>
     <div class="fr"><label>Legs &mdash; soreness level</label><select data-key="a-legs"><option value="">&#8212;</option><option>Fresh &mdash; no issue</option><option>Some soreness, manageable</option><option>Notably fatigued or sore</option></select></div>
-    <div class="fr"><label>Adductor discomfort &mdash; improved with new warm-up?</label><select data-key="a-adductor"><option value="">&#8212;</option><option>Yes &mdash; much better, eased quickly</option><option>Partially &mdash; still there early on</option><option>No change</option><option>Sharp or concerning &mdash; not just tightness</option></select></div>
-    <div class="fr"><label>Rear mawashi recovery &mdash; still automatic?</label><select data-key="a-recovery"><option value="">&#8212;</option><option>Yes</option><option>Mostly</option><option>Reverted</option></select></div>
+    <div class="fr"><label>Shin vs foot distance &mdash; could you tell the difference clearly?</label><select data-key="a-distance"><option value="">&#8212;</option><option>Yes &mdash; clear distinction, chose deliberately</option><option>Partially &mdash; still figuring it out</option><option>No &mdash; hard to tell the difference</option></select></div>
     <div class="fr"><label>What felt natural?</label><textarea data-key="a-natural" placeholder="..."></textarea></div>
     <div class="fr"><label>What felt off?</label><textarea data-key="a-forced" placeholder="..."></textarea></div>
     <div class="fr"><label>Fatigue first</label><select data-key="a-fatigue"><option value="">&#8212;</option><option>Arms / shoulders</option><option>Legs / hips</option><option>Breathing / cardio</option><option>Core</option><option>General / even</option></select></div>
@@ -255,36 +254,36 @@ table.mt tbody tr:last-child td{border-bottom:none;}
 
   <div class="cn">
     <h3>Coaching Notes</h3>
-    <p><strong>If the sharp/concerning option gets selected in the log, stop programming kicks at volume until this is looked at properly</strong> &mdash; that would be a different situation than normal tightness and worth a closer look, possibly beyond just warm-up adjustments.</p>
-    <p><strong>Otherwise, expect gradual improvement</strong> over the next 2&ndash;3 weeks as hip mobility in that specific range develops with consistent warm-up exposure.</p>
+    <p><strong>Cervical watch is active this week</strong> &mdash; a third consecutive &ldquo;mild&rdquo; reading would shift this from monitoring to active reassessment. Report honestly either way.</p>
+    <p><strong>Shin/foot distinction takes repetition to feel automatic</strong> &mdash; don't expect instant clarity. The goal this week is starting to build the awareness, not mastering it.</p>
   </div>
 </div>
 
 <!-- SESSION B -->
 <div id="sb" class="tab-content">
   <div class="sh">
-    <div class="lbl">Week 4 &middot; Mesocycle 6 &middot; Intensification A</div>
+    <div class="lbl">Week 5 &middot; Mesocycle 6 &middot; Intensification B</div>
     <h1>Session B &mdash; Output</h1>
     <div class="meta">
       <span class="badge bt">~42 min</span>
       <span class="badge ba">RPE 7&ndash;8</span>
       <span class="badge bh">Z4 &middot; 152&ndash;171 bpm</span>
-      <span class="badge bp">Adductor mobility focus</span>
+      <span class="badge by">Shin vs foot targeting</span>
     </div>
   </div>
 
   <div class="tc">
-    First full Intensification session. Same adductor mobility approach as Wednesday &mdash; extended warm-up, gradual range build-up, no held chambers. Gloves should be feeling close to normal by now.
+    Same distance-calibration focus as Wednesday, now under output pressure. Cervical watch stays active &mdash; report honestly if any tension shows up.
   </div>
 
   <div class="sl">Warm-Up</div>
   <div class="bc"><h3>Cervical Prehab + Shoulder Depression <span class="dur">5 min</span></h3><ul class="bl"><li>Chin tucks &mdash; 2&times;10</li><li>Cervical rotations &mdash; 5 each side</li><li>Lateral neck stretch &mdash; 20&ndash;30 sec each side</li><li>Scapular retractions &mdash; 2&times;15</li><li>Shoulder rolls &mdash; 10 each direction</li><li class="hl">Shoulder depression drill &mdash; 10 reps, hold 3 sec</li></ul></div>
-  <div class="bc"><h3>Hip &amp; Adductor Mobility <span class="dur">4&ndash;5 min</span></h3><ul class="bl"><li class="te">10 wide hip circles each side</li><li class="pu">Dynamic lateral lunges &mdash; 8 each side, sinking deeper each rep</li><li class="pu">Dynamic chamber openers &mdash; 8 each side, gradually increasing range</li><li class="te">10 lateral hip swings each side</li></ul></div>
-  <div class="bc"><h3>Movement Prep &mdash; Gradual Kick Build-Up <span class="dur">3 min</span></h3><ul class="bl"><li>Light shadowboxing &mdash; all weapons</li><li>10 knee raises each side</li><li class="pu">Mawashi geri in the air, both legs &mdash; build from 40% to full range over 10 reps each side</li><li>30 sec bounce</li></ul></div>
+  <div class="bc"><h3>Hip &amp; Adductor Mobility <span class="dur">4 min</span></h3><ul class="bl"><li class="te">10 wide hip circles each side</li><li class="te">Dynamic lateral lunges &mdash; 8 each side</li><li class="te">Dynamic chamber openers &mdash; 8 each side</li></ul></div>
+  <div class="bc"><h3>Movement Prep <span class="dur">3 min</span></h3><ul class="bl"><li>Light shadowboxing &mdash; all weapons</li><li>10 knee raises each side</li><li>Mawashi geri in the air, both legs &mdash; build to full range</li><li>30 sec bounce</li></ul></div>
 
   <div class="rs">
     <div class="sl">Main Work &mdash; 6 Rounds</div>
-    <div class="ri">2 min rounds &middot; 60 sec rest &middot; RPE 7&ndash;8 &middot; Full kick volume, gradual range build-up.</div>
+    <div class="ri">2 min rounds &middot; 60 sec rest &middot; RPE 7&ndash;8 &middot; Distance calibration under fatigue.</div>
 
     <div class="rc">
       <div class="rh" onclick="TR(this)"><div class="rn">1</div><div class="rt">Punch Toolkit</div><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
@@ -294,10 +293,11 @@ table.mt tbody tr:last-child td{border-bottom:none;}
       </div>
     </div>
 
-    <div class="rc pp">
-      <div class="rh" onclick="TR(this)"><div class="rn">2</div><div class="rt">Full Kick + Knee Toolkit &mdash; Flowing</div><span class="nb pp">NO HELD CHAMBERS</span><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+    <div class="rc tg">
+      <div class="rh" onclick="TR(this)"><div class="rn">2</div><div class="rt">Shin vs Foot Under Output</div><span class="nb tg">DISTANCE READ</span><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
       <div class="rb">
-        <div class="cue">Mae geri, both mawashi geri, hiza geri &mdash; full volume, 70% effort. Kicks flow smoothly through the chamber, no pausing. Range should already feel more open than Round 2 typically felt in past weeks, thanks to the extended warm-up.</div>
+        <div class="tgc">Same drill as Wednesday, now at 70&ndash;75% effort. Shin range mawashi geri, step back half a step, foot range mawashi geri, reset. The distance read should start happening faster under pace &mdash; that's the goal of testing it here.</div>
+        <div class="pat">Shin range &times;3 &rarr; step back &rarr; foot range &times;3 &rarr; step in &rarr; repeat, both legs.</div>
         <div class="rno"><textarea data-key="b-r2" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
@@ -305,8 +305,8 @@ table.mt tbody tr:last-child td{border-bottom:none;}
     <div class="rc mw">
       <div class="rh" onclick="TR(this)"><div class="rn">3</div><div class="rt">Rear Mawashi + Cross-Lead Hook + Rear Hiza Geri</div><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
       <div class="rb">
-        <div class="cue">Sharpest combination, full effort. Rear mawashi &rarr; pause &rarr; step off swing line &rarr; cross-lead hook &rarr; rear hiza geri (flow). Push to RPE 7&ndash;8.</div>
-        <div class="pat">Rear mawashi &rarr; pause &rarr; step off line &rarr; cross-lead hook &rarr; rear hiza geri (flow) &rarr; step back &rarr; reset.</div>
+        <div class="cue">Sharpest combination, full effort. Shin range by default in this combo. Push to RPE 7&ndash;8.</div>
+        <div class="pat">Rear mawashi (shin range) &rarr; pause &rarr; step off swing line &rarr; cross-lead hook &rarr; rear hiza geri (flow) &rarr; step back &rarr; reset.</div>
         <div class="rno"><textarea data-key="b-r3" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
@@ -323,7 +323,7 @@ table.mt tbody tr:last-child td{border-bottom:none;}
     <div class="rc">
       <div class="rh" onclick="TR(this)"><div class="rn">5</div><div class="rt">Jab-Cross-Lead Hook + Rear Hiza Geri</div><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
       <div class="rb">
-        <div class="cue">Punch-heavy round, later in the session under real fatigue. Push to RPE 8.</div>
+        <div class="cue">Punch-heavy round, later in the session under fatigue. Notice the cross-to-hook transition &mdash; it's been improving. Push to RPE 8.</div>
         <div class="pat">Jab-cross-lead hook &rarr; rear hiza geri (flow) &rarr; step back &rarr; reset.</div>
         <div class="rno"><textarea data-key="b-r5" placeholder="Round notes..."></textarea></div>
       </div>
@@ -332,8 +332,8 @@ table.mt tbody tr:last-child td{border-bottom:none;}
     <div class="rc">
       <div class="rh" onclick="TR(this)"><div class="rn">6</div><div class="rt">Free Round &mdash; Full Toolkit</div><svg class="chv" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
       <div class="rb">
-        <div class="cue">No prescribed combination. Full kick volume, RPE 7&ndash;8. Kicks should feel comfortable by now &mdash; if adductor tightness is still present this late, note it.</div>
-        <div class="cue" style="color:var(--accent);font-weight:600;">Week 4 of Intensification A complete. One more week at this level before pushing further in Week 5.</div>
+        <div class="cue">No prescribed combination. Full kick volume, RPE 7&ndash;8. Apply shin/foot distance reading naturally.</div>
+        <div class="cue" style="color:var(--accent);font-weight:600;">Week 5 of Intensification complete. Week 6 is taper &mdash; volume drops, arrive at deload sharp.</div>
         <div class="rno"><textarea data-key="b-r6" placeholder="Round notes..."></textarea></div>
       </div>
     </div>
@@ -341,18 +341,18 @@ table.mt tbody tr:last-child td{border-bottom:none;}
 
   <div class="sl">Cool-Down</div>
   <div class="bc"><h3>Upper Body <span class="dur">3 min</span></h3><ul class="bl"><li>Chest &amp; shoulder stretch &mdash; 30 sec each side</li><li>Cross-body shoulder stretch &mdash; 30 sec each side</li><li>Wrist flexor + extensor stretch &mdash; 20 sec each side</li></ul></div>
-  <div class="bc"><h3>Lower Body &amp; Breathing <span class="dur">4&ndash;5 min</span></h3><ul class="bl"><li class="hl">Hip flexor lunge &mdash; 60 sec each side</li><li class="hl">Standing quad stretch &mdash; 30 sec each side</li><li class="pu">Adductor stretch (seated butterfly or standing side lunge) &mdash; 30&ndash;40 sec each side</li><li class="te">Lateral hip rotator stretch &mdash; 45 sec each side</li><li>Upper trap stretch &mdash; 30 sec each side</li><li>Breathing reset &mdash; 2 min, 4 sec inhale / 6 sec exhale</li></ul></div>
+  <div class="bc"><h3>Lower Body &amp; Breathing <span class="dur">4 min</span></h3><ul class="bl"><li class="hl">Hip flexor lunge &mdash; 60 sec each side</li><li class="hl">Standing quad stretch &mdash; 30 sec each side</li><li>Adductor stretch &mdash; 30 sec each side</li><li class="te">Lateral hip rotator stretch &mdash; 45 sec each side</li><li>Upper trap stretch &mdash; 30 sec each side</li><li>Breathing reset &mdash; 2 min, 4 sec inhale / 6 sec exhale</li></ul></div>
 
   <div class="ps">
     <h3>Post-Session Log</h3>
     <div class="if">
       <div class="fr"><label>Felt RPE</label><select data-key="b-rpe"><option value="">&#8212;</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option></select></div>
-      <div class="fr"><label>Peak HR (bpm) &mdash; strap connected?</label><input type="number" data-key="b-peak-hr" placeholder="e.g. 165" inputmode="numeric"></div>
+      <div class="fr"><label>Peak HR (bpm) &mdash; strap connected?</label><input type="number" data-key="b-peak-hr" placeholder="e.g. 175" inputmode="numeric"></div>
     </div>
     <div class="fr"><label>Cervical Status</label><div class="ct" data-key="b-cervical"><button onclick="SC(this,'good')">Good</button><button onclick="SC(this,'mild')">Mild tension</button><button onclick="SC(this,'flare')">Flare-up</button></div></div>
     <div class="fr"><label>Energy Level (going in)</label><select data-key="b-energy"><option value="">&#8212;</option><option>Low &mdash; sluggish</option><option>Medium &mdash; normal</option><option>High &mdash; sharp</option></select></div>
     <div class="fr"><label>Legs &mdash; soreness level</label><select data-key="b-legs"><option value="">&#8212;</option><option>Fresh &mdash; no issue</option><option>Some soreness, manageable</option><option>Notably fatigued or sore</option></select></div>
-    <div class="fr"><label>Adductor discomfort &mdash; improved with new warm-up?</label><select data-key="b-adductor"><option value="">&#8212;</option><option>Yes &mdash; much better, eased quickly</option><option>Partially &mdash; still there early on</option><option>No change</option><option>Sharp or concerning &mdash; not just tightness</option></select></div>
+    <div class="fr"><label>Shin vs foot &mdash; held up under output?</label><select data-key="b-distance"><option value="">&#8212;</option><option>Yes &mdash; distance read got faster</option><option>Partially</option><option>No &mdash; reverted to guessing under fatigue</option></select></div>
     <div class="fr"><label>14oz gloves &mdash; adjusting?</label><select data-key="b-gloves"><option value="">&#8212;</option><option>Yes &mdash; feels normal now</option><option>Partially &mdash; still noticeable</option><option>No change</option></select></div>
     <div class="fr"><label>Lead mawashi hip quality</label><select data-key="b-mwq"><option value="">&#8212;</option><option>Weak</option><option>Moderate</option><option>Strong</option></select></div>
     <div class="fr"><label>What felt natural?</label><textarea data-key="b-natural" placeholder="..."></textarea></div>
@@ -363,27 +363,27 @@ table.mt tbody tr:last-child td{border-bottom:none;}
 
   <div class="cn">
     <h3>Coaching Notes</h3>
-    <p><strong>Same rule as Wednesday:</strong> if adductor discomfort is ever flagged as sharp or concerning rather than normal tightness, that changes the plan &mdash; let me know immediately rather than waiting for the next check-in.</p>
+    <p><strong>Last hard week before taper.</strong> Week 6 drops volume and eases intensity to arrive at deload sharp rather than depleted.</p>
+    <p><strong>Cervical:</strong> same watch as Wednesday &mdash; report the actual status, not what you think I want to hear.</p>
   </div>
 </div>
 
 <!-- MISTAKES REF -->
 <div id="ref" class="tab-content">
   <div class="sh">
-    <div class="lbl">Week 4 &middot; Reference</div>
+    <div class="lbl">Week 5 &middot; Reference</div>
     <h1>Mistakes Reference</h1>
-    <div class="meta"><span class="badge bt">Diagnosis corrected &middot; Intensification begins</span></div>
+    <div class="meta"><span class="badge bt">Adductor fix maintained &middot; shin/foot new focus</span></div>
   </div>
 
-  <div class="tc">The supporting-leg theory from Week 3 is retracted. Corrected understanding below.</div>
+  <div class="tc">Adductor mobility work is now maintenance-only. Shin vs foot distance calibration is this week's active focus.</div>
 
-  <div class="sl">Adductor / Hip Mobility &mdash; Corrected Diagnosis</div>
-  <div class="bc" style="border-color:var(--purple);">
+  <div class="sl">Shin vs Foot &mdash; New This Week</div>
+  <div class="bc" style="border-color:var(--yellow);">
     <ul class="bl">
-      <li><strong>Not this:</strong> supporting leg strength or stability during rotation.</li>
-      <li><strong>Actually this:</strong> the chambered kicking-leg position (hip flexed + externally rotated) stretches the adductors. Limited mobility in that range, especially cold, causes discomfort that eases as tissue warms.</li>
-      <li><strong>Fix:</strong> dynamic adductor mobility in warm-up (lateral lunges, dynamic chamber openers), gradual range build-up before full-intensity kicks, no deliberately held chamber positions.</li>
-      <li><strong>Watch for:</strong> normal tightness eases with warmth. Sharp pain or discomfort that doesn't ease is a different signal &mdash; back off and reassess.</li>
+      <li><strong>Shin range:</strong> closer distance, forgiving on timing, lower injury risk, strong power. Default choice when in doubt or inside a combination.</li>
+      <li><strong>Foot range:</strong> roughly half a step further, needs the leg to fully extend, ankle pointed. Higher injury risk if timing is off &mdash; too close and the shin jams into the target instead.</li>
+      <li><strong>The skill:</strong> read your distance before committing to power. Don't default to one or the other by accident.</li>
     </ul>
   </div>
 
@@ -392,14 +392,17 @@ table.mt tbody tr:last-child td{border-bottom:none;}
     <tbody>
       <tr><td style="font-weight:600;color:var(--accent);">Cross / Hooks</td><td>Shoulder rides up, elbow flares</td><td class="fc">Blade down, elbow close, hip snaps first</td></tr>
       <tr><td style="font-weight:600;color:var(--teal);">Lead Mawashi</td><td>Weaker hip drive than rear</td><td class="fc">Patience &mdash; hip leads, torso neutral, pause after landing</td></tr>
-      <tr><td style="font-weight:600;color:var(--purple);">Both Mawashi</td><td>Adductor tightness in the chamber, especially cold</td><td class="fc">Extended dynamic warm-up, gradual range build-up, flow through the chamber</td></tr>
+      <tr><td style="font-weight:600;color:var(--yellow);">Both Mawashi</td><td>Wrong distance for intended impact surface</td><td class="fc">Read shin vs foot range before committing to power</td></tr>
       <tr><td style="font-weight:600;color:var(--orange);">Hiza Geri</td><td>Knee swings wide</td><td class="fc">Vertical drive, flow from hook, no pause</td></tr>
     </tbody>
   </table>
 
-  <div class="sl" style="margin-top:var(--lg);">Maintained (No Longer Active Drills)</div>
+  <div class="sl" style="margin-top:var(--lg);">Maintained (No Longer Active Corrections)</div>
   <div class="bc" style="border-color:var(--green);">
-    <ul class="bl"><li><strong>Rear mawashi recovery:</strong> controlled chamber return, holding under both fresh and fatigued conditions. Cue only, no isolated rounds.</li></ul>
+    <ul class="bl">
+      <li><strong>Rear mawashi recovery:</strong> controlled chamber return, automatic under fatigue.</li>
+      <li><strong>Adductor mobility:</strong> resolved with dynamic warm-up and gradual range build-up. Keep the warm-up standard, no dedicated attention needed.</li>
+    </ul>
   </div>
 </div>
 
@@ -410,7 +413,7 @@ table.mt tbody tr:last-child td{border-bottom:none;}
 document.querySelectorAll('.tab').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));t.classList.add('active');document.getElementById(t.dataset.tab).classList.add('active');});});
 function TR(h){h.parentElement.classList.toggle('open');}
 function SC(btn,lv){const g=btn.parentElement;g.querySelectorAll('button').forEach(b=>{b.className='';});btn.classList.add(lv==='good'?'sg':lv==='mild'?'sm2':'sf');g.dataset.value=lv;SD();}
-const SK='mc6-week4-bag';
+const SK='mc6-week5-bag';
 function GA(){return document.querySelectorAll('[data-key]');}
 function SD(){const d={};GA().forEach(el=>{const k=el.dataset.key;if(el.tagName==='TEXTAREA'||el.tagName==='INPUT')d[k]=el.value;else if(el.tagName==='SELECT')d[k]=el.value;else if(el.classList.contains('ct'))d[k]=el.dataset.value||'';});try{localStorage.setItem(SK,JSON.stringify(d));}catch(e){}}
 function LD(){try{const raw=localStorage.getItem(SK);if(!raw)return;const d=JSON.parse(raw);GA().forEach(el=>{const k=el.dataset.key;if(!(k in d)||!d[k])return;if(el.tagName==='TEXTAREA'||el.tagName==='INPUT')el.value=d[k];else if(el.tagName==='SELECT')el.value=d[k];else if(el.classList.contains('ct')){el.dataset.value=d[k];el.querySelectorAll('button').forEach(b=>b.className='');const lv=d[k];if(lv==='good')el.children[0].classList.add('sg');if(lv==='mild')el.children[1].classList.add('sm2');if(lv==='flare')el.children[2].classList.add('sf');}});}catch(e){}}
@@ -418,12 +421,12 @@ document.addEventListener('input',SD);document.addEventListener('change',SD);LD(
 function EXP(){
   const gv=k=>{const el=document.querySelector('[data-key="'+k+'"]');if(!el)return'';if(el.classList.contains('ct'))return el.dataset.value||'';return el.value||'';};
   const rn=(p,n)=>{let o='';for(let i=1;i<=n;i++){const v=gv(p+'-r'+i);if(v)o+='  Round '+i+': '+v+'\n';}return o||'  (no round notes)\n';};
-  let t='## Week 4 Bag Sessions - Feedback\nMesocycle 6 | Intensification A | Adductor mobility corrected approach\n\n';
+  let t='## Week 5 Bag Sessions - Feedback\nMesocycle 6 | Intensification B | Shin vs foot targeting\n\n';
   t+='### Session A (Technique - Wednesday)\n';
-  [['a-rpe','Felt RPE'],['a-peak-hr','Peak HR'],['a-cervical','Cervical'],['a-energy','Energy'],['a-legs','Legs feel'],['a-adductor','Adductor discomfort'],['a-recovery','Rear mawashi recovery'],['a-fatigue','Fatigue first'],['a-natural','Felt natural'],['a-forced','Felt off'],['a-notes','Notes']].forEach(([k,l])=>{const v=gv(k);if(v)t+='- '+l+': '+v+'\n';});
+  [['a-rpe','Felt RPE'],['a-peak-hr','Peak HR'],['a-cervical','Cervical'],['a-energy','Energy'],['a-legs','Legs feel'],['a-distance','Shin vs foot distance'],['a-fatigue','Fatigue first'],['a-natural','Felt natural'],['a-forced','Felt off'],['a-notes','Notes']].forEach(([k,l])=>{const v=gv(k);if(v)t+='- '+l+': '+v+'\n';});
   t+='- Round notes:\n'+rn('a',5)+'\n';
   t+='### Session B (Output - Saturday)\n';
-  [['b-rpe','Felt RPE'],['b-peak-hr','Peak HR'],['b-cervical','Cervical'],['b-energy','Energy'],['b-legs','Legs feel'],['b-adductor','Adductor discomfort'],['b-gloves','Glove adjustment'],['b-mwq','Lead mawashi hip quality'],['b-fatigue','Fatigue first'],['b-natural','Felt natural'],['b-forced','Felt off'],['b-notes','Notes']].forEach(([k,l])=>{const v=gv(k);if(v)t+='- '+l+': '+v+'\n';});
+  [['b-rpe','Felt RPE'],['b-peak-hr','Peak HR'],['b-cervical','Cervical'],['b-energy','Energy'],['b-legs','Legs feel'],['b-distance','Shin vs foot under output'],['b-gloves','Glove adjustment'],['b-mwq','Lead mawashi hip quality'],['b-fatigue','Fatigue first'],['b-natural','Felt natural'],['b-forced','Felt off'],['b-notes','Notes']].forEach(([k,l])=>{const v=gv(k);if(v)t+='- '+l+': '+v+'\n';});
   t+='- Round notes:\n'+rn('b',6)+'\n';
   navigator.clipboard.writeText(t).then(()=>{const toast=document.getElementById('toast');toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2000);}).catch(()=>{const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);const toast=document.getElementById('toast');toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2000);});
 }
