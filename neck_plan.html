@@ -277,14 +277,22 @@
     margin-bottom: var(--space-sm);
     line-height: 1.45;
   }
+  .back { display: inline-flex; align-items: center; gap: 6px; color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 600; margin-bottom: var(--space-md); -webkit-tap-highlight-color: transparent; }
+  .lk { display: inline-flex; align-items: center; gap: 5px; margin: 6px var(--space-sm) 0 0; font-size: 12px; font-weight: 600; color: var(--accent); text-decoration: none; background: var(--accent-dim); padding: 4px 9px; border-radius: 6px; }
+  .lks { display: block; }
+  .sub { font-size: 12px; color: var(--text-tertiary); margin: -8px 0 var(--space-md); line-height: 1.45; }
 </style>
 </head>
 <body>
+<a class="back" href="index.html">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+  Training Hub
+</a>
 
 <div class="header">
   <div class="label">Cervical Management</div>
   <h1>Neck Plan</h1>
-  <div class="dates">Re-entry &amp; new mesocycle · Updated for desk-driven symptom pattern</div>
+  <div class="dates">Updated 3 Nov 2026 · Mesocycle 7 restart · trap tension plan added</div>
 </div>
 
 <!-- WHY -->
@@ -293,7 +301,7 @@
   <div class="card">
     <p><strong>The situation:</strong> recurring tension headaches with an active cervical hernia. Headaches appear at the end of the day, not after morning training — and they track with <strong>desk/PC hours</strong> more than with operating days.</p>
     <p><strong>What that means:</strong> training is probably not the trigger. Sustained static neck flexion at a desk is the prime suspect; training was lowering the threshold rather than causing the problem. The OR is uncomfortable but bounded — you move between cases. Desk work is hours of the head held forward with no position change, which fatigues the deep neck flexors and hands the job to the upper traps. That is the same substitution pattern showing up as left trapezius overactivation in your striking.</p>
-    <p><strong>The strategy:</strong> fix the desk exposure first, raise the neck's tolerance with daily prehab and deep neck flexor strength, reduce direct cervical training load temporarily, and use the log to confirm the pattern.</p>
+    <p><strong>The strategy:</strong> fix the desk exposure first, lower the trapezius tension that builds up from training, desk and stress, raise the neck's tolerance with daily prehab and deep neck flexor strength, and use the log to confirm the pattern.</p>
   </div>
 </div>
 
@@ -308,39 +316,38 @@
       <li><strong>No laptop-only work</strong> — external monitor, or a laptop stand plus separate keyboard.</li>
       <li><strong>Forearms supported</strong> — unsupported arms hang from the traps all day.</li>
       <li><strong>Documents and second screens in front, not to the side</strong> — sustained rotation is worse than sustained flexion.</li>
+      <li><strong>Keyboard and mouse close</strong> — elbows by your sides, wrists straight, hands at or just below elbow level.</li>
+      <li><strong>Headset for long calls; phone up to your eyes</strong> — not your head down to the phone.</li>
     </ul>
+    <a class="lk" href="https://www.mayoclinic.org/healthy-lifestyle/adult-health/in-depth/office-ergonomics/art-20046169" target="_blank" rel="noopener">Mayo Clinic: office ergonomics guide</a>
   </div>
   <div class="card">
-    <h3>Break the static load <span class="tag tag-daily">Every 30–45 min</span></h3>
-    <p>Set a timer. <strong>30 seconds:</strong> 5 chin tucks, 5 shoulder rolls backward, stand up.</p>
-    <p>This is the single highest-yield intervention available to you — more than anything in the training program. The problem is duration of a fixed position, not intensity, so the fix is interruption, not stretching.</p>
+    <h3>Break the static load <span class="tag tag-daily">Triggers, not timers</span></h3>
+    <p>A timer every 30–45 min doesn't stick, so tie a <strong>10-second reset</strong> to things that already happen: finishing a case, closing a patient file, sitting back down at the desk. One shrug-and-drop (shrug 3 sec, let go completely) plus one slow belly breath.</p>
+    <p>Backstop: Garmin's Move Alert can buzz you after long sitting. The problem is duration of a fixed position, not intensity — any interruption helps.</p>
   </div>
+
 </div>
 
 <!-- TIMELINE -->
 <div class="section">
   <div class="section-title">Timeline</div>
   <div class="prog-hint">Tap a circle to mark where you are. Earlier steps grey out automatically; tap again to clear.</div>
-  <div class="timeline" data-prog-group="timeline" data-prog-default="wk7">
-    <div class="tl-week" data-prog="wk6">
-      <div class="tl-num">Week 6</div>
-      <div class="tl-phase">Complete rest — unplanned</div>
-      <div class="tl-detail">No training (gastroenteritis). Taper week lost.</div>
+  <div class="timeline" data-prog-group="timeline-mc7" data-prog-default="reentry">
+    <div class="tl-week" data-prog="reentry">
+      <div class="tl-num">Re-entry<br>from 2 Nov</div>
+      <div class="tl-phase">Back after ~6 weeks off + a cold</div>
+      <div class="tl-detail">Calisthenics one level easier, one bag session at RPE 5. Daily prehab, evening trap routine starts, desk fixed. Log headaches after every session.</div>
     </div>
-    <div class="tl-week" data-prog="wk7">
-      <div class="tl-num">Week 7</div>
-      <div class="tl-phase">Re-entry — not a deload</div>
-      <div class="tl-detail">Two weeks off is already enough rest. Re-expose gently: 1 technical bag session (RPE 5, Z2, ~30 min, no output rounds) + 1 light upper + 1 light legs, well short of failure. If energy is still low post-illness, drop the bag session. Daily prehab; <strong>DNF Stage 2 starts.</strong></div>
+    <div class="tl-week" data-prog="wk1-2">
+      <div class="tl-num">Wk 1–2<br>MC7</div>
+      <div class="tl-phase">Re-load — upper soft cap</div>
+      <div class="tl-detail">Upper about 2 reps from failure, no max sets; the set ends when the shoulders start shrugging. Bag back to 2 sessions per week.</div>
     </div>
-    <div class="tl-week" data-prog="cycle-wk1-3">
-      <div class="tl-num">Wk 1–3<br>new cycle</div>
-      <div class="tl-phase">Rebuild — 2 Upper + 2 Legs + 2 Bag</div>
-      <div class="tl-detail">Upper intensity capped: 2–3 reps from failure, no max sets. Muscle-up <strong>preparatory</strong> work only — no explosive pulling. Bag keeps the full strike toolkit but restarts volume/intensity around week-3 level. Daily prehab continues.</div>
-    </div>
-    <div class="tl-week" data-prog="cycle-wk4-6">
-      <div class="tl-num">Wk 4–6<br>new cycle</div>
+    <div class="tl-week" data-prog="wk3-6">
+      <div class="tl-num">Wk 3–6<br>MC7</div>
       <div class="tl-phase">Progress — conditional</div>
-      <div class="tl-detail">If the log shows the neck quiet for ≥3 weeks: rebuild upper intensity, add explosive pulling to the muscle-up progression, return bag to Intensification. If not: hold the cap and book physio.</div>
+      <div class="tl-detail">If cervical has logged good and headaches are dropping: cap lifts, bag intensifies. If headaches persist past 4 weeks of this plan: hold the cap and book physio.</div>
     </div>
   </div>
 </div>
@@ -358,8 +365,49 @@
       <li><strong>Shoulder rolls</strong> — 10 forward, 10 backward.</li>
     </ul>
     <div class="note-callout">
-      <strong>Second full dose on heavy desk days.</strong> Midday or as soon as you finish a long screen block. The micro-breaks every 30–45 min are separate and non-negotiable.
+      <strong>Second full dose on heavy desk days.</strong> Midday or as soon as you finish a long screen block. The trigger-based resets during the day are separate.
     </div>
+  </div>
+</div>
+
+<!-- TRAP TENSION -->
+<div class="section" id="trap">
+  <div class="section-title">Trap Tension Plan <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-tertiary)">· every evening · ~5 min</span></div>
+  <div class="card">
+    <p><strong>Not lactic acid</strong> — that clears within about an hour. It's <strong>muscle tone that builds up</strong> from training, desk and theatre posture and stress, then drives headaches later in the day. The routine below releases it directly, attached to something you already do so it needs no new habit.</p>
+  </div>
+  <div class="card">
+    <h3>Evening routine — straight after your shower <span class="tag tag-daily">Daily</span></h3>
+    <ul class="exercise-list">
+      <li><strong>Heat — 2–3 min.</strong> Hot water on the upper traps in the shower, or a heat pack for 15 min on the sofa.</li>
+      <li><strong>Massage gun or ball — 1–2 min per side.</strong> Gun: low setting, slow sweeps over the meaty part of the upper trap, 10–15 sec max on a tender spot. Ball: tennis or lacrosse ball between the trap and a wall, about 5/10 pressure, breathe. Stay off the spine, the bony points and the front and side of the neck.
+        <span class="lks"><a class="lk" href="https://blackroll.com/eu/en/exercises/exercises-by-body-area/massage-gun-neck" target="_blank" rel="noopener">&#9654; Massage gun (Blackroll)</a><a class="lk" href="https://pentictonphysiotherapy.com/athletic-therapy/neck-and-upper-trap-pain-try-this-easy-ball-release/" target="_blank" rel="noopener">&#9654; Ball release (Penticton Physio)</a><a class="lk" href="https://www.youtube.com/watch?v=TjGryDCabdI" target="_blank" rel="noopener">&#9654; Lacrosse ball video</a></span></li>
+      <li><strong>Upper trap stretch — 2×30 sec per side.</strong> Sit on the hand of the side you stretch, let the ear drop toward the opposite shoulder. Gravity only — skip the hand pull some videos show.
+        <span class="lks"><a class="lk" href="https://www.youtube.com/watch?v=-r0eoFS7_5Q" target="_blank" rel="noopener">&#9654; Ask Doctor Jo</a></span></li>
+      <li><strong>Levator stretch — 30 sec per side.</strong> Nose toward the opposite armpit, head drops slightly, gravity only.
+        <span class="lks"><a class="lk" href="https://www.youtube.com/watch?v=8KJP1vQodek" target="_blank" rel="noopener">&#9654; Physical therapist demo</a></span></li>
+      <li><strong>Belly breathing lying down — 1 min.</strong> One hand on the chest, one on the belly; 4 sec in so the belly hand rises, 6 sec out. Upper-chest breathing recruits the traps and scalenes.
+        <span class="lks"><a class="lk" href="https://theprehabguys.com/vimeo-video/hook-lying-diaphragmatic-breathing-2/" target="_blank" rel="noopener">&#9654; [P]rehab demo</a></span></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Lower traps — 2–3× per week <span class="tag tag-stage">In the warm-up</span></h3>
+    <ul class="exercise-list">
+      <li><strong>Wall slides, shoulder blades down — 2×10.</strong> Forearms on the wall, slide up slowly while pulling the shoulder blades down and away from the ears; stop where the shoulders start to shrug. Builds the lower traps so the upper ones stop doing all the work.
+        <span class="lks"><a class="lk" href="https://www.youtube.com/watch?v=D351y9ecIwc" target="_blank" rel="noopener">&#9654; Mass General Sports PT</a><a class="lk" href="https://sosphysiotherapy.ca/weeklyexercises/shoulder-exercise-wall-slide/" target="_blank" rel="noopener">&#9654; SOS Physio (photos)</a></span></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>In training — don't add to it</h3>
+    <ul class="exercise-list">
+      <li><strong>Pull-ups and dips:</strong> when the shoulders start shrugging toward the ears, the set is over.</li>
+      <li><strong>Bag:</strong> shoulder blades down on every punch; drop the shoulders between combinations.</li>
+      <li><strong>Cool-down:</strong> never skip the trap stretches and breathing.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>The nap — when the office is ready</h3>
+    <p>10–20 min after lunch helps stress and sleep debt. <strong>Lie flat, or recline with the head supported</strong> — sleeping slumped with the head dropping forward loads the neck. On days without a nap, 5 min flat on your back with belly breathing still takes the head's weight off the traps.</p>
   </div>
 </div>
 
@@ -408,7 +456,7 @@
     <div class="check-item"><strong>Cervical status</strong>After every session: good / mild / flare</div>
     <div class="check-item"><strong>Headache</strong>Each evening: yes / no + rough intensity</div>
     <div class="check-item"><strong>Desk hours</strong>Rough total of screen/desk time that day</div>
-    <div class="check-item"><strong>Prehab done</strong>Morning dose · micro-breaks · second dose</div>
+    <div class="check-item"><strong>Prehab done</strong>Morning dose · resets · evening trap routine</div>
   </div>
   <div class="note-callout">
     The correlation to watch is <strong>headache vs desk hours</strong>, not headache vs training. If a 6-hour desk day reliably produces a headache and a training day without desk work does not, the lever is the workstation and the micro-breaks — and upper-body training can be rebuilt faster than planned.
@@ -420,7 +468,7 @@
   <div class="section-title">Stop Criteria — Non-Negotiable</div>
   <div class="warn-callout"><strong>During a training week:</strong> headache during or immediately after a session, or cervical status "flare-up" → cut the week short and return to rest. No mid-week negotiation.</div>
   <div class="warn-callout"><strong>Any time:</strong> arm pain, numbness, tingling or weakness radiating below the shoulder → stop training and get it assessed. That is nerve territory, not muscle tension.</div>
-  <div class="warn-callout"><strong>After 4+ weeks of the plan:</strong> if headaches persist despite the desk changes, reduced load and daily prehab → physio for manual therapy and a supervised rehab block. Not to fix the hernia — to manage the muscular driver.</div>
+  <div class="warn-callout"><strong>After 4+ weeks of the plan:</strong> if headaches persist despite the desk changes, the trap routine, reduced load and daily prehab → physio for manual therapy and a supervised rehab block. Not to fix the hernia — to manage the muscular driver.</div>
 </div>
 
 <script>
