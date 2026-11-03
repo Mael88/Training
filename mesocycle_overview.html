@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Mesocycle 6 &mdash; Overview</title>
+<title>Mesocycle 7 &mdash; Overview</title>
 <style>
 :root{--bg:#111113;--surface:#1a1a1f;--surface-raised:#222228;--border:#2a2a32;--text-primary:#e8e8ed;--text-secondary:#8e8e9a;--text-tertiary:#5a5a66;--accent:#e8913a;--accent-dim:rgba(232,145,58,0.12);--green:#4ade80;--green-dim:rgba(74,222,128,0.12);--blue:#60a5fa;--blue-dim:rgba(96,165,250,0.12);--red:#f87171;--red-dim:rgba(248,113,113,0.12);--yellow:#facc15;--yellow-dim:rgba(250,204,21,0.12);--teal:#2dd4bf;--teal-dim:rgba(45,212,191,0.12);--orange:#fb923c;--orange-dim:rgba(251,146,60,0.12);--radius:12px;--xs:4px;--sm:8px;--md:16px;--lg:24px;--xl:32px;--2xl:48px;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;background:var(--bg);color:var(--text-primary);line-height:1.5;-webkit-font-smoothing:antialiased;padding:var(--md);padding-bottom:80px;}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--text-secondary);text-decoration:none;font-size:13px;font-weight:600;margin-bottom:var(--md);-webkit-tap-highlight-color:transparent;}
 .header{padding:var(--lg) 0 var(--md);border-bottom:1px solid var(--border);margin-bottom:var(--lg);}
 .header .label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--xs);}
 .header h1{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-bottom:var(--xs);}
@@ -26,13 +27,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue'
 .badge-rest{background:var(--surface);color:var(--text-tertiary);}
 .calendar{display:flex;flex-direction:column;gap:var(--sm);}
 .cal-week{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--border);display:grid;grid-template-columns:auto 1fr;gap:var(--sm) var(--md);align-items:start;}
-.cal-week.current{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent);}
-.cal-week.deload{opacity:.6;border-style:dashed;}
+.cal-week.deload{border-style:dashed;}
 .cal-num{font-size:28px;font-weight:700;color:var(--text-tertiary);line-height:1;grid-row:span 2;align-self:center;min-width:32px;text-align:center;}
-.cal-week.current .cal-num{color:var(--accent);}
+.cal-week.is-current .cal-num{color:var(--accent);}
 .cal-meta{display:flex;flex-wrap:wrap;gap:var(--sm);align-items:center;}
 .cal-phase{font-size:13px;font-weight:600;color:var(--text-primary);}
-.cal-dates{font-size:12px;color:var(--text-tertiary);}
 .cal-detail{font-size:13px;color:var(--text-secondary);line-height:1.45;}
 .cal-focus{font-size:12px;color:var(--accent);font-weight:500;}
 .zones{display:flex;flex-direction:column;gap:var(--sm);}
@@ -43,9 +42,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue'
 .z2 .zone-label{color:var(--green);}.z3 .zone-label{color:var(--blue);}.z4 .zone-label{color:var(--accent);}.z5 .zone-label{color:var(--red);}
 .intensity-table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;}
 .intensity-table thead th{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-tertiary);text-align:left;padding:var(--sm);border-bottom:1px solid var(--border);}
-.intensity-table tbody td{padding:var(--sm);border-bottom:1px solid var(--border);color:var(--text-secondary);vertical-align:middle;}
+.intensity-table tbody td{padding:var(--sm);border-bottom:1px solid var(--border);color:var(--text-secondary);vertical-align:top;line-height:1.45;}
 .intensity-table tbody tr:last-child td{border-bottom:none;}
-.intensity-table .week-col{font-weight:600;color:var(--text-primary);font-variant-numeric:tabular-nums;}
+.intensity-table .week-col{font-weight:600;color:var(--text-primary);font-variant-numeric:tabular-nums;white-space:nowrap;}
 .intensity-table .rpe-col{font-weight:600;color:var(--accent);}
 .phase-card{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--border);margin-bottom:var(--sm);}
 .phase-card h3{font-size:15px;font-weight:600;margin-bottom:var(--sm);}
@@ -55,13 +54,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue'
 .template-grid .t-label{font-size:12px;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.05em;}
 .template-grid .t-value{font-size:13px;color:var(--text-secondary);}
 .note-callout{background:var(--accent-dim);border-left:3px solid var(--accent);border-radius:0 var(--sm) var(--sm) 0;padding:var(--sm) var(--md);font-size:13px;color:var(--text-secondary);margin-top:var(--md);line-height:1.5;}
-.origin-card{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--red);margin-bottom:var(--sm);}
-.origin-card h3{font-size:14px;font-weight:600;color:var(--red);margin-bottom:var(--sm);}
+.origin-card{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--accent);margin-bottom:var(--sm);}
+.origin-card h3{font-size:14px;font-weight:600;color:var(--accent);margin-bottom:var(--sm);}
 .origin-card p{font-size:13px;color:var(--text-secondary);line-height:1.55;margin-bottom:var(--sm);}
 .origin-card p:last-child{margin-bottom:0;}
+.origin-card strong{color:var(--text-primary);}
 .thread-card{background:var(--surface);border-radius:var(--radius);padding:var(--md);border:1px solid var(--teal);margin-bottom:var(--sm);}
 .thread-card h4{font-size:14px;font-weight:600;color:var(--teal);margin-bottom:var(--xs);}
 .thread-card p{font-size:13px;color:var(--text-secondary);line-height:1.55;}
+.thread-card.parked{border-color:var(--border);border-style:dashed;}
+.thread-card.parked h4{color:var(--text-secondary);}
 
 /* ---- Progress markers (shared pattern) ---- */
 [data-prog] { position: relative; padding-right: 42px; transition: opacity .2s, border-color .2s, box-shadow .2s; }
@@ -75,26 +77,32 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue'
 </style>
 </head>
 <body>
+<a class="back" href="index.html">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+  Training Hub
+</a>
 
 <div class="header">
-  <div class="label">Mesocycle 6</div>
+  <div class="label">Mesocycle 7</div>
   <h1>Training Plan</h1>
-  <div class="dates">Starting this week (post re-entry) &middot; 6 weeks + deload</div>
+  <div class="dates">Restarted Mon 2 Nov 2026 &middot; re-entry week + 6 weeks + deload</div>
 </div>
 
-<!-- WHY THE SPLIT CHANGED -->
+<!-- WHY THIS CYCLE -->
 <div class="section">
-  <div class="section-title">Why This Cycle Looks Different</div>
+  <div class="section-title">Where This Cycle Starts</div>
   <div class="origin-card">
-    <h3>Origin: Illness + Suspected Overtraining</h3>
-    <p>Mesocycle 5 ended early &mdash; Week 6 was lost entirely to gastroenteritis. Around the same period, a cervical flare-up developed, suspected to be linked to upper body overtraining on the previous 3 upper + 1 legs split. The flare-up resolved fully after one week of rest, confirming the connection was plausible.</p>
-    <p><strong>Response:</strong> the weekly split changes to 2 upper + 2 legs + 2 bag, redistributing load away from repeated upper body sessions. One re-entry bag session (RPE 5, mechanics only) has already been completed &mdash; everything checked out structurally sound.</p>
+    <h3>Origin: A Proper Reset, Then Precision Work</h3>
+    <p>Mesocycle 6 ran long and felt it &mdash; the earlier deload wasn&rsquo;t enough. You took <strong>two full deload weeks</strong> this time, and Mesocycle 7 starts from genuinely recovered ground, cervical resolved.</p>
+    <p><strong>What Mesocycle 6 closed:</strong> rear mawashi chamber recovery (automatic under fatigue), adductor mobility (solved by the dynamic warm-up), 14oz glove adaptation (settling). <strong>What it left open:</strong> shin vs foot distance reading (&ldquo;partially&rdquo;) and lead mawashi hip quality (&ldquo;moderate&rdquo;, behind the rear side).</p>
+    <p><strong>Restart:</strong> the original 28 Sep start didn&rsquo;t happen &mdash; about four weeks off the bag on top of the deload, irregular calisthenics, then two weeks out with a cold. The cycle restarts on 2 Nov with a re-entry week (one easy bag session, calisthenics one level easier) before Week 1.</p>
+    <p><strong>Response:</strong> same 2 upper + 2 legs + 2 bag split, which held the cervical through Mesocycle 6. The cycle is built around <strong>mawashi geri technique and distance reading</strong> &mdash; a dedicated ladder of drills, one step per week.</p>
   </div>
 </div>
 
 <!-- WEEKLY SPLIT -->
 <div class="section">
-  <div class="section-title">Weekly Split &mdash; New</div>
+  <div class="section-title">Weekly Split &mdash; Unchanged</div>
   <div class="week-split">
     <div class="day-card"><div class="day-name">Mon</div><div class="day-type"><span class="badge badge-upper">Upper</span></div></div>
     <div class="day-card"><div class="day-name">Tue</div><div class="day-type"><span class="badge badge-lower">Legs</span></div></div>
@@ -105,67 +113,98 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue'
     <div class="day-card rest"><div class="day-name">Sun</div><div class="day-type"><span class="badge badge-rest">Rest</span></div></div>
   </div>
   <div class="note-callout">
-    <strong>Bag days moved to Wed/Sat</strong> (from Tue/Fri) since legs now occupy Tue and Fri. Both bag sessions now follow a legs day &mdash; this is exactly why kick volume stays moderate for the first 2 weeks, giving the legs time to adapt to double frequency before full kick loading resumes.
+    <strong>Both bag days still follow a legs day</strong> (Wed after Tue, Sat after Fri). That is why Week 1 keeps kick volume moderate: legs are re-loading after the deload at the same moment the kicks return. Full kick volume comes back in Week 2 if legs report fresh or only mildly sore.
   </div>
 </div>
 
 <!-- CALENDAR -->
 <div class="section">
   <div class="section-title">6-Week Calendar</div>
-  <div class="prog-hint">Tap a week to mark it current. Earlier weeks grey out automatically; tap again to clear.</div>
-  <div class="calendar" data-prog-group="mc6-calendar" data-prog-default="w1">
+  <div class="prog-hint">Tap a circle to mark where you are. Earlier weeks grey out automatically; tap again to clear.</div>
+  <div class="calendar" data-prog-group="mc7r-calendar" data-prog-default="reentry">
+    <div class="cal-week" data-prog="reentry">
+      <div class="cal-num">R</div>
+      <div class="cal-meta"><span class="cal-phase">Re-Entry</span></div>
+      <div class="cal-detail"><span class="cal-focus">One bag session at RPE 5, mechanics only</span><br>Calisthenics one level easier, no max sets. Daily trap-tension routine. The session tests how the neck, traps and headaches respond before loading starts.</div>
+    </div>
     <div class="cal-week" data-prog="w1">
       <div class="cal-num">1</div>
-      <div class="cal-meta"><span class="cal-phase">Rebuild A</span></div>
-      <div class="cal-detail"><span class="cal-focus">Restart near Week 3 intensity, moderate kicks</span><br>Full toolkit already established. Upper capped. Continue rear mawashi recovery &amp; lead mawashi hip corrections.</div>
+      <div class="cal-meta"><span class="cal-phase">Re-Load</span></div>
+      <div class="cal-detail"><span class="cal-focus">Return to the bag, RPE 6&ndash;7, kicks moderate</span><br>Builds on the re-entry session; Week 1 gets adjusted from its feedback. Distance ladder step 1 &mdash; call &ldquo;shin&rdquo; or &ldquo;foot&rdquo; out loud before every kick. Upper soft-capped.</div>
     </div>
     <div class="cal-week" data-prog="w2">
       <div class="cal-num">2</div>
-      <div class="cal-meta"><span class="cal-phase">Rebuild A</span></div>
-      <div class="cal-detail"><span class="cal-focus">Consolidate on new split</span><br>Kick volume still moderate. Upper still capped. Confirm legs adapting to double frequency without excess soreness.</div>
+      <div class="cal-meta"><span class="cal-phase">Build A</span></div>
+      <div class="cal-detail"><span class="cal-focus">Kick volume back to full</span><br>Ladder step 2 &mdash; distance calls with movement: step in or out, then call and kick. Upper soft cap still on.</div>
     </div>
     <div class="cal-week" data-prog="w3">
       <div class="cal-num">3</div>
-      <div class="cal-meta"><span class="cal-phase">Rebuild B</span></div>
-      <div class="cal-detail"><span class="cal-focus">Upper cap lifts, kicks return to full volume</span><br>If legs and cervical status are both stable, full training volume resumes across the board.</div>
+      <div class="cal-meta"><span class="cal-phase">Build B</span></div>
+      <div class="cal-detail"><span class="cal-focus">Output steps up into Z4</span><br>Ladder step 3 &mdash; distance chosen by the bag, not by you. Upper cap lifts if cervical has stayed good.</div>
     </div>
     <div class="cal-week" data-prog="w4">
       <div class="cal-num">4</div>
       <div class="cal-meta"><span class="cal-phase">Intensification A</span></div>
-      <div class="cal-detail"><span class="cal-focus">Push output, continue technical corrections</span><br>RPE and HR targets step up. Rear mawashi recovery and lead mawashi hip work continue under fatigue.</div>
+      <div class="cal-detail"><span class="cal-focus">Distance reading under fatigue</span><br>RPE and HR targets step up. Ladder step 4 &mdash; the same calls, made when breathing hard.</div>
     </div>
     <div class="cal-week" data-prog="w5">
       <div class="cal-num">5</div>
       <div class="cal-meta"><span class="cal-phase">Intensification B</span></div>
-      <div class="cal-detail"><span class="cal-focus">Peak output</span><br>Full tactical sequences at maximum controlled output. HR recovery tracked at matched RPE for a cleaner trend than Mesocycle 5 allowed.</div>
+      <div class="cal-detail"><span class="cal-focus">Peak output</span><br>Full tactical sequences at maximum controlled output. If Week 4 went clean, Output rest tightens from 60 to 45 sec. HR recovery compared at matched RPE.</div>
     </div>
     <div class="cal-week" data-prog="w6">
       <div class="cal-num">6</div>
       <div class="cal-meta"><span class="cal-phase">Taper</span></div>
-      <div class="cal-detail"><span class="cal-focus">Volume &minus;30%, sharpness up</span><br>Arrive at deload sharp and cervically stable.</div>
+      <div class="cal-detail"><span class="cal-focus">Volume &minus;30%, sharpness up</span><br>Consolidate the distance skill without depleting. Arrive at the deload fresh, not flat.</div>
     </div>
     <div class="cal-week deload" data-prog="deload">
-      <div class="cal-num">7</div>
-      <div class="cal-meta"><span class="cal-phase">Deload</span></div>
-      <div class="cal-detail">Active recovery &middot; easy movement &middot; no bag contact</div>
+      <div class="cal-num">D</div>
+      <div class="cal-meta"><span class="cal-phase">Deload &mdash; plan for 2 weeks</span></div>
+      <div class="cal-detail">The 2-week version worked; default to it again. Week 6 feedback (sleep, cervical, HR) confirms whether you need the full two.</div>
     </div>
   </div>
 </div>
 
-<!-- OPEN THREADS FROM MC5 -->
+<!-- DISTANCE LADDER -->
 <div class="section">
-  <div class="section-title">Threads Carried From Mesocycle 5</div>
+  <div class="section-title">Distance Skill Ladder</div>
+  <div style="overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface);">
+    <table class="intensity-table">
+      <thead><tr><th>Wk</th><th>Drill</th><th>You know it&rsquo;s working when&hellip;</th></tr></thead>
+      <tbody>
+        <tr><td class="week-col">1</td><td>Stand, call, kick. Say &ldquo;shin&rdquo; or &ldquo;foot&rdquo; out loud, then land on that point of the leg. Same body-height target.</td><td>The contact point matches the call on most kicks.</td></tr>
+        <tr><td class="week-col">2</td><td>Move, call, kick. Step in or out first, call the distance you ended up at, then kick.</td><td>Calls stay right after a step, not only from a fixed stance.</td></tr>
+        <tr><td class="week-col">3</td><td>Bag chooses. Let the swinging bag change the range, call it, then kick.</td><td>You read the distance before the leg is already moving.</td></tr>
+        <tr><td class="week-col">4&ndash;5</td><td>Same calls at pace, inside the fatigued rounds.</td><td>Accuracy holds when breathing is hard.</td></tr>
+        <tr><td class="week-col">6</td><td>Taper: light calls, no chasing reps.</td><td>Distance reading feels automatic.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note-callout">Each session logs a simple score: how many of the &ldquo;blind calls&rdquo; matched the contact point. That number is the progress metric for the cycle.</div>
+</div>
+
+<!-- THREADS -->
+<div class="section">
+  <div class="section-title">Threads For This Cycle</div>
   <div class="thread-card">
-    <h4>Rear Mawashi Geri Recovery</h4>
-    <p>Correction drill continues: after impact, actively pull the knee back to chamber before placing the foot down, rather than letting the leg drop. Self-diagnosed correctly in Mesocycle 5 &mdash; expect another 3&ndash;5 weeks of dedicated work.</p>
+    <h4>Shin vs Foot Distance &mdash; Primary Focus</h4>
+    <p>A distance skill, not a height skill. Shin range is the default and more forgiving; foot range is about half a step further with the ankle extended. Same body-height target for both. Status coming in: &ldquo;partially&rdquo; developed.</p>
   </div>
   <div class="thread-card">
-    <h4>Lead Mawashi Geri Hip Strength</h4>
-    <p>Stable at &ldquo;moderate&rdquo; quality across Mesocycle 5. Continue the 3&times;/week hip protocol without changes. Ballistic strength adaptation in these muscles takes longer than one cycle.</p>
+    <h4>Lead Mawashi Closing On The Rear</h4>
+    <p>Rear is more accurate than lead, and lead hip quality still logs &ldquo;moderate&rdquo;. Lead gets the first and the larger share of reps in every distance drill; hip drive is logged each Output session.</p>
   </div>
   <div class="thread-card">
-    <h4>HR Recovery Tracking</h4>
-    <p>Mesocycle 5 data had too many confounds (RPE, temperature, energy state all shifting at once) for a clean trend. This cycle, track recovery at matched RPE and similar conditions where possible.</p>
+    <h4>HR Recovery At Matched RPE</h4>
+    <p>A bigger, faster drop at 30 sec after a round signals better conditioning &mdash; but only when RPE and temperature match. Chest strap connected every session; ankle-worn sensor data is not reliable enough to compare.</p>
+  </div>
+  <div class="thread-card">
+    <h4>Maintained Habits &mdash; Do Not Drop</h4>
+    <p>Controlled rear chamber return, the dynamic hip and adductor warm-up (no held chambers), shoulder-blade depression on every punch, cervical prehab in every warm-up.</p>
+  </div>
+  <div class="thread-card parked">
+    <h4>Parked &mdash; Head-Height Kicking</h4>
+    <p>A real long-term goal tied to hip mobility. Not chased this cycle; revisit once distance reading is automatic.</p>
   </div>
 </div>
 
@@ -187,34 +226,37 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue'
     <table class="intensity-table">
       <thead><tr><th>Wk</th><th>Phase</th><th>Session</th><th>RPE</th><th>HR Target</th></tr></thead>
       <tbody>
-        <tr><td class="week-col">1</td><td>Rebuild A</td><td>Tech (A)</td><td class="rpe-col">6</td><td>Z3 / 133&ndash;152</td></tr>
-        <tr><td class="week-col">1</td><td>Rebuild A</td><td>Output (B)</td><td class="rpe-col">7</td><td>Z3&ndash;Z4 / 133&ndash;165</td></tr>
-        <tr><td class="week-col">2&ndash;3</td><td>Rebuild</td><td>Tech (A)</td><td class="rpe-col">6&ndash;7</td><td>Z3&ndash;Z4 / 133&ndash;158</td></tr>
-        <tr><td class="week-col">2&ndash;3</td><td>Rebuild</td><td>Output (B)</td><td class="rpe-col">7&ndash;8</td><td>Z4 / 152&ndash;171</td></tr>
+        <tr><td class="week-col">R</td><td>Re-Entry</td><td>Single session</td><td class="rpe-col">5</td><td>Z2&ndash;Z3 / under 145</td></tr>
+        <tr><td class="week-col">1</td><td>Re-Load</td><td>Tech (A)</td><td class="rpe-col">6</td><td>Z3 / 133&ndash;152</td></tr>
+        <tr><td class="week-col">1</td><td>Re-Load</td><td>Output (B)</td><td class="rpe-col">6&ndash;7</td><td>Z3 / 133&ndash;158</td></tr>
+        <tr><td class="week-col">2</td><td>Build A</td><td>Tech (A)</td><td class="rpe-col">6</td><td>Z3 / 133&ndash;152</td></tr>
+        <tr><td class="week-col">2</td><td>Build A</td><td>Output (B)</td><td class="rpe-col">7</td><td>Z3&ndash;Z4 / 133&ndash;165</td></tr>
+        <tr><td class="week-col">3</td><td>Build B</td><td>Tech (A)</td><td class="rpe-col">6&ndash;7</td><td>Z3&ndash;Z4 / 133&ndash;158</td></tr>
+        <tr><td class="week-col">3</td><td>Build B</td><td>Output (B)</td><td class="rpe-col">7&ndash;8</td><td>Z4 / 152&ndash;171</td></tr>
         <tr><td class="week-col">4&ndash;5</td><td>Intensif.</td><td>Tech (A)</td><td class="rpe-col">6&ndash;7</td><td>Z3&ndash;Z4 / 133&ndash;165</td></tr>
         <tr><td class="week-col">4&ndash;5</td><td>Intensif.</td><td>Output (B)</td><td class="rpe-col">7&ndash;8</td><td>Z4&ndash;Z5 / 160&ndash;185</td></tr>
         <tr><td class="week-col">6</td><td>Taper</td><td>Both</td><td class="rpe-col">6&ndash;7</td><td>Z3&ndash;Z4 / 133&ndash;165</td></tr>
       </tbody>
     </table>
   </div>
-  <div class="note-callout">RPE 9 hard-stop rule remains a standing rule from Mesocycle 5: if RPE reaches 9 before a session ends, remaining rounds drop to recovery pace.</div>
+  <div class="note-callout">Standing rules: at RPE 9 the remaining rounds drop to recovery pace. At 30&nbsp;&deg;C or hotter, extend rest to 75 sec. &ldquo;Energy&rdquo; in the log means how you felt going in.</div>
 </div>
 
 <!-- PHASE DESCRIPTIONS -->
 <div class="section">
   <div class="section-title">Phase Details</div>
   <div class="phase-card">
-    <h3>Weeks 1&ndash;3 &mdash; Rebuild</h3>
-    <p>Upper body intensity capped (2&ndash;3 reps from failure, no max sets) to protect against the overtraining pattern suspected in the cervical flare-up. Bag work restarts near Week 3 Mesocycle 5 intensity &mdash; the toolkit doesn&rsquo;t need re-teaching, just re-loading. Kick volume stays moderate for the first 2 weeks specifically because both bag days now follow a legs day.</p>
-    <p style="color:var(--accent);font-weight:500;font-size:12px;">Upper cap lifts at Week 3 if cervical status has stayed good throughout.</p>
+    <h3>Re-Entry + Weeks 1&ndash;3 &mdash; Re-Load &amp; Build</h3>
+    <p>The toolkit is established, so this is a load rebuild plus the distance ladder. The re-entry week and Week 1 are deliberately easy: about six weeks without bag contact plus a cold, and both bag days sit after a legs day. Kick volume returns to full in Week 2; Output climbs into Z4 in Week 3.</p>
+    <p>Upper body stays at the easier CalisthenicsApp level for the re-entry week, then roughly 2 reps from failure in Weeks 1&ndash;2 (no max sets) while the neck and shoulders re-adapt to the upper days. The cap lifts in Week 3 if cervical has logged good throughout. CalisthenicsApp keeps the session content.</p>
   </div>
   <div class="phase-card">
     <h3>Weeks 4&ndash;5 &mdash; Intensification</h3>
-    <p>RPE and HR targets step up. Rear mawashi recovery and lead mawashi hip corrections continue under real fatigue &mdash; this is where they get properly tested. HR recovery tracked at matched conditions for a cleaner signal than Mesocycle 5 provided.</p>
+    <p>RPE and HR targets step up and the distance calls are tested under real fatigue. If Week 4 finishes clean (cervical good, RPE under 9), Week 5 Output tightens rest from 60 to 45 sec. HR recovery gets compared at matched RPE and temperature.</p>
   </div>
   <div class="phase-card">
     <h3>Week 6 &mdash; Taper</h3>
-    <p>Volume drops ~30%, intensity holds. Arrive at deload sharp, with both open technical threads showing measurable progress.</p>
+    <p>Volume drops about 30%, intensity holds. The goal is a fresh arrival at the deload &mdash; with sleep, cervical status and HR trends deciding whether the full 2-week deload is needed.</p>
   </div>
 </div>
 
@@ -222,12 +264,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue'
 <div class="section">
   <div class="section-title">Bag Session Template</div>
   <div class="template-grid">
-    <div class="t-label">Warm-up</div><div class="t-value">8&ndash;9 min &mdash; Cervical prehab + shoulder depression + hip rotator mobility + movement prep</div>
-    <div class="t-label">Main</div><div class="t-value">28&ndash;32 min &mdash; Rounds (see weekly session files)</div>
-    <div class="t-label">Cool-down</div><div class="t-value">7 min &mdash; Upper body stretches + extended lower body + breathing reset</div>
+    <div class="t-label">Warm-up</div><div class="t-value">11 min &mdash; Cervical prehab 5 + hip &amp; adductor mobility 4 + movement prep 2</div>
+    <div class="t-label">Session A</div><div class="t-value">~21 min main &mdash; 5 rounds &times; 3 min, 90 sec rest &middot; ~39 min total</div>
+    <div class="t-label">Session B</div><div class="t-value">~17 min main &mdash; 6 rounds &times; 2 min, 60 sec rest &middot; ~35 min total</div>
+    <div class="t-label">Cool-down</div><div class="t-value">7 min &mdash; Upper body stretches + lower body + breathing reset</div>
   </div>
 </div>
-
 
 <script>
 const PROG_PAGE = 'mesocycle_overview';
