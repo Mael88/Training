@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Headache Diary</title>
+<style>
+:root{--bg:#111113;--surface:#1a1a1f;--surface-raised:#222228;--border:#2a2a32;--text-primary:#e8e8ed;--text-secondary:#8e8e9a;--text-tertiary:#5a5a66;--accent:#e8913a;--accent-dim:rgba(232,145,58,0.12);--green:#4ade80;--green-dim:rgba(74,222,128,0.12);--blue:#60a5fa;--blue-dim:rgba(96,165,250,0.12);--red:#f87171;--red-dim:rgba(248,113,113,0.12);--yellow:#facc15;--yellow-dim:rgba(250,204,21,0.12);--radius:12px;--xs:4px;--sm:8px;--md:16px;--lg:24px;--xl:32px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;background:var(--bg);color:var(--text-primary);line-height:1.5;-webkit-font-smoothing:antialiased;padding:var(--md);padding-bottom:120px;max-width:720px;margin:0 auto;}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--text-secondary);text-decoration:none;font-size:13px;font-weight:600;margin-bottom:var(--md);-webkit-tap-highlight-color:transparent;}
+.header{padding:var(--sm) 0 var(--md);border-bottom:1px solid var(--border);margin-bottom:var(--lg);}
+.header .label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--xs);}
+.header h1{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-bottom:var(--xs);}
+.header .sub{font-size:14px;color:var(--text-secondary);}
+.sl{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);margin:var(--lg) 0 var(--md);}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sm);}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:var(--sm) var(--md);}
+.stat .v{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;}
+.stat .l{font-size:11px;color:var(--text-tertiary);line-height:1.3;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:var(--md);}
+.card.editing{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent);}
+.fr{margin-bottom:var(--md);}
+.fr:last-child{margin-bottom:0;}
+.fr label{display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;}
+.fr label .val{color:var(--accent);text-transform:none;letter-spacing:0;font-variant-numeric:tabular-nums;}
+.fr input[type=date],.fr input[type=number],.fr textarea{width:100%;background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--sm);color:var(--text-primary);font-family:inherit;font-size:15px;padding:10px var(--sm);}
+.fr textarea{resize:vertical;min-height:60px;font-size:14px;}
+.fr input:focus,.fr textarea:focus{outline:none;border-color:var(--accent);}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:var(--sm);}
+.chips{display:flex;flex-wrap:wrap;gap:6px;}
+.chips button{flex:1 1 auto;min-width:56px;padding:9px 10px;font-size:13px;font-weight:600;border:1px solid var(--border);border-radius:var(--sm);background:var(--surface-raised);color:var(--text-tertiary);cursor:pointer;-webkit-tap-highlight-color:transparent;font-family:inherit;}
+.chips button.on{background:var(--accent-dim);border-color:var(--accent);color:var(--accent);}
+.scale{display:grid;grid-template-columns:repeat(11,1fr);gap:3px;}
+.scale button{padding:9px 0;font-size:13px;font-weight:700;border:1px solid var(--border);border-radius:6px;background:var(--surface-raised);color:var(--text-tertiary);cursor:pointer;-webkit-tap-highlight-color:transparent;font-family:inherit;}
+.scale button.on{background:var(--accent);border-color:var(--accent);color:#111;}
+.scale.hd button.on{background:var(--red);border-color:var(--red);}
+.scale.hd button.on.zero{background:var(--green);border-color:var(--green);}
+.cond{display:none;}
+.cond.show{display:block;}
+.btn{display:block;width:100%;padding:14px;font-size:15px;font-weight:700;border:none;border-radius:var(--radius);cursor:pointer;-webkit-tap-highlight-color:transparent;font-family:inherit;}
+.btn.primary{background:var(--accent);color:#111;margin-top:var(--md);}
+.btn.ghost{background:var(--surface-raised);color:var(--text-secondary);border:1px solid var(--border);margin-top:var(--sm);font-size:14px;padding:12px;}
+.btn.danger{background:none;color:var(--red);font-size:13px;padding:8px;margin-top:var(--xs);}
+.list{display:flex;flex-direction:column;gap:6px;}
+.row{display:grid;grid-template-columns:62px 34px 1fr;gap:var(--sm);align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--sm);padding:var(--sm) var(--md);cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.row .d{font-size:12px;font-weight:600;color:var(--text-secondary);}
+.row .h{font-size:15px;font-weight:700;text-align:center;border-radius:6px;padding:2px 0;}
+.row .h.z{background:var(--green-dim);color:var(--green);}
+.row .h.m{background:var(--yellow-dim);color:var(--yellow);}
+.row .h.s{background:var(--red-dim);color:var(--red);}
+.row .t{font-size:12px;color:var(--text-tertiary);line-height:1.35;}
+.empty{font-size:13px;color:var(--text-tertiary);padding:var(--sm) 0;}
+.note{background:var(--accent-dim);border-left:3px solid var(--accent);border-radius:0 var(--sm) var(--sm) 0;padding:var(--sm) var(--md);font-size:13px;color:var(--text-secondary);line-height:1.5;margin-top:var(--md);}
+.note strong{color:var(--text-primary);}
+.eb{position:fixed;bottom:0;left:0;right:0;padding:var(--md);background:linear-gradient(transparent,var(--bg) 20%);padding-top:var(--xl);z-index:100;}
+.eb .inner{max-width:720px;margin:0 auto;}
+.toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--green);color:#111;font-size:14px;font-weight:600;padding:10px 20px;border-radius:20px;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;z-index:200;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+<a class="back" href="index.html">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+  Training Hub
+</a>
+
+<div class="header">
+  <div class="label">Neck &amp; Headaches</div>
+  <h1>Headache Diary</h1>
+  <div class="sub">One entry each evening, about 30 seconds. Copy the new entries every Sunday and paste them to Claude.</div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="v" id="st-days">&ndash;</div><div class="l">headache days, last 7</div></div>
+  <div class="stat"><div class="v" id="st-avg">&ndash;</div><div class="l">avg intensity on those days</div></div>
+  <div class="stat"><div class="v" id="st-rout">&ndash;</div><div class="l">evening routine, last 7</div></div>
+</div>
+
+<div class="sl" id="form-title">Today&rsquo;s Entry</div>
+<div class="card" id="form">
+  <div class="fr"><label>Date</label><input type="date" id="f-date"></div>
+
+  <div class="fr"><label>Headache today <span class="val" id="v-hd">&ndash;</span></label>
+    <div class="scale hd" data-f="hd"></div>
+  </div>
+
+  <div class="cond" id="hd-detail">
+    <div class="fr"><label>Started</label><div class="chips" data-f="onset"><button>Morning</button><button>Afternoon</button><button>Evening</button><button>Night</button></div></div>
+    <div class="fr"><label>Lasted</label><div class="chips" data-f="dur"><button>&lt;1 h</button><button>1&ndash;3 h</button><button>&gt;3 h</button></div></div>
+    <div class="fr"><label>Painkiller</label><div class="chips" data-f="pk"><button>No</button><button>Yes</button></div></div>
+  </div>
+
+  <div class="two">
+    <div class="fr"><label>Desk / screen h</label><input type="number" id="f-desk" inputmode="decimal" step="0.5" min="0" max="16" placeholder="e.g. 5"></div>
+    <div class="fr"><label>Theatre h</label><input type="number" id="f-or" inputmode="decimal" step="0.5" min="0" max="16" placeholder="e.g. 4"></div>
+  </div>
+
+  <div class="fr"><label>Training today</label><div class="chips" data-f="train"><button>Rest</button><button>Upper</button><button>Legs</button><button>Bag</button><button>Other</button></div></div>
+  <div class="fr"><label>Neck</label><div class="chips" data-f="neck"><button>Good</button><button>Mild</button><button>Flare</button></div></div>
+
+  <div class="fr"><label>Trap tension this evening <span class="val" id="v-trap">&ndash;</span></label>
+    <div class="scale" data-f="trap"></div>
+  </div>
+
+  <div class="two">
+    <div class="fr"><label>Sleep last night h</label><input type="number" id="f-sleep" inputmode="decimal" step="0.5" min="0" max="14" placeholder="e.g. 6.5"></div>
+    <div class="fr"><label>Stress</label><div class="chips" data-f="stress"><button>Low</button><button>Med</button><button>High</button></div></div>
+  </div>
+
+  <div class="fr"><label>Evening trap routine</label><div class="chips" data-f="rout"><button>Done</button><button>Skipped</button></div></div>
+  <div class="fr"><label>Notes</label><textarea id="f-notes" placeholder="Anything unusual: long case, bad night, screen-heavy day..."></textarea></div>
+
+  <button class="btn primary" id="save">Save entry</button>
+  <button class="btn ghost" id="new" style="display:none">New entry for today</button>
+  <button class="btn danger" id="del" style="display:none">Delete this entry</button>
+</div>
+
+<div class="sl">Recent Entries <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-tertiary)">&middot; tap to edit</span></div>
+<div class="list" id="list"></div>
+
+<button class="btn ghost" id="copyall" style="margin-top:var(--lg);">Copy all entries (CSV backup)</button>
+
+<div class="note">
+  <strong>Where the data lives:</strong> entries are stored on this phone only. Every Sunday tap <strong>Copy new entries for Claude</strong> and paste it in the chat &mdash; Claude adds them to the running log in the Personal Trainer project, which is the permanent copy used for analysis. Once there are about 4 weeks, we look for patterns against desk hours, training, sleep and stress.
+</div>
+
+<div class="eb"><div class="inner"><button class="btn primary" id="copynew" style="margin-top:0">Copy new entries for Claude</button></div></div>
+<div class="toast" id="toast">Copied</div>
+
+<script>
+/* Storage key must never change: renaming it would hide all past entries. */
+const SK = 'headache-diary-v1';
+const SK_LAST = 'headache-diary-v1:last-export';
+const COLS = ['date','headache_0_10','onset','duration','painkiller','desk_h','theatre_h','training','neck','trap_0_10','sleep_h','stress','evening_routine','notes'];
+
+const pad = n => String(n).padStart(2,'0');
+const today = () => { const d = new Date(); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); };
+const load = () => { try { return JSON.parse(localStorage.getItem(SK)) || {}; } catch (e) { return {}; } };
+const store = (db) => { try { localStorage.setItem(SK, JSON.stringify(db)); return true; } catch (e) { return false; } };
+const $ = id => document.getElementById(id);
+
+let state = {};
+
+function buildScales() {
+  document.querySelectorAll('.scale').forEach(sc => {
+    for (let i = 0; i <= 10; i++) {
+      const b = document.createElement('button'); b.type = 'button'; b.textContent = i; b.dataset.v = i;
+      if (i === 0) b.classList.add('zero');
+      b.addEventListener('click', () => setField(sc.dataset.f, String(i)));
+      sc.appendChild(b);
+    }
+  });
+  document.querySelectorAll('.chips').forEach(ch => {
+    ch.querySelectorAll('button').forEach(b => {
+      b.type = 'button'; b.dataset.v = b.textContent.trim();
+      b.addEventListener('click', () => setField(ch.dataset.f, state[ch.dataset.f] === b.dataset.v ? '' : b.dataset.v));
+    });
+  });
+}
+
+function setField(f, v) {
+  state[f] = v;
+  const el = document.querySelector('[data-f="'+f+'"]');
+  el.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.v === v));
+  if (f === 'hd') { $('v-hd').textContent = v === '' ? '–' : (v === '0' ? 'none' : v + '/10'); $('hd-detail').classList.toggle('show', v !== '' && v !== '0'); }
+  if (f === 'trap') $('v-trap').textContent = v === '' ? '–' : v + '/10';
+}
+
+function fillForm(date) {
+  const db = load(); const e = db[date] || {};
+  state = {};
+  $('f-date').value = date;
+  ['hd','onset','dur','pk','train','neck','trap','stress','rout'].forEach(f => setField(f, e[f] || ''));
+  $('f-desk').value = e.desk || ''; $('f-or').value = e.or || ''; $('f-sleep').value = e.sleep || ''; $('f-notes').value = e.notes || '';
+  const exists = !!db[date];
+  $('form-title').textContent = date === today() ? (exists ? 'Today’s Entry — editing' : 'Today’s Entry') : 'Editing ' + date;
+  $('form').classList.toggle('editing', exists);
+  $('del').style.display = exists ? 'block' : 'none';
+  $('new').style.display = date !== today() ? 'block' : 'none';
+}
+
+function save() {
+  const date = $('f-date').value;
+  if (!date) { toast('Pick a date', true); return; }
+  if (state.hd === undefined || state.hd === '') { toast('Set the headache score (0 = none)', true); return; }
+  const db = load();
+  const e = { hd: state.hd, train: state.train||'', neck: state.neck||'', trap: state.trap||'', stress: state.stress||'', rout: state.rout||'',
+    desk: $('f-desk').value, or: $('f-or').value, sleep: $('f-sleep').value, notes: $('f-notes').value.trim() };
+  if (state.hd !== '0') { e.onset = state.onset||''; e.dur = state.dur||''; e.pk = state.pk||''; }
+  e.saved = Date.now();
+  db[date] = e;
+  if (!store(db)) { toast('Could not save on this device', true); return; }
+  toast('Saved'); render(); fillForm(date);
+}
+
+function del() {
+  const date = $('f-date').value; const db = load();
+  if (!db[date]) return;
+  delete db[date]; store(db); toast('Deleted'); render(); fillForm(today());
+}
+
+function render() {
+  const db = load(); const dates = Object.keys(db).sort().reverse();
+  const list = $('list'); list.innerHTML = '';
+  if (!dates.length) list.innerHTML = '<div class="empty">No entries yet. Your first one goes above.</div>';
+  dates.slice(0, 21).forEach(d => {
+    const e = db[d]; const h = Number(e.hd);
+    const row = document.createElement('div'); row.className = 'row';
+    const bits = [e.train, e.desk ? e.desk + ' h desk' : '', e.sleep ? e.sleep + ' h sleep' : '', e.stress ? e.stress + ' stress' : '', e.rout === 'Done' ? 'routine ✓' : ''].filter(Boolean).join(' · ');
+    const dt = new Date(d + 'T12:00:00');
+    row.innerHTML = '<div class="d">' + dt.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' }) + '</div>' +
+      '<div class="h ' + (h === 0 ? 'z' : h <= 4 ? 'm' : 's') + '">' + h + '</div><div class="t"></div>';
+    row.querySelector('.t').textContent = bits || '—';
+    row.addEventListener('click', () => { fillForm(d); window.scrollTo({ top: $('form-title').offsetTop - 10, behavior: 'smooth' }); });
+    list.appendChild(row);
+  });
+  // stats: last 7 calendar days including today
+  const now = new Date(today() + 'T12:00:00'); const last7 = [];
+  for (let i = 0; i < 7; i++) { const x = new Date(now); x.setDate(x.getDate() - i); last7.push(x.getFullYear()+'-'+pad(x.getMonth()+1)+'-'+pad(x.getDate())); }
+  const ents = last7.filter(d => db[d]).map(d => db[d]);
+  const hdays = ents.filter(e => Number(e.hd) > 0);
+  $('st-days').textContent = ents.length ? hdays.length + '/' + ents.length : '–';
+  $('st-avg').textContent = hdays.length ? (hdays.reduce((a, e) => a + Number(e.hd), 0) / hdays.length).toFixed(1) : '–';
+  $('st-rout').textContent = ents.length ? ents.filter(e => e.rout === 'Done').length + '/' + ents.length : '–';
+}
+
+const csvCell = v => { v = v == null ? '' : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+function toCsv(dates, db) {
+  const lines = [COLS.join(',')];
+  dates.forEach(d => { const e = db[d];
+    lines.push([d, e.hd, e.onset, e.dur, e.pk, e.desk, e.or, e.train, e.neck, e.trap, e.sleep, e.stress, e.rout, e.notes].map(csvCell).join(','));
+  });
+  return lines.join('\n');
+}
+
+function copy(text, msg) {
+  const done = () => toast(msg);
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done).catch(() => fallback(text, done));
+  else fallback(text, done);
+}
+function fallback(text, done) { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done(); }
+
+function copyNew() {
+  const db = load(); let last = ''; try { last = localStorage.getItem(SK_LAST) || ''; } catch (e) {}
+  const dates = Object.keys(db).sort().filter(d => d > last);
+  if (!dates.length) { toast('No new entries since ' + (last || 'start'), true); return; }
+  const text = '## Headache diary - new entries ' + dates[0] + ' to ' + dates[dates.length - 1] + '\n```csv\n' + toCsv(dates, db) + '\n```';
+  copy(text, 'Copied ' + dates.length + ' entries — paste to Claude');
+  try { localStorage.setItem(SK_LAST, dates[dates.length - 1]); } catch (e) {}
+}
+function copyAll() {
+  const db = load(); const dates = Object.keys(db).sort();
+  if (!dates.length) { toast('No entries yet', true); return; }
+  copy('## Headache diary - all entries\n```csv\n' + toCsv(dates, db) + '\n```', 'Copied all ' + dates.length + ' entries');
+}
+
+let tt;
+function toast(msg, warn) { const t = $('toast'); t.textContent = msg; t.style.background = warn ? 'var(--yellow)' : 'var(--green)'; t.classList.add('show'); clearTimeout(tt); tt = setTimeout(() => t.classList.remove('show'), 2200); }
+
+buildScales();
+$('save').addEventListener('click', save);
+$('del').addEventListener('click', del);
+$('new').addEventListener('click', () => fillForm(today()));
+$('f-date').addEventListener('change', () => fillForm($('f-date').value));
+$('copynew').addEventListener('click', copyNew);
+$('copyall').addEventListener('click', copyAll);
+fillForm(today()); render();
+</script>
+</body>
+</html>
