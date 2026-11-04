@@ -99,7 +99,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue'
   <div class="fr"><label>Training today</label><div class="chips" data-f="train"><button>Rest</button><button>Upper</button><button>Legs</button><button>Bag</button><button>Other</button></div></div>
   <div class="fr"><label>Neck</label><div class="chips" data-f="neck"><button>Good</button><button>Mild</button><button>Flare</button></div></div>
 
-  <div class="fr"><label>Trap tension this evening <span class="val" id="v-trap">&ndash;</span></label>
+  <div class="fr"><label>Trap tension tonight, before the routine <span class="val" id="v-trap">&ndash;</span></label>
     <div class="scale" data-f="trap"></div>
   </div>
 
@@ -135,7 +135,8 @@ const SK_LAST = 'headache-diary-v1:last-export';
 const COLS = ['date','headache_0_10','onset','duration','painkiller','desk_h','theatre_h','training','neck','trap_0_10','sleep_h','stress','evening_routine','notes'];
 
 const pad = n => String(n).padStart(2,'0');
-const today = () => { const d = new Date(); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); };
+/* Before 5 am counts as the previous day, so late-evening entries land on the right date. */
+const today = () => { const d = new Date(); if (d.getHours() < 5) d.setDate(d.getDate() - 1); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); };
 const load = () => { try { return JSON.parse(localStorage.getItem(SK)) || {}; } catch (e) { return {}; } };
 const store = (db) => { try { localStorage.setItem(SK, JSON.stringify(db)); return true; } catch (e) { return false; } };
 const $ = id => document.getElementById(id);
